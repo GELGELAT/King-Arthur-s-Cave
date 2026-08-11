@@ -6,10 +6,28 @@
 //#include "player_logic.h"
 //#include "enemy_logic.h"
 //#include "items_logic.h"
-
+//#include "misc.h"
 //#include "texturs.h"
 
 extern int enemy_indexes;
+typedef struct Enemy Enemy;
+typedef struct Action
+{
+    Vector2* position_pixels;
+    Vector2 old_tile;
+    Vector2 new_tile;
+    float current_fill;
+    float speed;
+    int current_state;
+    int action;
+    int index_enemies;
+}Action;
+typedef struct ActionMap
+{
+    Action* actions_queue;
+    int amount_actions;
+
+}ActionMap;
 
 typedef struct ItemMain
 {
@@ -151,13 +169,6 @@ typedef struct ItemsMap
 }ItemsMap;
 
 
-typedef struct Enemy
-{
-    EnemyMain* enemy_main;
-    EnemyCharacteristics* enemy_characteristics;
-    EnemyPos* enemy_position;
-    EnemyMisc* enemy_misc;
-}Enemy;
 typedef struct EnemyMap
 {
     Enemy** move_queue;
@@ -236,6 +247,7 @@ typedef struct Maps
     FogMap* fog_map;
     ItemsMap* items_map;
     EnemyMap* enemy_map;
+    ActionMap* pos_map;
 }Maps;
 
 
@@ -320,7 +332,8 @@ typedef struct ItemsTexturs
 
 typedef struct ArmEnemiesTexturs
 {
-    Texture2D arm_texturs;
+    Texture2D arm_0_texturs;
+    Texture2D arm_1_texturs;
 }ArmEnemiesTexturs;
 typedef struct SkeletonEnemiesTexturs
 {
@@ -364,7 +377,26 @@ typedef struct Animation
     bool isPlaying;
     int index;
 }Animation ;
-
+typedef struct EnemyAnimations
+{
+    Animation breathe;
+    Animation attack;
+    Animation walk;
+    Animation die;
+    int size_x;
+    int size_y;
+    int alignment_x;
+    int alignment_y
+}EnemyAnimations;
+typedef struct Enemy
+{
+    EnemyMain* enemy_main;
+    EnemyCharacteristics* enemy_characteristics;
+    EnemyPos* enemy_position;
+    EnemyMisc* enemy_misc;
+    EnemyAnimations* enemy_animations;
+    Animation** current_animation;
+}Enemy;
 typedef struct FloorAnimation
 {
     Texture2D ground_floor;
@@ -453,7 +485,14 @@ typedef struct ItemsAnimation
 }ItemsAnimation;
 typedef struct ArmEnemiesAnimations
 {
-    Texture2D arm_animation;
+    Animation arm_0_breathe_animation;
+    Animation arm_0_walk_animation;
+    Animation arm_0_attack_animation;
+    Animation arm_0_die_animation;
+    Animation arm_1_breathe_animation;
+    Animation arm_1_walk_animation;
+    Animation arm_1_attack_animation;
+    Animation arm_1_die_animation;
 }ArmEnemiesAnimations;
 typedef struct SkeletonEnemiesAnimations
 {
@@ -464,11 +503,18 @@ typedef struct SkeletonEnemiesAnimations
 }SkeletonEnemiesAnimations;
 typedef struct ZombieEnemiesAnimations
 {
-    Animation zombie_animation;
+    Animation zombie_breathe_animation;
+    Animation zombie_walk_animation;
+    Animation zombie_attack_animation;
+    Animation zombie_die_animation;
 }ZombieEnemiesAnimations;
 typedef struct KnightZombieEnemiesAnimations
 {
     Texture2D knight_zombie_animation;
+    Animation knight_zombie_breathe_animation;
+    Animation knight_zombie_walk_animation;
+    Animation knight_zombie_attack_animation;
+    Animation knight_zombie_die_animation;
 }KnightZombieEnemiesAnimations;
 typedef struct EnemiesAnimations
 {
@@ -501,10 +547,16 @@ typedef struct AnimationItemsMap
     int amount_animation_map_queue;
 
 }AnimationItemsMap;
+typedef struct AnimationEnemyMap
+{
+    Animation*** animation_map_queue;
+    int amount_animation_map_queue;
 
+}AnimationEnemyMap;
 typedef struct AnimationMaps
 {
     AnimationItemsMap* animation_items_map;
+    AnimationEnemyMap* animation_enemies_map;
 
 }AnimationMaps;
 
@@ -522,7 +574,15 @@ typedef struct GAME_ANIM
 
 Player *create_player(Allocator *alloc, int start_posX, int start_posY);
 
+ActionMap *create_action_map(Allocator *alloc);
+
+Action create_action(Allocator *alloc, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float speed, int cur_action, int index_enemies);
+
+
+
 GAME_DATA *create_game_data();
+
+AnimationEnemyMap *create_anim_enemies_map(GAME_ANIM *game_anim);
 
 AnimationItemsMap *create_anim_items_map(GAME_ANIM *game_anim);
 

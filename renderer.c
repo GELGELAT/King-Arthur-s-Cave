@@ -3,7 +3,8 @@ void GAME_DRAW(GAME_DATA *game_data,GAME_ANIM* game_anim)
 {
     map_draw(game_data,game_anim);
     player_draw(game_data);
-    
+    draw_enemy(game_data);
+    fog_draw(game_data,game_anim);
 }
 
 void map_draw(GAME_DATA *game_data,GAME_ANIM* game_anim)
@@ -21,13 +22,26 @@ void map_draw(GAME_DATA *game_data,GAME_ANIM* game_anim)
         }
     }
 }
+void fog_draw(GAME_DATA *game_data,GAME_ANIM* game_anim)
+{
+    CellsMap* o_map = game_data->maps->cells_map;
+    Vector2 pos_2 = {game_data->maps->cells_map->tileSize,game_data->maps->cells_map->tileSize};
+    for (int x = 0;x<game_data->maps->cells_map->tilesX;x++)
+    {
+        
+        for(int y = 0;y<game_data->maps->cells_map->tilesY;y++)
+        {
+            Vector2 pos_1 = game_data->maps->cells_map->cells[y][x]->positin;
+            draw_fog(o_map->cells[y][x]->objects,pos_1,pos_2);
+        }
+    }
+}
 void drawing_objects(GAME_DATA *game_data,GAME_ANIM *game_anim,char** objects,int tile_x,int tile_y,Vector2 pos_1,Vector2 pos_2)
 {
     draw_floor_wall(game_anim,objects,pos_1,pos_2);
     
     draw_item(game_data,game_anim,objects,tile_x,tile_y,pos_1,pos_2);
-    draw_enemy(objects,pos_1,pos_2);
-    draw_fog(objects,pos_1,pos_2);
+    //draw_fog(objects,pos_1,pos_2);
     
     
 }
@@ -48,7 +62,42 @@ void draw_floor_wall(GAME_ANIM *game_anim,char** objects,Vector2 pos_1,Vector2 p
         }
     }
 }
+void draw_enemy(GAME_DATA* game_data)
+{
+    EnemyMap* enemy_map = game_data->maps->enemy_map;
+    Enemy** enemy_arr = enemy_map->move_queue;
+    int* amount = &enemy_map->move_queue_amount;
+    for (int i =0;i<*amount;i++)
+    {
+        Enemy* cur_enemy = enemy_arr[i];
+        /*
+        for (int i = 0;i<4;i++)
+        {
+            if (cur_enemy->enemy_main->name==enemy_texturs[i])
+            {
+                //draw_animation(&cur_anim,pos_1,64,64,4,0);
+                DrawCircle(cur_enemy->enemy_position->position_pixels->pos_pixels.x,cur_enemy->enemy_position->position_pixels->pos_pixels.y, 32.0f, color_enemy_texturs[i]);
+            }
+        }
+            */
+        if (cur_enemy->current_animation != NULL)
+        {
+            //cur_enemy->current_animation = &cur_enemy->enemy_animations->breathe;
+            //pr_int(cur_enemy->current_animation->framesCounter);
+            int pos_x = cur_enemy->enemy_position->position_pixels->pos_pixels.x -cur_enemy->enemy_animations->alignment_x;
+            int pos_y =cur_enemy->enemy_position->position_pixels->pos_pixels.y -cur_enemy->enemy_animations->alignment_y;
+            //pr_int(cur_enemy->current_animation->texture.id);
+            draw_animation(cur_enemy->current_animation[0],(Vector2){pos_x,pos_y},cur_enemy->enemy_animations->size_x,cur_enemy->enemy_animations->size_y,4,0);
+        }
+        
+        
+    }
+        
+        
+    
+}
 
+/*
 void draw_enemy(char** objects,Vector2 pos_1,Vector2 pos_2)
 {
     for (int i = 0;i<4;i++)
@@ -59,7 +108,7 @@ void draw_enemy(char** objects,Vector2 pos_1,Vector2 pos_2)
         }
     }
 }
-
+*/
 void draw_fog(char** objects,Vector2 pos_1,Vector2 pos_2)
 {
     if (objects[3]==fog_texturs)

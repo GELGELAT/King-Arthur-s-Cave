@@ -39,6 +39,8 @@ bool spawn_pos_init(GAME_DATA *game_data);
 
 bool collision_map_init(GAME_DATA *game_data);
 
+bool pos_map_init(GAME_DATA *game_data);
+
 bool fog_init(GAME_DATA *game_data);
 
 bool cave_init(GAME_DATA *game_data);
@@ -47,9 +49,9 @@ bool map_objects_init(GAME_DATA *game_data);
 
 bool enemy_map_init(GAME_DATA *game_data);
 
-bool enemy_init(GAME_DATA *game_data);
+
+bool enemy_init(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
 bool items_init(GAME_DATA *game_data, GAME_ANIM *game_anim);
-
 
 #endif

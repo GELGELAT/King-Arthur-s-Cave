@@ -100,7 +100,7 @@ void spawn_item(GAME_DATA* game_data,GAME_ANIM* game_anim,int pos_x,int pos_y,ch
     int* item_info = get_item_type_textur_type(item_type);
     if (item_info !=NULL)
     {
-        append_animation(game_anim,item_info[0],item_info[1],item->item_main->index);
+        append_item_animation(game_anim,item_info[0],item_info[1],item->item_main->index);
         free(item_info);
     }
     

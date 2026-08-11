@@ -1,6 +1,9 @@
 #include "player_logic.h"
 void player_attaks(GAME_DATA* game_data, GAME_ANIM* game_anim,int enemy_x, int enemy_y)
 {
+    Vector2 old_tile = {game_data->player->player_pos->position_tiles->pos_tiles.x,game_data->player->player_pos->position_tiles->pos_tiles.y};
+    Vector2 new_tile = {(float)enemy_x,(float)enemy_y};
+    append_to_action_map(game_data,old_tile,new_tile,&game_data->player->player_pos->position_pixels->pos_pixels,ATTACK,5,-1);
     EnemyMap* enemy_map = game_data->maps->enemy_map;
     int** id_map = enemy_map->index_map;
     int current_enemy_id = id_map[enemy_x][enemy_y];

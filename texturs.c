@@ -121,11 +121,20 @@ void equipment_textur_init(GAME_ANIM* game_anim)
 }
 void enemies_textur_init(GAME_ANIM* game_anim)
 {
-    Texture2D skeleton_texturs = LoadTexture("Texturs/enemies/Skeleton.png");
+    Texture2D skeleton_texturs = LoadTexture("Texturs/Enemies/Skeleton/Skeleton.png");
 
     game_anim->texturs->enemies_texturs->skeleton_enemies_textur->skeleton_texturs = skeleton_texturs;
 
+    Texture2D arm_1_texturs = LoadTexture("Texturs/Enemies/Arm/Arm.png");
+    Texture2D arm_0_texturs = LoadTexture("Texturs/Enemies/Arm/ZombieChicken.png");
+    game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_0_texturs =arm_0_texturs;
+    game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_1_texturs = arm_1_texturs;
 
+    Texture2D zombie_texturs = LoadTexture("Texturs/Enemies/Zombie/Zombie_Variation0.png");
+    game_anim->texturs->enemies_texturs->zombie_enemies_textur->zombie_texturs =zombie_texturs;
+
+    Texture2D knight_zombie_enemies_textur = LoadTexture("Texturs/Enemies/ZombieKnight/ZombieKnight.png");
+    game_anim->texturs->enemies_texturs->knight_zombie_enemies_textur->knight_zombie_texturs =knight_zombie_enemies_textur;
 }
 void tiles_textur_init(GAME_ANIM* game_anim)
 {
@@ -276,6 +285,7 @@ Animation* create_animation(Texture2D textur,int direction,int frame_count,int f
 */
 void update_animation(Animation* anim)
 {
+    
     if (!anim->isPlaying)
     {
         return;
@@ -285,6 +295,8 @@ void update_animation(Animation* anim)
     {
         return;
     }
+    //pr_int(anim->currentFrame);
+    //pr_int(anim->texture.id);
     anim->framesCounter+=1;
     if (anim->framesCounter >= (60 / anim->framesSpeed)) 
     {
@@ -306,12 +318,12 @@ void update_animation(Animation* anim)
     
     }
 }
-void update_animations(GAME_ANIM* game_anim)
+void update_items_animations(GAME_ANIM* game_anim)
 {
     
     for (int i=0;i< game_anim->maps->animation_items_map->amount_animation_map_queue;i++)
     {
-        //pr_int(game_anim->maps->animation_items_map->amount_animation_map_queue);
+        //pr_int(game_anim->maps->animation_items_map->animation_map_queue[i]->framesCounter);
         //Animation anim = ;
         update_animation(game_anim->maps->animation_items_map->animation_map_queue[i]);
     }
@@ -401,7 +413,7 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     //SKELETON ANIM
     Texture2D skeleton_textur = game_anim->texturs->enemies_texturs->skeleton_enemies_textur->skeleton_texturs;
     Animation skeleton_breathe_animation =create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,96,32,32},8,alloc);
-    Animation skeleton_walk_animation =create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,0,32,32},8,alloc);
+    Animation skeleton_walk_animation =create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,0,32,32},16,alloc);
     Animation skeleton_attack_animation =create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,32,32,32},8,alloc);
     Animation skeleton_die_animation=create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,64,32,32},8,alloc);
     game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_breathe_animation=skeleton_breathe_animation;
@@ -409,12 +421,52 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_attack_animation=skeleton_attack_animation;
     game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_die_animation=skeleton_die_animation;
 
+    //ARM 0 ANIM
+    Texture2D arm_0_textur = game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_0_texturs;
+    Animation arm_0_breathe_animation =create_animation(arm_0_textur,Width,4,16,16,(Rectangle){0,48,16,16},8,alloc);
+    Animation arm_0_walk_animation =create_animation(arm_0_textur,Width,4,16,16,(Rectangle){0,0,16,16},16,alloc);
+    Animation arm_0_attack_animation =create_animation(arm_0_textur,Width,4,16,16,(Rectangle){0,32,16,16},8,alloc);
+    Animation arm_0_die_animation=create_animation(arm_0_textur,Width,3,16,16,(Rectangle){0,16,16,16},8,alloc);
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_breathe_animation=arm_0_breathe_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_walk_animation=arm_0_walk_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_attack_animation=arm_0_attack_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_die_animation=arm_0_die_animation;
+    //ARM 1 ANIM
+    Texture2D arm_1_textur = game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_1_texturs;
+    Animation arm_1_breathe_animation =create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,32,16,16},8,alloc);
+    Animation arm_1_walk_animation =create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,0,16,16},16,alloc);
+    Animation arm_1_attack_animation =create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,16,16,16},8,alloc);
+    Animation arm_1_die_animation=create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,48,16,16},8,alloc);
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_breathe_animation=arm_1_breathe_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_walk_animation=arm_1_walk_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_attack_animation=arm_1_attack_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_die_animation=arm_1_die_animation;
+    //ZOMBIE 0 ANIM
+    Texture2D zombie_textur = game_anim->texturs->enemies_texturs->zombie_enemies_textur->zombie_texturs;
+    Animation zombie_breathe_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,80,25,20},8,alloc);
+    Animation zombie_walk_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,0,25,20},12,alloc);
+    Animation zombie_attack_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,20,25,20},8,alloc);
+    Animation zombie_die_animation=create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,40,25,20},8,alloc);
+    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_breathe_animation=zombie_breathe_animation;
+    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_walk_animation=zombie_walk_animation;
+    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_attack_animation=zombie_attack_animation;
+    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_die_animation=zombie_die_animation;
+
+    //ZOMBIEKNIGHT 0 ANIM
+    Texture2D knight_zombie_textur = game_anim->texturs->enemies_texturs->knight_zombie_enemies_textur->knight_zombie_texturs;
+    Animation knight_zombie_breathe_animation =create_animation(knight_zombie_textur,Width,4,32,32,(Rectangle){0,128,32,32},8,alloc);
+    Animation knight_zombie_walk_animation =create_animation(knight_zombie_textur,Width,4,32,32,(Rectangle){0,0,32,32},12,alloc);
+    Animation knight_zombie_attack_animation =create_animation(knight_zombie_textur,Width,4,32,32,(Rectangle){0,32,32,32},8,alloc);
+    Animation knight_zombie_die_animation=create_animation(knight_zombie_textur,Width,3,32,32,(Rectangle){0,64,32,32},8,alloc);
+    game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_breathe_animation=knight_zombie_breathe_animation;
+    game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_walk_animation=knight_zombie_walk_animation;
+    game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_attack_animation=knight_zombie_attack_animation;
+    game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_die_animation=knight_zombie_die_animation;
 }
 void delete_from_item_anim_queue(GAME_DATA* game_data,GAME_ANIM* game_anim,int id)
 {
     if (id > -1)
     {
-        pr_int(id);
         bool find_flag = false;
         Animation** queue = game_anim->maps->animation_items_map->animation_map_queue;
         for (int i = 0;i<game_anim->maps->animation_items_map->amount_animation_map_queue;i++)
@@ -435,7 +487,7 @@ void delete_from_item_anim_queue(GAME_DATA* game_data,GAME_ANIM* game_anim,int i
     }
     
 }
-void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int object_id)
+void append_item_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int object_id)
 {
     if (object_type ==EXP)
     {   
@@ -447,6 +499,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
 
             anim_map[object_id] = small_exp_anim;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == medium)
@@ -456,6 +509,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             medium_exp_anim.currentFrame = rand_num_within(0,3);
             anim_map[object_id] = medium_exp_anim;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
     }
@@ -469,6 +523,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
 
             anim_map[object_id] = small_heal_anim;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == medium)
@@ -478,6 +533,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             medium_heal_anim.currentFrame = 0;
             anim_map[object_id] = medium_heal_anim;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
     }
@@ -491,6 +547,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
 
             anim_map[object_id] = wooden_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 1)
@@ -500,6 +557,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             leather_armor.currentFrame = 0;
             anim_map[object_id] = leather_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 2)
@@ -509,6 +567,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             iron_armor.currentFrame = 0;
             anim_map[object_id] = iron_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 3)
@@ -518,6 +577,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             mithril_armor.currentFrame = 0;
             anim_map[object_id] = mithril_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
     }
@@ -531,6 +591,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
 
             anim_map[object_id] = wooden_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 1)
@@ -540,6 +601,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             leather_armor.currentFrame = 0;
             anim_map[object_id] = leather_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 2)
@@ -549,6 +611,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             iron_armor.currentFrame = 0;
             anim_map[object_id] = iron_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 3)
@@ -558,6 +621,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             mithril_armor.currentFrame = 0;
             anim_map[object_id] = mithril_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
     }
@@ -571,6 +635,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
 
             anim_map[object_id] = wooden_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 1)
@@ -580,6 +645,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             leather_armor.currentFrame = 0;
             anim_map[object_id] = leather_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 2)
@@ -589,6 +655,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             iron_armor.currentFrame = 0;
             anim_map[object_id] = iron_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
         else if (textur_type == 3)
@@ -598,6 +665,7 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
             mithril_armor.currentFrame = 0;
             anim_map[object_id] = mithril_armor;
             anim_map[object_id].index = object_id;
+            anim_map[object_id].isPlaying = true;
             append_item_anim_to_arr(game_anim,&anim_map[object_id]);
         }
     }
@@ -624,4 +692,33 @@ void append_animation(GAME_ANIM* game_anim,int object_type,int textur_type,int o
         }
     }
         */
+}
+void update_ememies_animations(GAME_ANIM* game_anim)
+{
+    Animation*** anim_enemy_list = game_anim->maps->animation_enemies_map->animation_map_queue;
+    int* amount = &game_anim->maps->animation_enemies_map->amount_animation_map_queue;
+    for (int i =0;i<*amount;i++)
+    {
+    
+        //pr_int(*amount);
+        //pr_int(anim_enemy_list[i]->frameCount);
+        //pr_int(anim_enemy_list[i]->framesCounter);
+        update_animation(anim_enemy_list[i][0]);
+        //pr_int(anim_enemy_list[i]->texture.id);
+        //pr_int(anim_enemy_list[i]->cur_frameRec.x);
+    }
+}
+
+void append_to_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
+{
+    if (enemy->current_animation != NULL)
+    {
+        //pr_int(444);   
+        Animation*** anim_enemy_list = game_anim->maps->animation_enemies_map->animation_map_queue;
+        int* amount = &game_anim->maps->animation_enemies_map->amount_animation_map_queue;
+        anim_enemy_list[*amount] = enemy->current_animation;
+        
+        *amount+=1;
+    }
+    
 }

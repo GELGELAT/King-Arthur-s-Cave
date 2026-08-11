@@ -153,6 +153,10 @@ void pr_int(int x)
 {
     printf("%d\n",x);
 }
+void pr_float(float x)
+{
+    printf("%f\n",x);
+}
 void pr_int_with_text(int x,char* s)
 {
     printf("%s: %d\n",s,x);

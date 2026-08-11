@@ -27,6 +27,8 @@ void print_int_map(GAME_DATA *game_data, int **map);
 
 void pr_int(int x);
 
+void pr_float(float x);
+
 void pr_int_with_text(int x, char *s);
 
 Vector2 rand_pos_within(int tilesX, int tilesY, float size_zone_coefficient, float start_coefficient, int mode);

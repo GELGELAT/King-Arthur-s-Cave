@@ -61,7 +61,7 @@ void append_enemy_to_arr(GAME_DATA *game_data, Enemy *enemy, int map_index)
     }
 }
 
-void spawn_enemy(GAME_DATA *game_data,int pos_x, int pos_y,int enemy_index, int enemy_type) //поставить в колизии s и в обьекты имя и в индексы индекс
+void spawn_enemy(GAME_ANIM *game_anim,GAME_DATA *game_data,int pos_x, int pos_y,int enemy_index, int enemy_type) //поставить в колизии s и в обьекты имя и в индексы индекс
 {
     
     char** colis_map = game_data->maps->collision_map->grid;
@@ -72,8 +72,8 @@ void spawn_enemy(GAME_DATA *game_data,int pos_x, int pos_y,int enemy_index, int 
     index_map[pos_x][pos_y] = enemy_index;
     
 
-    Enemy* enemy = create_enemy(game_data->allocators->alloc_data,enemy_index,enemy_type,pos_x,pos_y); 
-    
+    Enemy* enemy = create_enemy(game_anim,game_data->allocators->alloc_data,enemy_index,enemy_type,pos_x,pos_y); 
+    append_to_anim_enemy_list_updater(game_data,game_anim,enemy);
     append_enemy_to_arr(game_data,enemy,1);
     game_data->maps->enemy_map->enemy_map[enemy_indexes] = enemy;
     
@@ -89,7 +89,8 @@ int enemy_heal_points[4] = {{20},{30},{40},{50}};
 int enemy_defens[4] = {{2},{3},{4},{5}};
 
 
-Enemy* create_enemy(Allocator* alloc,int enemy_indexes,int enemy_type,int start_posX,int start_posY)
+
+Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int enemy_type,int start_posX,int start_posY)
 {
     Enemy* enemy = alloc_alloc(alloc,sizeof(Enemy));
     EnemyMisc* enemy_misc = alloc_alloc(alloc,sizeof(EnemyMisc));
@@ -98,7 +99,8 @@ Enemy* create_enemy(Allocator* alloc,int enemy_indexes,int enemy_type,int start_
     EnemyPos* enemy_position = alloc_alloc(alloc,sizeof(EnemyPos));
     EnemyTilesPos* position_tiles = alloc_alloc(alloc,sizeof(EnemyTilesPos));
     EnemyPixelsPos* position_pixels = alloc_alloc(alloc,sizeof(EnemyPixelsPos));
-
+    EnemyAnimations* enemy_animations = alloc_alloc(alloc,sizeof(EnemyAnimations));
+    Animation** current_animations = alloc_alloc(alloc,sizeof(Animation*));
     enemy->enemy_characteristics = enemy_characteristics;
     enemy->enemy_main =enemy_main;
     enemy->enemy_misc =enemy_misc;
@@ -107,15 +109,101 @@ Enemy* create_enemy(Allocator* alloc,int enemy_indexes,int enemy_type,int start_
     enemy->enemy_position->position_pixels = position_pixels;
     enemy->enemy_misc->activated = false; 
     enemy->enemy_main->index = enemy_indexes;
+    enemy->enemy_animations = enemy_animations;
+    enemy->current_animation = current_animations;
+
+    if (enemy_type == 1)
+    {
+        enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_breathe_animation;
+        enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
+        enemy->enemy_animations->walk = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_walk_animation;
+        enemy->enemy_animations->attack = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_attack_animation;
+        enemy->enemy_animations->die = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_die_animation;
+       // enemy->current_animation = &enemy->enemy_animations->die;
+        //enemy->current_animation = &enemy->enemy_animations->walk;
+        enemy->current_animation[0] = &enemy->enemy_animations->breathe;
+        enemy->enemy_animations->size_x = rand_num_within(114,132);
+        enemy->enemy_animations->size_y = rand_num_within(114,132);
+         enemy->enemy_animations->alignment_x =64;
+          enemy->enemy_animations->alignment_y =96;
+    }
+    else if (enemy_type == 0)
+    {
+        int skin = rand_num_within(0,1);
+        if (skin == 0)
+        {
+            enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_breathe_animation;
+            enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
+            enemy->enemy_animations->walk = game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_walk_animation;
+            enemy->enemy_animations->attack = game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_attack_animation;
+            enemy->enemy_animations->die =game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_die_animation;
+            enemy->current_animation[0] = &enemy->enemy_animations->breathe;
+            enemy->enemy_animations->size_x = rand_num_within(48,64);
+            enemy->enemy_animations->size_y = rand_num_within(48,64);
+            enemy->enemy_animations->alignment_x =32;
+          enemy->enemy_animations->alignment_y =32;
+        }
+        else if( skin ==1)
+        {
+            enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_breathe_animation;
+            enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
+            enemy->enemy_animations->walk = game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_walk_animation;
+            enemy->enemy_animations->attack = game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_attack_animation;
+            enemy->enemy_animations->die =game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_die_animation;
+            enemy->current_animation[0] = &enemy->enemy_animations->breathe;
+            enemy->enemy_animations->size_x = rand_num_within(48,64);
+            enemy->enemy_animations->size_y = rand_num_within(48,64);
+            enemy->enemy_animations->alignment_x =32;
+          enemy->enemy_animations->alignment_y =32;
+        }
+    }
+    else if (enemy_type == 2)
+    {
+        enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_breathe_animation;
+        enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
+        enemy->enemy_animations->walk = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_walk_animation;
+        enemy->enemy_animations->attack = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_attack_animation;
+        enemy->enemy_animations->die = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_die_animation;
+       // enemy->current_animation = &enemy->enemy_animations->die;
+        //enemy->current_animation = &enemy->enemy_animations->walk;
+        enemy->current_animation[0] = &enemy->enemy_animations->breathe;
+        enemy->enemy_animations->size_x = rand_num_within(84,92);
+        enemy->enemy_animations->size_y = rand_num_within(84,92);
+         enemy->enemy_animations->alignment_x =48;
+          enemy->enemy_animations->alignment_y =64;
+    }
+    else if (enemy_type == 3)
+    {
+        enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_breathe_animation;
+        enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
+        enemy->enemy_animations->walk = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_walk_animation;
+        enemy->enemy_animations->attack = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_attack_animation;
+        enemy->enemy_animations->die = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_die_animation;
+       // enemy->current_animation = &enemy->enemy_animations->die;
+        //enemy->current_animation = &enemy->enemy_animations->walk;
+        enemy->current_animation[0] = &enemy->enemy_animations->breathe;
+        enemy->enemy_animations->size_x = rand_num_within(114,132);
+        enemy->enemy_animations->size_y = rand_num_within(114,132);
+         enemy->enemy_animations->alignment_x =64;
+          enemy->enemy_animations->alignment_y =96;
+    }
+    
+    else
+    {
+        enemy->current_animation = NULL;
+    }
     //enemy_indexes +=1;
     enemy->enemy_main->name = textur(enemy_textur,enemy_type);
     Vector2 s_p =  {start_posX,start_posY};
+    Vector2 start_pixels_pos =  {start_posX*64+32,start_posY*64+32};
     enemy->enemy_position->position_tiles->pos_tiles =s_p;
+    enemy->enemy_position->position_pixels->pos_pixels =start_pixels_pos;
     //enemy->path_to_player = alloc_alloc(alloc,sizeof(Vector2*));
      enemy->enemy_characteristics->heal_points =enemy_heal_points[enemy_type];
     enemy->enemy_characteristics->min_physical_damage = enemy_damage[enemy_type][0]; 
     enemy->enemy_characteristics->max_physical_damage = enemy_damage[enemy_type][1];
     enemy->enemy_characteristics->defense = enemy_defens[enemy_type];
+    
 
     return enemy;
 }
@@ -408,7 +496,14 @@ void enemies_moving(GAME_DATA* game_data)
     {
         for (int i =0;i<amount_enemyeis;i++)
         {
+            if (enemyeis[i]->current_animation != NULL)
+            {
+                //enemyeis[i]->current_animation = &enemyeis[i]->enemy_animations->attack;
+                
+                //enemyeis[i]->current_animation = &enemyeis[i]->enemy_animations->breathe;
+            }
             enemy_moving(game_data,enemyeis[i]);
+            
         }
     }
 }
@@ -456,6 +551,8 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
     }
     else
     {
+        //enemy->current_animation = &enemy->enemy_animations->walk;
+        //pr_int(enemy->current_animation->texture.id);
         int old_x = enemy->enemy_position->position_tiles->pos_tiles.x;
         int old_y = enemy->enemy_position->position_tiles->pos_tiles.y;
         int new_x = path[0].x;
@@ -471,6 +568,10 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         int cur_id = id_map[old_x][old_y];
         id_map[old_x][old_y] = -1;
         id_map[new_x][new_y] = cur_id;
+        Vector2 old_tile = {(float)old_x,(float)old_y};
+        Vector2 new_tile = {(float)new_x,(float)new_y};
+        //pr_int(enemy->enemy_main->index);
+        append_to_action_map(game_data,old_tile,new_tile,&enemy->enemy_position->position_pixels->pos_pixels,WALK,3,enemy->enemy_main->index);
 
     }
     //destroy_allocator(alloc_path);
@@ -479,6 +580,11 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
 }
 void enemy_attack(GAME_DATA* game_data,Enemy* enemy)
 {
+    //enemy->current_animation[0] = &enemy->enemy_animations->attack;
+    //pr_int(enemy->current_animation->currentFrame);
+    Vector2 new_tile = {game_data->player->player_pos->position_tiles->pos_tiles.x,game_data->player->player_pos->position_tiles->pos_tiles.y};
+    Vector2 old_tile = {(float)enemy->enemy_position->position_tiles->pos_tiles.x,(float)enemy->enemy_position->position_tiles->pos_tiles.y};
+    append_to_action_map(game_data,old_tile,new_tile,&enemy->enemy_position->position_pixels->pos_pixels,ATTACK,5,enemy->enemy_main->index);
     pr_int_with_text(game_data->player->player_stats->player_characteristics->heal_points,"player hp");
 
     int enemy_damage = rand_num_within(enemy->enemy_characteristics->min_physical_damage,enemy->enemy_characteristics->max_physical_damage);
@@ -491,18 +597,17 @@ void enemy_attack(GAME_DATA* game_data,Enemy* enemy)
     }
     game_data->player->player_stats->player_characteristics->heal_points = player_heals - damage_after_def;
     pr_int_with_text(game_data->player->player_stats->player_characteristics->heal_points,"player hp");
+    //enemy->current_animation[0] = &enemy->enemy_animations->breathe;
 
 }
 void enemy_life_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy,int enemy_x,int enemy_y) 
 {
     if ( enemy->enemy_characteristics->heal_points<=0)
     {
-        delete_from_move_queue(game_data,enemy->enemy_main->index);
-        game_data->maps->cells_map->cells[enemy_x][enemy_y]->objects[2] = NULL;
-        game_data->maps->collision_map->grid[enemy_x][enemy_y] = 'f';
-        game_data->maps->enemy_map->index_map[enemy_x][enemy_y] = -1;
-        items_drop(game_data,game_anim,enemy,enemy_x,enemy_y);
-
+        
+        
+        
+        append_to_action_map(game_data,(Vector2){enemy_x,enemy_y},(Vector2){0,0},&enemy->enemy_position->position_pixels->pos_pixels,DIE,3,enemy->enemy_main->index);
 
     }
 }
@@ -547,7 +652,7 @@ void delete_from_move_queue(GAME_DATA* game_data,int id)
     game_data->maps->enemy_map->move_queue_amount -=1;
 }
 
-void enemies_rand_spawn(GAME_DATA* game_data)
+void enemies_rand_spawn(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
     bool pos_find = false;
     int pos_x,pos_y;
@@ -577,7 +682,7 @@ void enemies_rand_spawn(GAME_DATA* game_data)
                     
                     
                 }
-                spawn_enemy(game_data,pos_x,pos_y,enemy_indexes,j);
+                spawn_enemy(game_anim,game_data,pos_x,pos_y,enemy_indexes,j);
                 pos_find = false;
             }
             
