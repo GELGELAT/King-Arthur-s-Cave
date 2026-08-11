@@ -7,7 +7,7 @@
 #include "misc.h"
 #include "texturs.h"
 #include "items_logic.h"
-
+#include "updater.h"
 
 void correctness_index_map_check(GAME_DATA *game_data, int **map);
 
@@ -15,11 +15,11 @@ void clear_visited_tiles(GAME_DATA *game_data);
 
 void append_enemy_to_arr(GAME_DATA *game_data, Enemy *enemy, int map_index);
 
-void spawn_enemy(GAME_DATA *game_data, int pos_x, int pos_y, int enemy_index, int enemy_type);
-
-Enemy *create_enemy(Allocator *alloc, int enemy_indexes, int enemy_type, int start_posX, int start_posY);
+void spawn_enemy(GAME_ANIM *game_anim, GAME_DATA *game_data, int pos_x, int pos_y, int enemy_index, int enemy_type);
 
 
+
+Enemy *create_enemy(GAME_ANIM *game_anim, Allocator *alloc, int enemy_indexes, int enemy_type, int start_posX, int start_posY);
 
 Vector2 *path_finding(Allocator *alloc_path, GAME_DATA *game_data, Enemy *enemy, int mode);
 
@@ -43,7 +43,8 @@ void items_drop(GAME_DATA *game_data, GAME_ANIM *game_anim, Enemy *enemy, int en
 
 void delete_from_move_queue(GAME_DATA *game_data, int id);
 
-void enemies_rand_spawn(GAME_DATA *game_data);
+void enemies_rand_spawn(GAME_DATA *game_data, GAME_ANIM *game_anim);
+
 
 #endif
 

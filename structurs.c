@@ -16,8 +16,8 @@ Player* create_player(Allocator* alloc,int start_posX,int start_posY)
     PlayerCharacteristics* player_characteristics = alloc_alloc(alloc,sizeof(PlayerCharacteristics));
     player_characteristics->defense = 0;
     player_characteristics->heal_points = 100;
-    player_characteristics->max_physical_damage = 10;
-    player_characteristics->min_physical_damage = 5;
+    player_characteristics->max_physical_damage = 100;
+    player_characteristics->min_physical_damage = 50;
     PlayerStats* player_stats = alloc_alloc(alloc,sizeof(PlayerStats));
     player_stats->player_characteristics =player_characteristics;
     player_stats->player_coins =player_coins;
@@ -34,6 +34,29 @@ Player* create_player(Allocator* alloc,int start_posX,int start_posY)
     player->player_stats = player_stats;
     player->player_pos = player_pos;
     return player;
+}
+
+ActionMap* create_action_map(Allocator* alloc)
+{
+    ActionMap* pos_q = alloc_alloc(alloc,sizeof(ActionMap));
+    pos_q->amount_actions = 0;
+    pos_q->actions_queue = alloc_alloc(alloc,sizeof(Action*)*1000);
+    return pos_q;
+}
+
+Action create_action(Allocator* alloc,Vector2*position_pixels,Vector2 old_tile,Vector2 new_tile,float speed,int cur_action,int index_enemies)
+{
+    Action action = {0};
+    action.old_tile =old_tile;
+    action.new_tile =new_tile;
+    action.current_fill =0;
+    action.speed =speed;
+    action.action =cur_action;
+    //action.position_pixels = alloc_alloc(alloc,sizeof(Vector2*));
+    action.position_pixels =position_pixels;
+    action.current_state = 1;
+    action.index_enemies = index_enemies;
+    return action;
 }
 
 GAME_DATA* create_game_data()
@@ -56,6 +79,14 @@ GAME_DATA* create_game_data()
     return game_data;
 }
 
+AnimationEnemyMap* create_anim_enemies_map(GAME_ANIM* game_anim)
+{
+    AnimationEnemyMap* enemy_map = alloc_alloc(game_anim->anim_alloc,sizeof(AnimationEnemyMap));
+    enemy_map->animation_map_queue = alloc_alloc(game_anim->anim_alloc,sizeof(Animation**)*1000);
+    enemy_map->amount_animation_map_queue = 0;
+    return enemy_map;
+
+}
 AnimationItemsMap* create_anim_items_map(GAME_ANIM* game_anim)
 {
     AnimationItemsMap* items_map = alloc_alloc(game_anim->anim_alloc,sizeof(AnimationItemsMap));
@@ -79,6 +110,7 @@ GAME_ANIM* create_game_anim()
     game_anim->texturs = texturs;
     game_anim->maps = maps;
     game_anim->maps->animation_items_map = items_map;
+    game_anim->maps->animation_enemies_map = create_anim_enemies_map(game_anim);
     return game_anim;
 }
 

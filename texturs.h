@@ -72,7 +72,7 @@ Animations *create_animations_struct(Allocator *alloc);
 
 Animation create_animation(Texture2D textur, int direction, int frame_count, int frame_width, int frame_height, Rectangle start_frame, int anim_speed, Allocator *alloc);
 
-void update_animations(GAME_ANIM *game_anim);
+void update_items_animations(GAME_ANIM *game_anim);
 
 void draw_animation(Animation *anim, Vector2 pos, int size_x, int size_y, int pos_index, float rotate);
 
@@ -87,8 +87,12 @@ void create_animations(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
 void delete_from_item_anim_queue(GAME_DATA *game_data, GAME_ANIM *game_anim, int id);
 
-void append_animation(GAME_ANIM *game_anim, int object_type, int textur_type, int object_id);
+void append_item_animation(GAME_ANIM *game_anim, int object_type, int textur_type, int object_id);
 
+void update_ememies_animations(GAME_ANIM *game_anim);
+
+
+void append_to_anim_enemy_list_updater(GAME_DATA *game_data, GAME_ANIM *game_anim, Enemy *enemy);
 
 #endif
 

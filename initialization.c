@@ -11,7 +11,7 @@ bool GAME_INIT(GAME_DATA* game_data,int tilesX, int tilesY, int tileSize,GAME_AN
     spawn_pos_init(game_data);
     map_objects_init(game_data);
     items_init(game_data,game_anim);
-    enemy_init(game_data);
+    enemy_init(game_data,game_anim);
     fog_init(game_data);
     player_review(game_data);
     enemies_finding(game_data);
@@ -45,6 +45,7 @@ bool structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int ti
     player_init( game_data);
     cells_map_init(game_data, tilesX,  tilesY,  tileSize);
     collision_map_init(game_data);
+    pos_map_init(game_data);
     camera_init(game_data);
     enemy_map_init(game_data); 
     path_init(game_data);
@@ -102,7 +103,7 @@ bool camera_init(GAME_DATA* game_data)
     camera.target = game_data->player->player_pos->position_pixels->pos_pixels;;
     camera.offset = (Vector2){ game_data->misc->monitor_size.monitor_width/2.0f, game_data->misc->monitor_size.monitor_height/2.0f };
     camera.rotation = 0.0f;
-    camera.zoom = 0.7f;
+    camera.zoom = 1.0f;
     game_data->misc->camera = camera;
     return true;
 }
@@ -138,7 +139,12 @@ bool collision_map_init(GAME_DATA* game_data)
     CollisionMap* map = create_collision_map(game_data->allocators->alloc_data,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
     game_data->maps->collision_map = map;
 }
+bool pos_map_init(GAME_DATA* game_data)
+{
 
+    ActionMap* map = create_action_map(game_data->allocators->alloc_data);
+    game_data->maps->pos_map = map;
+}
 bool fog_init(GAME_DATA* game_data)
 {
     FogMap* fog_map = create_fog_map(game_data->allocators->alloc_data,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
@@ -197,17 +203,16 @@ bool enemy_map_init(GAME_DATA* game_data)
     game_data->maps->enemy_map = map;
 }
 
-bool enemy_init(GAME_DATA* game_data)
+bool enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
     int posX = game_data->player->player_pos->position_tiles->pos_tiles.x;
     int posY = game_data->player->player_pos->position_tiles->pos_tiles.y;
-
-
+    //spawn_enemy(game_anim,game_data,posX+1,posY+1,enemy_indexes,1);
 
 
 
     
-    enemies_rand_spawn(game_data);
+   enemies_rand_spawn(game_data,game_anim);
 
                 
 }
