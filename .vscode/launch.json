@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Game",
+            "type": "cppdbg",
+            "request": "launch",
+            // ★ ВАЖНО: Укажите имя вашего исполняемого файла
+            "program": "${workspaceFolder}/game.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            // ★ ВАЖНО: Открывать ли отдельное окно консоли
+            "externalConsole": true,
+            "MIMode": "gdb",
+            // ★ ВАЖНО: Укажите путь до вашего gdb.exe
+            "miDebuggerPath": "C:/Users/Tima/gcc/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // ★ СВЯЗКА С MAKE: Запускать сборку перед отладкой
+            "preLaunchTask": "build"
+        }
+    ]
+}

@@ -99,7 +99,6 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                 Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
                 if (action_type == MOVING)
                 {
-                    
                     enemy->current_animation[0] = &enemy->enemy_animations->walk;
                     enemy->current_animation[0]->currentFrame =0;
                     enemy->current_animation[0]->framesCounter = 0;
