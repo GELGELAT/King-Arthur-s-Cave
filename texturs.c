@@ -81,7 +81,7 @@ void texturs_init(GAME_ANIM* game_anim)
     mics_items_textur_init(game_anim);
     equipment_textur_init(game_anim);
     enemies_textur_init(game_anim);
-
+    player_textur_init(game_anim);
 }
 
 void mics_items_textur_init(GAME_ANIM* game_anim)
@@ -136,6 +136,15 @@ void enemies_textur_init(GAME_ANIM* game_anim)
     Texture2D knight_zombie_enemies_textur = LoadTexture("Texturs/Enemies/ZombieKnight/ZombieKnight.png");
     game_anim->texturs->enemies_texturs->knight_zombie_enemies_textur->knight_zombie_texturs =knight_zombie_enemies_textur;
 }
+void player_textur_init(GAME_ANIM* game_anim)
+{
+    Texture2D player_human = LoadTexture("Texturs/Player/player_human.png");
+
+    game_anim->texturs->player_texturs->player_human->human_textur = player_human;
+
+
+}
+
 void tiles_textur_init(GAME_ANIM* game_anim)
 {
     Texture2D ground_floor_texturs = LoadTexture("Texturs/Tiles/floors_ground.png");
@@ -196,7 +205,11 @@ Texturs* create_texturs_struct(Allocator* alloc)
     texturs->world_texturs->tiles_texturs= tiles_texturs;
     texturs->world_texturs->tiles_texturs->floor_texturs = floor_texturs;
     texturs->world_texturs->tiles_texturs->wall_texturs = wall_texturs;
-    
+    PlayerTexturs * player_texturs = alloc_alloc(alloc,sizeof(PlayerTexturs ));
+    PlayerHuman  * player_human = alloc_alloc(alloc,sizeof(PlayerHuman  ));
+
+    texturs->player_texturs =player_texturs;
+    texturs->player_texturs->player_human = player_human;
     return texturs;
 }
 
@@ -248,8 +261,22 @@ Animations* create_animations_struct(Allocator* alloc)
     animation->world_animation->tiles_animation->floor_animation = floor_animation;
     animation->world_animation->tiles_animation->wall_animation = wall_animation;
 
+    PlayersAnimations * player_animation = alloc_alloc(alloc,sizeof(PlayersAnimations ));
+    HumanAnimations * human_animations = alloc_alloc(alloc,sizeof(HumanAnimations ));
+    animation->player_animation=player_animation;
+    animation->player_animation->human_animations =human_animations;
+    
+
     
     return animation;
+}
+void player_anim_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
+{
+    Player* player = game_data->player;
+    player->player_anim->player_breathe_animation = game_anim->animations->player_animation->human_animations->player_breathe_animation;
+    player->player_anim->player_walk_animation = game_anim->animations->player_animation->human_animations->player_walk_animation;
+    player->player_anim->player_attack_animation =game_anim->animations->player_animation->human_animations->player_attack_animation;
+    player->player_anim->player_mine_animation = game_anim->animations->player_animation->human_animations->player_mine_animation;
 }
 Animation create_animation(Texture2D textur,int direction,int frame_count,int frame_width,int frame_height,Rectangle start_frame,int anim_speed,Allocator* alloc)
 {
@@ -328,7 +355,26 @@ void update_items_animations(GAME_ANIM* game_anim)
         update_animation(game_anim->maps->animation_items_map->animation_map_queue[i]);
     }
 }
+void update_player_animations(GAME_ANIM* game_anim)
+{
+    
+    for (int i=0;i< game_anim->maps->animation_player_map->amount_animation_map_queue;i++)
+    {
+        //pr_int(game_anim->maps->animation_items_map->animation_map_queue[i]->framesCounter);
+        //Animation anim = ;
+        update_animation(game_anim->maps->animation_player_map->animation_map_queue[i][0]);
+    }
+}
+void append_player_anim_to_arr(GAME_ANIM* game_anim,Animation** anim)
+{
+    Animation*** queue = game_anim->maps->animation_player_map->animation_map_queue;
+    int amount_queue = game_anim->maps->animation_player_map->amount_animation_map_queue;
 
+    
+    queue[amount_queue] = anim;
+    game_anim->maps->animation_player_map->amount_animation_map_queue +=1;
+    
+}
 void draw_animation(Animation* anim,Vector2 pos,int size_x,int size_y,int pos_index,float rotate) 
 {
     int rand_pos[5][2] = {{0,0},{0,32},{32,0},{32,32},{0,0}};
@@ -462,6 +508,20 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_walk_animation=knight_zombie_walk_animation;
     game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_attack_animation=knight_zombie_attack_animation;
     game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_die_animation=knight_zombie_die_animation;
+
+    //PLAYER HUMAN ANIM
+    Texture2D player_human_textur = game_anim->texturs->player_texturs->player_human->human_textur;
+    Animation player_human_breathe_animation =create_animation(player_human_textur,Width,4,-32,32,(Rectangle){96,96,-32,32},8,alloc);
+    Animation player_human_walk_animation =create_animation(player_human_textur,Width,4,-32,32,(Rectangle){128,0,-32,32},12,alloc);
+    Animation player_human_attack_animation =create_animation(player_human_textur,Width,3,-32,32,(Rectangle){160,32,-32,32},8,alloc);
+    //Animation player_human_die_animation=create_animation(player_human_textur,Width,4,-32,32,(Rectangle){0,40,32,32},8,alloc);
+    Animation player_human_mine_animation=create_animation(player_human_textur,Width,5,-32,32,(Rectangle){128,64,-32,32},8,alloc);
+
+    game_anim->animations->player_animation->human_animations->player_breathe_animation =player_human_breathe_animation;
+    game_anim->animations->player_animation->human_animations->player_attack_animation =player_human_attack_animation;
+    //game_anim->animations->player_animation->human_animations->player_die_animation =player_human_die_animation;
+    game_anim->animations->player_animation->human_animations->player_mine_animation =player_human_mine_animation;
+    game_anim->animations->player_animation->human_animations->player_walk_animation =player_human_walk_animation;
 }
 void delete_from_item_anim_queue(GAME_DATA* game_data,GAME_ANIM* game_anim,int id)
 {

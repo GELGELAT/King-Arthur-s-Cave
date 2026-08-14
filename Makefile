@@ -14,7 +14,7 @@ else
 endif
 
 # ========== ИСХОДНИКИ ==========
-SRCS = main.c allocator.c renderer.c structurs.c updater.c initialization.c generators.c misc.c texturs.c enemy_logic.c fog.c player_logic.c items_logic.c
+SRCS = main.c allocator.c renderer.c structurs.c updater.c initialization.c generators.c misc.c texturs.c enemy_logic.c fog.c player_logic.c items_logic.c actions_work.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 

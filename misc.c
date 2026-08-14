@@ -112,6 +112,7 @@ void print_vectors_map(GAME_DATA* game_data)
             printf("\n");
         }
 }
+
 void print_vector_arr(Vector2* path,int amount)
 {
     for (int i = 0;i<amount;i++)

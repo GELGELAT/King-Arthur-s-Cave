@@ -191,7 +191,14 @@ void draw_item(GAME_DATA* game_data,GAME_ANIM* game_anim,char** objects,int x,in
 #define medium 1
 void player_draw(GAME_DATA *game_data)
 {
-    DrawCircle(game_data->player->player_pos->position_pixels->pos_pixels.x,game_data->player->player_pos->position_pixels->pos_pixels.y, 32.0f, GOLD); 
+
+     
+            //pr_int(cur_enemy->current_animation->texture.id);
+    Player* player = game_data->player;
+    int pos_x = player->player_pos->position_pixels->pos_pixels.x-player->player_anim->alignment_x;
+    int pos_y =player->player_pos->position_pixels->pos_pixels.y-player->player_anim->alignment_y;
+    draw_animation(player->current_anim[0],(Vector2){pos_x,pos_y},player->player_anim->size_x,player->player_anim->size_y,4,0);
+    //DrawCircle(game_data->player->player_pos->position_pixels->pos_pixels.x,game_data->player->player_pos->position_pixels->pos_pixels.y, 32.0f, GOLD); 
 }
 
 void floor_tile_draw(GAME_ANIM* game_anim, Vector2 pos, int frame_index)
