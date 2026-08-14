@@ -61,7 +61,7 @@ void append_enemy_to_arr(GAME_DATA *game_data, Enemy *enemy, int map_index)
     }
 }
 
-void spawn_enemy(GAME_ANIM *game_anim,GAME_DATA *game_data,int pos_x, int pos_y,int enemy_index, int enemy_type) //поставить в колизии s и в обьекты имя и в индексы индекс
+void spawn_enemy(GAME_ANIM *game_anim,GAME_DATA *game_data,int pos_x, int pos_y,int enemy_index, int enemy_type,int skin) //поставить в колизии s и в обьекты имя и в индексы индекс
 {
     
     char** colis_map = game_data->maps->collision_map->grid;
@@ -72,7 +72,7 @@ void spawn_enemy(GAME_ANIM *game_anim,GAME_DATA *game_data,int pos_x, int pos_y,
     index_map[pos_x][pos_y] = enemy_index;
     
 
-    Enemy* enemy = create_enemy(game_anim,game_data->allocators->alloc_data,enemy_index,enemy_type,pos_x,pos_y); 
+    Enemy* enemy = create_enemy(game_anim,game_data->allocators->alloc_data,enemy_index,enemy_type,pos_x,pos_y,skin); 
     append_to_anim_enemy_list_updater(game_data,game_anim,enemy);
     append_enemy_to_arr(game_data,enemy,1);
     game_data->maps->enemy_map->enemy_map[enemy_indexes] = enemy;
@@ -90,7 +90,7 @@ int enemy_defens[4] = {{2},{3},{4},{5}};
 
 
 
-Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int enemy_type,int start_posX,int start_posY)
+Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int enemy_type,int start_posX,int start_posY,int skin)
 {
     Enemy* enemy = alloc_alloc(alloc,sizeof(Enemy));
     EnemyMisc* enemy_misc = alloc_alloc(alloc,sizeof(EnemyMisc));
@@ -101,9 +101,11 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
     EnemyPixelsPos* position_pixels = alloc_alloc(alloc,sizeof(EnemyPixelsPos));
     EnemyAnimations* enemy_animations = alloc_alloc(alloc,sizeof(EnemyAnimations));
     Animation** current_animations = alloc_alloc(alloc,sizeof(Animation*));
+    EnemyStamina* enemy_stamina = alloc_alloc(alloc,sizeof(EnemyStamina));
     enemy->enemy_characteristics = enemy_characteristics;
     enemy->enemy_main =enemy_main;
     enemy->enemy_misc =enemy_misc;
+    enemy->enemy_misc->activated = false;
     enemy->enemy_position = enemy_position;
     enemy->enemy_position->position_tiles = position_tiles;
     enemy->enemy_position->position_pixels = position_pixels;
@@ -111,7 +113,8 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
     enemy->enemy_main->index = enemy_indexes;
     enemy->enemy_animations = enemy_animations;
     enemy->current_animation = current_animations;
-
+    enemy->enemy_characteristics->enemy_stamina = enemy_stamina;
+    enemy->enemy_main->live = 1;
     if (enemy_type == 1)
     {
         enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_breathe_animation;
@@ -129,8 +132,8 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
     }
     else if (enemy_type == 0)
     {
-        int skin = rand_num_within(0,1);
-        if (skin == 0)
+        
+        if (skin == CHICKEN_ZOMBIE)
         {
             enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_breathe_animation;
             enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
@@ -142,8 +145,12 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
             enemy->enemy_animations->size_y = rand_num_within(48,64);
             enemy->enemy_animations->alignment_x =32;
           enemy->enemy_animations->alignment_y =32;
+          enemy->enemy_animations->skin = CHICKEN_ZOMBIE;
+          enemy->enemy_characteristics->enemy_stamina->max_stamina = rand_num_within(4,8);
+          enemy->enemy_characteristics->enemy_stamina->stamina=rand_num_within(0,8);
+          enemy->enemy_characteristics->enemy_stamina->stamina_regeneration = rand_num_within(0,2);
         }
-        else if( skin ==1)
+        else if( skin ==ARM_ZOMBIE)
         {
             enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_breathe_animation;
             enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
@@ -155,6 +162,12 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
             enemy->enemy_animations->size_y = rand_num_within(48,64);
             enemy->enemy_animations->alignment_x =32;
           enemy->enemy_animations->alignment_y =32;
+          enemy->enemy_animations->skin = ARM_ZOMBIE;
+          enemy->enemy_characteristics->enemy_stamina->max_stamina = rand_num_within(60,80);
+          enemy->enemy_characteristics->enemy_stamina->stamina=rand_num_within(60,80);
+          enemy->enemy_characteristics->enemy_stamina->stamina_regeneration = rand_num_within(0,2);
+          enemy->enemy_characteristics->fast_max_physical_damage = 10;
+          enemy->enemy_characteristics->fast_min_physical_damage =30;
         }
     }
     else if (enemy_type == 2)
@@ -278,6 +291,7 @@ Vector2* path_finding(Allocator* alloc_path,GAME_DATA *game_data,Enemy* enemy,in
             }
             else if ( mode == 1 &&colid_map[new_x][new_y] != 'w' && visited_map[new_x][new_y] != '1')
             {
+                
                 queue[tail] = (Vector2){new_x,new_y};
                 tail+=1;
                 parent_map[new_x][new_y] = (Vector2){current_x,current_y};
@@ -504,9 +518,238 @@ void enemies_moving(GAME_DATA* game_data)
             }
             enemy_moving(game_data,enemyeis[i]);
             
+            
+            
         }
     }
 }
+void plus_to_stamina(Enemy* enemy)
+{
+    int* cur_stam = &enemy->enemy_characteristics->enemy_stamina->stamina;
+    int max_stam = enemy->enemy_characteristics->enemy_stamina->max_stamina;
+    int plus_stum = enemy->enemy_characteristics->enemy_stamina->stamina_regeneration;
+    *cur_stam +=plus_stum;
+    if (*cur_stam > max_stam)
+    {
+        *cur_stam = max_stam;
+    }
+
+}
+bool chicken_zombie_dobble_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
+{
+
+    int rand = rand_num_within(0,9);
+    if (rand >=5)
+    {
+        
+        if (vectors_comparison(path[0],(Vector2){-1,-1}))
+        {   
+            return false;
+        }
+        
+        if(enemy->enemy_characteristics->enemy_stamina->stamina >=4)
+        {
+            char** col_map = game_data->maps->collision_map->grid;
+            Vector2 player_pos = game_data->player->player_pos->position_tiles->pos_tiles;
+            if (vectors_comparison(player_pos,path[0]))
+            {
+                int old_tile_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+                int old_tile_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+                int new_tile_x = path[0].x;
+                int new_tile_y = path[0].y;
+                Vector2 new_tile = {new_tile_x,new_tile_y};
+                Vector2 old_tile = {old_tile_x,old_tile_y};
+                Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+                Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
+                &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+                attack1->queue->ending_action=moving1;
+
+                Action* attack2 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+                moving1->queue->ending_action = attack2;
+                Action* moving2 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
+                &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+                attack2->queue->ending_action=moving2;
+
+                append_action_to_actions_map(game_data,attack1);
+                enemy->enemy_characteristics->enemy_stamina->stamina-=4;
+            }
+            else if (vectors_comparison(player_pos,path[1]) && col_map[(int)path[0].x][(int)path[0].y] != 'm')
+            {
+                
+                CellsMap* objecta_map = game_data->maps->cells_map;
+                int** id_map = game_data->maps->enemy_map->index_map;
+                char** col_map = game_data->maps->collision_map->grid;
+
+                int old_tile_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+                int old_tile_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+                int new_tile_x = path[0].x;
+                int new_tile_y = path[0].y;
+
+                int old_tile_attack_x = new_tile_x;
+                int old_tile_attack_y = new_tile_y;
+                int new_tile_attack_x = path[1].x;
+                int new_tile_attack_y = path[1].y;
+                Vector2 new_tile = {new_tile_x,new_tile_y};
+                Vector2 old_tile = {old_tile_x,old_tile_y};
+                Vector2 new_tile_attack = {new_tile_attack_x,new_tile_attack_y};
+                Vector2 old_tile_attack = {old_tile_attack_x,old_tile_attack_y};
+                Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+                
+                col_map[old_tile_x][old_tile_y] = 'f';
+                col_map[new_tile_x][new_tile_y] = 'm';
+
+
+                objecta_map->cells[old_tile_x][old_tile_y]->objects[2] = NULL;
+                objecta_map->cells[new_tile_x][new_tile_y]->objects[2] = enemy->enemy_main->name;
+                enemy->enemy_position->position_tiles->pos_tiles = path[0];
+                int cur_id = id_map[old_tile_x][old_tile_y];
+                id_map[old_tile_x][old_tile_y] = -1;
+                id_map[new_tile_x][new_tile_y] = cur_id;
+                Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile_attack,new_tile_attack,1,5);
+                moving->queue->ending_action = attack1;
+                Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
+                &enemy->enemy_position->position_pixels->pos_pixels,new_tile_attack ,old_tile_attack,1,5);
+                attack1->queue->ending_action=moving1;
+                append_action_to_actions_map(game_data,moving);
+                enemy->enemy_characteristics->enemy_stamina->stamina-=2;
+            }
+            
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+         return false;
+        
+    }
+    else
+    {
+        return false;
+    }
+}
+bool arm_zombie_jump_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
+{
+
+
+        
+    if (vectors_comparison(path[0],(Vector2){-1,-1}))
+    {   
+        return false;
+    }
+    
+
+    if(enemy->enemy_characteristics->enemy_stamina->stamina >=4)
+    {
+        Vector2 next_move = enemy->enemy_misc->next_move;
+        Vector2 player_pos = game_data->player->player_pos->position_tiles->pos_tiles;
+        if (vectors_comparison(player_pos,path[1]) && enemy->enemy_misc->activated == false)
+        {
+            
+            enemy->enemy_misc->next_move = path[1];
+            Action* preparation = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,PREPARATION,END,-1,-1,
+                    &enemy->enemy_position->position_pixels->pos_pixels,path[1],path[1],48,5);
+            append_action_to_actions_map(game_data,preparation);
+            return true;
+            
+            
+        }
+        else if (vectors_comparison(player_pos,path[1]) && enemy->enemy_misc->activated == true)
+        {
+            int old_tile_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+            int old_tile_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+            int new_tile_x = path[0].x;
+            int new_tile_y = path[0].y;
+            
+            Vector2 new_tile = path[1];
+            Vector2 old_tile = {old_tile_x,old_tile_y};
+            
+            Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
+            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+            Action* attack = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,RANDOM_MOVING,ATTACK,DURING,-1,-1,
+                    &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,48,5);
+            Action* moving2 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
+            &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+            moving1->queue->ending_action = attack;
+            attack->queue->ending_action =moving2;
+            append_action_to_actions_map(game_data,moving1);
+            enemy->enemy_misc->activated = false;
+            enemy->enemy_characteristics->enemy_stamina->stamina-=4;
+            return true;
+        }
+        else if (game_data->maps->collision_map->grid[(int)next_move.x][(int)next_move.y] == 'f' && enemy->enemy_misc->activated == true)
+        {
+
+            int old_tile_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+            int old_tile_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+
+            
+            Vector2 new_tile = next_move;
+            Vector2 old_tile = {old_tile_x,old_tile_y};
+            
+
+            int old_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+            int old_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+            int new_x = next_move.x;
+            int new_y = next_move.y;
+            int** id_map = game_data->maps->enemy_map->index_map;
+            CellsMap* objecta_map = game_data->maps->cells_map;
+            char** col_map = game_data->maps->collision_map->grid;
+            col_map[old_x][old_y] = 'f';
+            col_map[new_x][new_y] = 'm';
+
+
+            objecta_map->cells[old_x][old_y]->objects[2] = NULL;
+            objecta_map->cells[new_x][new_y]->objects[2] = enemy->enemy_main->name;
+            enemy->enemy_position->position_tiles->pos_tiles = next_move;
+            int cur_id = id_map[old_x][old_y];
+            id_map[old_x][old_y] = -1;
+            id_map[new_x][new_y] = cur_id;
+
+            Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
+            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+            append_action_to_actions_map(game_data,moving1);
+            enemy->enemy_misc->activated = false;
+            enemy->enemy_characteristics->enemy_stamina->stamina-=4;
+            return true;
+        }
+        else if (game_data->maps->collision_map->grid[(int)next_move.x][(int)next_move.y] == 'm' && enemy->enemy_misc->activated == true)
+        {
+            
+            
+            int** id_map = game_data->maps->enemy_map->index_map;
+            
+            int old_tile_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+            int old_tile_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+            
+            Vector2 new_tile = next_move;
+            Vector2 old_tile = {old_tile_x,old_tile_y};
+            int m_id = id_map[(int)next_move.x][(int)next_move.y];
+            
+            Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
+            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+            Action* attack = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,RANDOM_MOVING,ATTACK,DURING,-1,m_id,
+                    &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,48,5);
+            Action* moving2 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
+            &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+            moving1->queue->ending_action = attack;
+            attack->queue->ending_action =moving2;
+            append_action_to_actions_map(game_data,moving1);
+            enemy->enemy_misc->activated = false;
+            enemy->enemy_characteristics->enemy_stamina->stamina-=4;
+            return true;
+        }
+    }
+    return false;
+    
+        
+        
+}
+
 
 void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
 {
@@ -517,14 +760,19 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
     Vector2* persecution_path = path_finding(alloc_path,game_data,enemy,persecution);
     Vector2* search_path = path_finding(alloc_path,game_data,enemy,search);
     Vector2* path = persecution_path;
+
+    
     for (int i = 0;i<enemy->enemy_misc->path_len+1;i++)
     {
+       
         if ((int)persecution_path[i].x ==-1 || (int)persecution_path[i].y==-1)
         {
             break;
         }
+       
         if (game_data->maps->collision_map->grid[(int)persecution_path[i].x][(int)persecution_path[i].y]=='m')
         {
+            
             if (vectors_comparison(search_path[0],(Vector2){-1,-1}))
             {
                 path = persecution_path;
@@ -532,22 +780,62 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
             }
             else
             {
+                
                 path = search_path;
                 break;
             }
         }
     }
+    if (enemy->enemy_animations->skin == CHICKEN_ZOMBIE)
+    {
+        bool move = chicken_zombie_dobble_move(game_data,enemy,path);
+        if (move)
+        {
+            return;
+        }
+        
+    }
+    
+    else if (enemy->enemy_animations->skin == ARM_ZOMBIE)
+    {
+        bool move = arm_zombie_jump_move(game_data,enemy,path);
+        if (move)
+        {
+            return;
+        }
+        
+    }
+        
     if (vectors_comparison(path[0],(Vector2){-1,-1}))
     {
-
     }
     else if (vectors_comparison(path[0],game_data->player->player_pos->position_tiles->pos_tiles) == 1)
     {
-        enemy_attack(game_data,enemy);
+        int old_tile_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+        int old_tile_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+        int new_tile_x = path[0].x;
+        int new_tile_y = path[0].y;
+        Vector2 new_tile = {new_tile_x,new_tile_y};
+        Vector2 old_tile = {old_tile_x,old_tile_y};
+        
+        Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
+        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+        Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
+        &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+        attack1->queue->ending_action=moving1;
+
+        append_action_to_actions_map(game_data,attack1);
+        
+        //enemy_attack(game_data,enemy);
+        
     }
     else if (game_data->maps->collision_map->grid[(int)path[0].x][(int)path[0].y]=='m')
     {
-
+        
+        if (enemy->enemy_animations->skin == CHICKEN_ZOMBIE || enemy->enemy_animations->skin == ARM_ZOMBIE)
+        {
+            plus_to_stamina(enemy);
+        }
     }
     else
     {
@@ -571,7 +859,9 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         Vector2 old_tile = {(float)old_x,(float)old_y};
         Vector2 new_tile = {(float)new_x,(float)new_y};
         //pr_int(enemy->enemy_main->index);
-        append_to_action_map(game_data,old_tile,new_tile,&enemy->enemy_position->position_pixels->pos_pixels,WALK,3,enemy->enemy_main->index);
+        Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+        append_action_to_actions_map(game_data,moving);
 
     }
     //destroy_allocator(alloc_path);
@@ -582,9 +872,8 @@ void enemy_attack(GAME_DATA* game_data,Enemy* enemy)
 {
     //enemy->current_animation[0] = &enemy->enemy_animations->attack;
     //pr_int(enemy->current_animation->currentFrame);
-    Vector2 new_tile = {game_data->player->player_pos->position_tiles->pos_tiles.x,game_data->player->player_pos->position_tiles->pos_tiles.y};
-    Vector2 old_tile = {(float)enemy->enemy_position->position_tiles->pos_tiles.x,(float)enemy->enemy_position->position_tiles->pos_tiles.y};
-    append_to_action_map(game_data,old_tile,new_tile,&enemy->enemy_position->position_pixels->pos_pixels,ATTACK,5,enemy->enemy_main->index);
+    
+    
     pr_int_with_text(game_data->player->player_stats->player_characteristics->heal_points,"player hp");
 
     int enemy_damage = rand_num_within(enemy->enemy_characteristics->min_physical_damage,enemy->enemy_characteristics->max_physical_damage);
@@ -600,14 +889,69 @@ void enemy_attack(GAME_DATA* game_data,Enemy* enemy)
     //enemy->current_animation[0] = &enemy->enemy_animations->breathe;
 
 }
-void enemy_life_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy,int enemy_x,int enemy_y) 
+void enemy_fast_attack(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy_attacker,Enemy* enemy_accepting)
 {
-    if ( enemy->enemy_characteristics->heal_points<=0)
+    //enemy->current_animation[0] = &enemy->enemy_animations->attack;
+    //pr_int(enemy->current_animation->currentFrame);
+    if (enemy_accepting != NULL)
     {
         
+        int enemy_damage = rand_num_within(enemy_attacker->enemy_characteristics->fast_min_physical_damage,enemy_attacker->enemy_characteristics->fast_max_physical_damage);
         
+        int enemy_heals = enemy_accepting->enemy_characteristics->heal_points;
+        int enemy_def = enemy_accepting->enemy_characteristics->defense;
+        int damage_after_def = enemy_damage - enemy_def;
+        if (damage_after_def <= 0)
+        {
+            damage_after_def =1;
+        }
+        enemy_accepting->enemy_characteristics->heal_points = enemy_heals - damage_after_def;
+        //enemy_life_check(game_data,game_anim,enemy_accepting,enemy_accepting->enemy_position->position_tiles->pos_tiles.x,enemy_accepting->enemy_position->position_tiles->pos_tiles.y);
+    }
+    else
+    {
+        pr_int_with_text(game_data->player->player_stats->player_characteristics->heal_points,"player hp");
+
+        int enemy_damage = rand_num_within(enemy_attacker->enemy_characteristics->fast_min_physical_damage,enemy_attacker->enemy_characteristics->fast_max_physical_damage);
+        int player_heals = game_data->player->player_stats->player_characteristics->heal_points;
+        int player_def = game_data->player->player_stats->player_characteristics->defense;
+        int damage_after_def = enemy_damage - player_def;
+        if (damage_after_def < 0)
+        {
+            damage_after_def =0;
+        }
+        game_data->player->player_stats->player_characteristics->heal_points = player_heals - damage_after_def;
+        pr_int_with_text(game_data->player->player_stats->player_characteristics->heal_points,"player hp");
+    }
+    
+    
+
+}
+void enemy_life_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy) 
+{
+    if ( enemy == NULL || enemy->enemy_main->live == 0)
+    {
+        return;
+    }
+    if ( enemy->enemy_characteristics->heal_points<=0)
+    {
+        enemy->enemy_main->live = 0;
+        int enemy_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+        int enemy_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+        /*
+        Vector2 new_tile = {enemy->enemy_position->position_tiles->pos_tiles.x,enemy->enemy_position->position_tiles->pos_tiles.y};
+        Vector2 old_tile = {enemy->enemy_position->position_tiles->pos_tiles.x,enemy->enemy_position->position_tiles->pos_tiles.y};
+        Action* die = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,RANDOM_MOVING,DIE,END,-1,-1,
+        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,30,5);
+        append_action_to_actions_map(game_data,die);
+        */
+        pr_int(enemy->enemy_main->index);
+        game_data->maps->cells_map->cells[enemy_x][enemy_y]->objects[2] = NULL;
+        game_data->maps->collision_map->grid[enemy_x][enemy_y] = 'f';
+        game_data->maps->enemy_map->index_map[enemy_x][enemy_y] = -1;
+        items_drop(game_data,game_anim,enemy,(int)enemy_x,(int)enemy_y);
+        delete_from_move_queue(game_data,enemy->enemy_main->index);
         
-        append_to_action_map(game_data,(Vector2){enemy_x,enemy_y},(Vector2){0,0},&enemy->enemy_position->position_pixels->pos_pixels,DIE,3,enemy->enemy_main->index);
 
     }
 }
@@ -682,7 +1026,12 @@ void enemies_rand_spawn(GAME_DATA* game_data,GAME_ANIM* game_anim)
                     
                     
                 }
-                spawn_enemy(game_anim,game_data,pos_x,pos_y,enemy_indexes,j);
+                int skin = -1;
+                if (j == 0)
+                {
+                    skin = rand_num_within(0,1);
+                }
+                spawn_enemy(game_anim,game_data,pos_x,pos_y,enemy_indexes,j,skin);
                 pos_find = false;
             }
             
@@ -690,4 +1039,12 @@ void enemies_rand_spawn(GAME_DATA* game_data,GAME_ANIM* game_anim)
             
         }
     }
+}
+Enemy* get_enemy_from_enemy_map(GAME_DATA* game_data, int enemy_index)
+{
+    if (enemy_index == -1)
+    {
+        return NULL;
+    }
+    return game_data->maps->enemy_map->enemy_map[enemy_index];
 }

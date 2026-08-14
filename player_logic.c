@@ -3,7 +3,7 @@ void player_attaks(GAME_DATA* game_data, GAME_ANIM* game_anim,int enemy_x, int e
 {
     Vector2 old_tile = {game_data->player->player_pos->position_tiles->pos_tiles.x,game_data->player->player_pos->position_tiles->pos_tiles.y};
     Vector2 new_tile = {(float)enemy_x,(float)enemy_y};
-    append_to_action_map(game_data,old_tile,new_tile,&game_data->player->player_pos->position_pixels->pos_pixels,ATTACK,5,-1);
+    
     EnemyMap* enemy_map = game_data->maps->enemy_map;
     int** id_map = enemy_map->index_map;
     int current_enemy_id = id_map[enemy_x][enemy_y];
@@ -22,7 +22,7 @@ void player_attaks(GAME_DATA* game_data, GAME_ANIM* game_anim,int enemy_x, int e
     }
     current_enemy->enemy_characteristics->heal_points = enemy_heals - damage_after_def;
     pr_int_with_text(current_enemy->enemy_characteristics->heal_points,"enemy hp");
-    enemy_life_check(game_data,game_anim,current_enemy,enemy_x,enemy_y);
+    enemy_life_check(game_data,game_anim,current_enemy);
 }
 
 int player_ground_check(GAME_DATA* game_data,int new_x,int new_y)

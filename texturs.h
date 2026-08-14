@@ -63,6 +63,8 @@ void equipment_textur_init(GAME_ANIM *game_anim);
 
 void enemies_textur_init(GAME_ANIM *game_anim);
 
+void player_textur_init(GAME_ANIM *game_anim);
+
 void tiles_textur_init(GAME_ANIM *game_anim);
 
 
@@ -70,9 +72,17 @@ Texturs *create_texturs_struct(Allocator *alloc);
 
 Animations *create_animations_struct(Allocator *alloc);
 
+void player_anim_init(GAME_DATA *game_data, GAME_ANIM *game_anim);
+
+
 Animation create_animation(Texture2D textur, int direction, int frame_count, int frame_width, int frame_height, Rectangle start_frame, int anim_speed, Allocator *alloc);
 
 void update_items_animations(GAME_ANIM *game_anim);
+
+void update_player_animations(GAME_ANIM *game_anim);
+
+void append_player_anim_to_arr(GAME_ANIM *game_anim, Animation **anim);
+
 
 void draw_animation(Animation *anim, Vector2 pos, int size_x, int size_y, int pos_index, float rotate);
 

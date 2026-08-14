@@ -11,23 +11,61 @@
 
 extern int enemy_indexes;
 typedef struct Enemy Enemy;
+typedef struct Animation Animation;
+typedef struct Action Action;
+
+typedef struct ActionPosInfo
+{
+    Vector2* position_pixels; //указатель на позицию обьекта
+    Vector2 old_tile; //страый тайл
+    Vector2 new_tile; //новый тайл
+
+}ActionPos;
+typedef struct ActionMainInfo
+{
+    int movement_type; //тип движения 
+    int during_type; //когда должно произойти
+    int action_type; //что должно произойти
+}ActionMainInfo;
+typedef struct ActionObjectInfo
+{
+    int object_type; //тип обьекта который это делает
+    int object_index; //индекс обьекта на карте
+    int affected_type;
+    int affected_index;
+}ActionObjectInfo;
+typedef struct ActionMiscInfo
+{
+    float current_fill; //типо таймера
+    float max_fill; //макс заполнение таймера
+    float speed; //скорость движения
+    int current_state; //текущее состояние
+
+}ActionMiscInfo;
+typedef struct ActionQueueInfo
+{
+    Action* beginning_action;
+    Action* ending_action;
+
+}ActionQueueInfo;
 typedef struct Action
 {
-    Vector2* position_pixels;
-    Vector2 old_tile;
-    Vector2 new_tile;
-    float current_fill;
-    float speed;
-    int current_state;
-    int action;
-    int index_enemies;
+    ActionMainInfo* main;
+    ActionPos* pos;
+    ActionObjectInfo* object;
+    ActionMiscInfo* misc;
+    int flow;
+    ActionQueueInfo* queue;
+    
+    
 }Action;
-typedef struct ActionMap
+typedef struct ActionsMap
 {
-    Action* actions_queue;
-    int amount_actions;
-
-}ActionMap;
+    Action** actions_main_queue;
+    int amount_actions_main_queue;
+    Action**actions_effects_queue;
+    int amount_actions_effects_queue;
+}ActionsMap;
 
 typedef struct ItemMain
 {
@@ -58,21 +96,32 @@ typedef struct ItemPos
 }ItemPos;
 typedef struct EnemyMisc
 {
-
+    Vector2 next_move;
     bool activated;
     int path_len;
 }EnemyMisc;
+typedef struct EnemyStamina
+{
+    int max_stamina;
+    int stamina;
+    int stamina_regeneration;
+    
+}EnemyStamina;
 typedef struct EnemyCharacteristics
 {
+    EnemyStamina* enemy_stamina;
     int heal_points;
     int defense;
     int max_physical_damage;
     int min_physical_damage;
+    int fast_max_physical_damage;
+    int fast_min_physical_damage;
 }EnemyCharacteristics;
 typedef struct EnemyMain
 {
     char* name;
     int index;
+    int live;
 }EnemyMain;
 typedef struct EnemyTilesPos
 {
@@ -216,11 +265,6 @@ typedef struct SpeedAnim
 }SpeedAnim;
 
 
-typedef struct Player
-{
-    PlayerPos* player_pos;
-    PlayerStats* player_stats;
-}Player;
 typedef struct MonitorSize
 {
     int monitor_width;
@@ -247,7 +291,7 @@ typedef struct Maps
     FogMap* fog_map;
     ItemsMap* items_map;
     EnemyMap* enemy_map;
-    ActionMap* pos_map;
+    ActionsMap* actins_map;
 }Maps;
 
 
@@ -354,11 +398,20 @@ typedef struct EnemiesTexturs
     ZombieEnemiesTexturs*zombie_enemies_textur;
     KnightZombieEnemiesTexturs*knight_zombie_enemies_textur;
 }EnemiesTexturs;
+typedef struct PlayerHuman
+{
+    Texture2D human_textur;
+}PlayerHuman;
+typedef struct PlayerTexturs
+{
+    PlayerHuman* player_human;
+}PlayerTexturs;
 typedef struct Texturs
 {
     WorldTexturs* world_texturs;
     ItemsTexturs* items_texturs;
     EnemiesTexturs* enemies_texturs;
+    PlayerTexturs* player_texturs;
     GUITexturs* gui_texturs;
 }Texturs;
 
@@ -377,8 +430,39 @@ typedef struct Animation
     bool isPlaying;
     int index;
 }Animation ;
+typedef struct PlayerAnimations
+{
+    Animation player_breathe_animation;
+    Animation player_walk_animation;
+    Animation player_attack_animation;
+    Animation player_die_animation;
+    Animation player_mine_animation;
+    int size_x;
+    int size_y;
+    int alignment_x;
+    int alignment_y
+}PlayerAnimations;
+typedef struct PlayerBodyPos
+{
+    Vector2 armor;
+    Vector2 helmet;
+    Vector2 sword;
+    Vector2 head;
+
+}PlayerBodyPos;
+
+typedef struct Player
+{
+    PlayerPos* player_pos;
+    PlayerStats* player_stats;
+    //PlayerActions* player_actions;
+    PlayerAnimations* player_anim;
+    PlayerBodyPos* body_pos;
+    Animation** current_anim;
+}Player;
 typedef struct EnemyAnimations
 {
+    int skin;
     Animation breathe;
     Animation attack;
     Animation walk;
@@ -388,6 +472,12 @@ typedef struct EnemyAnimations
     int alignment_x;
     int alignment_y
 }EnemyAnimations;
+typedef struct EnemyActions
+{
+    Action* enemy_move;
+    Action* enemy_attack;
+    Action* enemy_die;
+}EnemyActions;
 typedef struct Enemy
 {
     EnemyMain* enemy_main;
@@ -395,6 +485,7 @@ typedef struct Enemy
     EnemyPos* enemy_position;
     EnemyMisc* enemy_misc;
     EnemyAnimations* enemy_animations;
+    EnemyActions* enemy_actions;
     Animation** current_animation;
 }Enemy;
 typedef struct FloorAnimation
@@ -523,11 +614,26 @@ typedef struct EnemiesAnimations
     ZombieEnemiesAnimations*zombie_enemies_animations;
     KnightZombieEnemiesAnimations*knight_zombie_enemies_animations;
 }EnemiesAnimations;
+typedef struct HumanAnimations
+{
+    Animation player_breathe_animation;
+    Animation player_walk_animation;
+    Animation player_attack_animation;
+    Animation player_die_animation;
+    Animation player_mine_animation;
+    
+}HumanAnimations;
+typedef struct PlayersAnimations
+{
+    HumanAnimations* human_animations;
+    
+}PlayersAnimations;
 typedef struct Animations
 {
     WorldAnimation* world_animation;
     ItemsAnimation* items_animation;
     EnemiesAnimations* enemies_animation;
+    PlayersAnimations* player_animation;
     GUIAnimation* gui_animation;
 }Animations;
 
@@ -553,10 +659,17 @@ typedef struct AnimationEnemyMap
     int amount_animation_map_queue;
 
 }AnimationEnemyMap;
+typedef struct AnimationPlayerMap
+{
+    Animation*** animation_map_queue;
+    int amount_animation_map_queue;
+
+}AnimationPlayerMap;
 typedef struct AnimationMaps
 {
     AnimationItemsMap* animation_items_map;
     AnimationEnemyMap* animation_enemies_map;
+    AnimationPlayerMap* animation_player_map;
 
 }AnimationMaps;
 
@@ -574,15 +687,19 @@ typedef struct GAME_ANIM
 
 Player *create_player(Allocator *alloc, int start_posX, int start_posY);
 
-ActionMap *create_action_map(Allocator *alloc);
+ActionsMap* create_action_map(Allocator* alloc);
 
-Action create_action(Allocator *alloc, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float speed, int cur_action, int index_enemies);
+Action *create_action(Allocator *alloc, int flow, int object_type, int object_index, int movement_type, int action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float speed);
+
+
 
 
 
 GAME_DATA *create_game_data();
 
 AnimationEnemyMap *create_anim_enemies_map(GAME_ANIM *game_anim);
+
+AnimationPlayerMap *create_anim_player_map(GAME_ANIM *game_anim);
 
 AnimationItemsMap *create_anim_items_map(GAME_ANIM *game_anim);
 
