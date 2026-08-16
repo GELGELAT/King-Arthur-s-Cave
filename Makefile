@@ -1,42 +1,56 @@
+# ========================================
+# ПУТИ
+# ========================================
 CC = gcc
+BUILD_DIR = build
 RAYLIB_PATH = C:/clibs/raylib/src
+TARGET = game.exe
 
-CFLAGS = -g -Wall -Wextra -Wpedantic -std=c99 -I$(RAYLIB_PATH) -MMD -MP
-LDFLAGS = -L$(RAYLIB_PATH) -lraylib -lopengl32 -lgdi32 -lwinmm
+# ========================================
+# АВТОМАТИЧЕСКИЙ ПОИСК .c ФАЙЛОВ
+# ========================================
+SRCS = $(shell find . -name "*.c" -not -path "./$(BUILD_DIR)/*")
 
-# ========== ВЫБОР РЕЖИМА ==========
-ifeq ($(BUILD),deb)
-    CFLAGS += -g -O0 -DDEBUG
-    TARGET = game_d.exe
-else
-    CFLAGS += -O2 -DNDEBUG
-    TARGET = game.exe
-endif
+# ========================================
+# ОБЪЕКТНЫЕ ФАЙЛЫ
+# ========================================
+OBJS = $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRCS))
 
-# ========== ИСХОДНИКИ ==========
-SRCS = main.c allocator.c renderer.c structurs.c updater.c initialization.c generators.c misc.c texturs.c enemy_logic.c fog.c player_logic.c items_logic.c actions_work.c
-OBJS = $(SRCS:.c=.o)
-DEPS = $(OBJS:.o=.d)
+# ========================================
+# АВТОМАТИЧЕСКИЙ ПОИСК .h ФАЙЛОВ
+# ========================================
+INC_DIRS = $(shell find . -name "*.h" -not -path "./$(BUILD_DIR)/*" -exec dirname {} \; | sort -u)
+INCLUDES = $(addprefix -I, $(INC_DIRS))
 
-# ========== ЦЕЛИ ==========
+# ========================================
+# ФЛАГИ
+# ========================================
+CFLAGS = -g -Wall $(INCLUDES) -I$(RAYLIB_PATH)
+LDFLAGS = -L$(RAYLIB_PATH) -lraylib -lopengl32 -lgdi32 -lwinmm -mconsole
+
+# ========================================
+# ЦЕЛИ
+# ========================================
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
-%.o: %.c
+$(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Подключаем автоматические зависимости
--include $(DEPS)
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
 clean:
-	rm -f $(OBJS) $(DEPS) *.exe
+	rm -rf $(BUILD_DIR) $(TARGET)
 
 run: $(TARGET)
 	./$(TARGET)
 
 debug:
-	$(MAKE) BUILD=t
+	$(MAKE) clean
+	$(MAKE) CFLAGS="$(CFLAGS) -g -O0 -DDEBUG" all
 
 .PHONY: all clean run debug
