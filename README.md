@@ -6,4 +6,10 @@ Turn-based dungeon crawl roguelike. (Project for the 3rd semester at NSU)
 ------------------------------------
 11.08.26
 <img width="1081" height="702" alt="изображение" src="https://github.com/user-attachments/assets/1b4499d4-407b-429c-bdfe-1df20752f923" />
-
+------------------------------------
+14.08.26
+Action system added.
+Added unique behaviors for the zombie chicken and zombie hand.
+------------------------------------
+16.08.26
+Started dividing project into folders.
