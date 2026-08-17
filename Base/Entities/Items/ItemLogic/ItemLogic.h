@@ -3,7 +3,7 @@
 #include "structurs.h"
 #include "MiscScripts.h"
 #include "texturs.h"
-#include "player_logic.h"
+#include "PlayerLogic.h"
 
 extern int armor_stats[];
 extern int weapon_stats[];

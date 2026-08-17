@@ -7,7 +7,7 @@
 #include "texturs.h"
 #include "FogLogic.h"
 #include "EnemyLogic.h"
-#include "player_logic.h"
+#include "PlayerLogic.h"
 #include "ActionsUpdaterLogic.h"
 
 //#define 

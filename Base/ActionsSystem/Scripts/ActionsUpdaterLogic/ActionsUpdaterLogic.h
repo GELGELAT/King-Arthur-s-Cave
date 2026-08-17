@@ -6,7 +6,7 @@
 #include "MiscScripts.h"
 #include "texturs.h"
 #include "EnemyLogic.h"
-#include "player_logic.h"
+#include "PlayerLogic.h"
 
 #include "ActionsMisc.h"
 #include "ActionForward.h"
