@@ -4,9 +4,9 @@
 #include "raylib.h"
 #include <stdlib.h> 
 #include "MiscScripts.h"
-#include "texturs.h"
+#include "AssetsLogic.h"
 #include "EnemyLogic.h"
-#include "player_logic.h"
+#include "PlayerLogic.h"
 
 #include "ActionsMisc.h"
 #include "ActionForward.h"

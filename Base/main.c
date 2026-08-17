@@ -4,9 +4,9 @@
 #include "structurs.h"
 
 #include "Allocator.h"
-#include "updater.h"
-#include "renderer.h"
-#include "initialization.h"
+#include "UpdaterLogic.h"
+#include "RendererLogic.h"
+#include "InitializationLogic.h"
 #include "structurs.h"
 #include <stdio.h>
 #include <time.h>
