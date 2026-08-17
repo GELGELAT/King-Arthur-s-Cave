@@ -1,4 +1,4 @@
-#include "initialization.h"
+#include "InitializationLogic.h"
 
 
 
@@ -47,7 +47,7 @@ bool structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int ti
     append_player_anim_to_arr(game_anim,game_data->player->current_anim);
     cells_map_init(game_data, tilesX,  tilesY,  tileSize);
     collision_map_init(game_data);
-    pos_map_init(game_data);
+    action_map_init(game_data);
     camera_init(game_data);
     enemy_map_init(game_data); 
     path_init(game_data);
@@ -141,7 +141,7 @@ bool collision_map_init(GAME_DATA* game_data)
     CollisionMap* map = create_collision_map(game_data->allocators->alloc_data,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
     game_data->maps->collision_map = map;
 }
-bool pos_map_init(GAME_DATA* game_data)
+bool action_map_init(GAME_DATA* game_data)
 {
 
     ActionsMap* map = create_action_map(game_data->allocators->alloc_data);
@@ -210,14 +210,14 @@ bool enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
     int posX = game_data->player->player_pos->position_tiles->pos_tiles.x;
     int posY = game_data->player->player_pos->position_tiles->pos_tiles.y;
 
-    spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,1,-1);
-     spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,0,1);
+    //spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,1,-1);
+    // spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,0,1);
    // spawn_enemy(game_anim,game_data,posX+1,posY+1,enemy_indexes,0,1);
    // spawn_enemy(game_anim,game_data,posX-1,posY-1,enemy_indexes,0,0);
   //  spawn_enemy(game_anim,game_data,posX-1,posY+1,enemy_indexes,0,0);
     //spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,0,0);
     
-   //enemies_rand_spawn(game_data,game_anim);
+   enemies_rand_spawn(game_data,game_anim);
 
                 
 }

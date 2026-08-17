@@ -6,7 +6,7 @@
 #include "EnemyLogic.h"
 #include "ItemLogic.h"
 
-#include "PlayerLogic.h"
+#include "PlayerItem.h"
 #include "PlayerMove.h"
 void apply_equipment(Player *player, int item_type, int index);
 

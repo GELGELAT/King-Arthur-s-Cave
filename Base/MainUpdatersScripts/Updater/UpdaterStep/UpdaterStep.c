@@ -1,27 +1,5 @@
-#include "updater.h"
-
-#define time_between_actions 15
-#define first_state 1
-#define second_state 2
-#define third_state 2
-#define DIE_TIME 35
+#include "UpdaterStep.h"
 bool step_flag = false;
-
-void GAME_UPDATE(GAME_DATA *game_data,GAME_ANIM* game_anim)
-{
-    pos_player_updater(game_data,game_anim);
-    camera_updater(game_data);
-    main_action_map_updater(game_data,game_anim);
-    update_items_animations(game_anim);
-    update_ememies_animations(game_anim);
-    update_player_animations(game_anim);
-}
-
-void camera_updater(GAME_DATA *game_data)
-{
-    game_data->misc->camera.offset = (Vector2){ game_data->misc->monitor_size.monitor_width/2.0f, game_data->misc->monitor_size.monitor_height/2.0f };
-    game_data->misc->camera.target = game_data->player->player_pos->position_pixels->pos_pixels;;
-}
 bool pos_player_updater(GAME_DATA *game_data,GAME_ANIM* game_anim)
 {
     int action_flag = -1;
@@ -159,6 +137,3 @@ void after_step(GAME_DATA* game_data)
     //enemy_moving(game_data,game_data->maps->enemy_map->enemy_map[1]);
     step_flag = false;
 }
-
-
-

@@ -5,9 +5,9 @@
 #include "Allocator.h"
 #include "structurs.h"
 #include "MiscScripts.h"
-#include "texturs.h"
+#include "AssetsLogic.h"
 #include "ItemLogic.h"
-#include "updater.h"
+#include "UpdaterLogic.h"
 #include "ActionsUpdaterLogic.h"
 
 #include "EnemyMisc.h"

@@ -4,7 +4,7 @@
 #include "Allocator.h"
 #include "Generators.h"     
 #include "MiscScripts.h"     
-#include "texturs.h"     
+#include "AssetsLogic.h"     
 #include "EnemyLogic.h"     
 #include "FogLogic.h"
 #include "ItemLogic.h"
@@ -39,7 +39,7 @@ bool spawn_pos_init(GAME_DATA *game_data);
 
 bool collision_map_init(GAME_DATA *game_data);
 
-bool pos_map_init(GAME_DATA *game_data);
+bool action_map_init(GAME_DATA *game_data);
 
 bool fog_init(GAME_DATA *game_data);
 
