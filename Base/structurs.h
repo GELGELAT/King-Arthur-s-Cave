@@ -467,6 +467,9 @@ typedef struct EnemyAnimations
     Animation attack;
     Animation walk;
     Animation die;
+    Animation corpse;
+    Animation receiving_damage;
+    Animation dying;
     int size_x;
     int size_y;
     int alignment_x;
@@ -598,6 +601,9 @@ typedef struct ZombieEnemiesAnimations
     Animation zombie_walk_animation;
     Animation zombie_attack_animation;
     Animation zombie_die_animation;
+    Animation zombie_corpse_animation;
+    Animation zombie_receiving_damage_animation;
+    Animation zombie_dying_animation;
 }ZombieEnemiesAnimations;
 typedef struct KnightZombieEnemiesAnimations
 {

@@ -91,6 +91,13 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_attack_animation=zombie_attack_animation;
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_die_animation=zombie_die_animation;
 
+    Animation zombie_corpse_animation=create_animation(zombie_textur,Width,1,-25,20,(Rectangle){75,60,25,20},8,alloc);
+    Animation zombie_dying_animation=create_animation(zombie_textur,Width,3,-25,20,(Rectangle){0,60,25,20},8,alloc);
+    Animation zombie_receiving_damage_animation=create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,40,25,20},8,alloc);
+    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_corpse_animation=zombie_corpse_animation;
+    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_dying_animation=zombie_dying_animation;
+    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_receiving_damage_animation=zombie_receiving_damage_animation;
+
     //ZOMBIEKNIGHT 0 ANIM
     Texture2D knight_zombie_textur = game_anim->texturs->enemies_texturs->knight_zombie_enemies_textur->knight_zombie_texturs;
     Animation knight_zombie_breathe_animation =create_animation(knight_zombie_textur,Width,4,32,32,(Rectangle){0,128,32,32},8,alloc);
