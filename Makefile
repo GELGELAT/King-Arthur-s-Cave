@@ -1,32 +1,38 @@
 # ========================================
 # ПУТИ
 # ========================================
-CC = gcc
+CC = ccache gcc
 BUILD_DIR = build
 RAYLIB_PATH = C:/clibs/raylib/src
 TARGET = game.exe
 
 # ========================================
-# АВТОМАТИЧЕСКИЙ ПОИСК .c ФАЙЛОВ
+# АВТОМАТИЧЕСКИЙ ПОИСК .c
 # ========================================
-SRCS = $(shell find . -name "*.c" -not -path "./$(BUILD_DIR)/*")
+SRCS = $(shell find . -name "*.c" -not -path "./$(BUILD_DIR)/*" | sed 's/^\.\///')
 
 # ========================================
 # ОБЪЕКТНЫЕ ФАЙЛЫ
 # ========================================
 OBJS = $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRCS))
+DEPS = $(OBJS:.o=.d)
 
 # ========================================
-# АВТОМАТИЧЕСКИЙ ПОИСК .h ФАЙЛОВ
+# ПУТИ К .h (ОГРАНИЧЕННЫЕ)
 # ========================================
 INC_DIRS = $(shell find . -name "*.h" -not -path "./$(BUILD_DIR)/*" -exec dirname {} \; | sort -u)
 INCLUDES = $(addprefix -I, $(INC_DIRS))
 
 # ========================================
-# ФЛАГИ
+# ФЛАГИ (ОПТИМИЗИРОВАННЫЕ)
 # ========================================
-CFLAGS = -g -Wall $(INCLUDES) -I$(RAYLIB_PATH)
+CFLAGS = -g -O0 -pipe -Wall $(INCLUDES) -I$(RAYLIB_PATH) -MMD -MP
 LDFLAGS = -L$(RAYLIB_PATH) -lraylib -lopengl32 -lgdi32 -lwinmm -mconsole
+
+# ========================================
+# ПАРАЛЛЕЛЬНАЯ СБОРКА
+# ========================================
+MAKEFLAGS += -j$(NUMBER_OF_PROCESSORS)
 
 # ========================================
 # ЦЕЛИ
@@ -43,14 +49,12 @@ $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
+-include $(DEPS)
+
 clean:
 	rm -rf $(BUILD_DIR) $(TARGET)
 
 run: $(TARGET)
 	./$(TARGET)
 
-debug:
-	$(MAKE) clean
-	$(MAKE) CFLAGS="$(CFLAGS) -g -O0 -DDEBUG" all
-
-.PHONY: all clean run debug
+.PHONY: all clean run

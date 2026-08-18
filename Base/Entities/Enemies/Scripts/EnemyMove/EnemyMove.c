@@ -61,7 +61,7 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
             }
         }
     }
-    if (enemy->enemy_animations->skin == CHICKEN_ZOMBIE)
+    if (enemy->enemy_animations->skin == CHICKEN_ZOMBIE && enemy->enemy_main->name == enemy_texturs[0])
     {
         bool move = chicken_zombie_dobble_move(game_data,enemy,path);
         if (move)
@@ -71,7 +71,7 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         
     }
     
-    else if (enemy->enemy_animations->skin == ARM_ZOMBIE)
+    else if (enemy->enemy_animations->skin == ARM_ZOMBIE && enemy->enemy_main->name == enemy_texturs[0])
     {
         bool move = arm_zombie_jump_move(game_data,enemy,path);
         if (move)
@@ -80,7 +80,16 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         }
         
     }
+    else if (enemy->enemy_animations->skin == RESETTER_ZOMBIE && enemy->enemy_main->name == enemy_texturs[2])
+    {
+        bool move = zombie_revival_move(game_data,enemy,path);
+        if (move)
+        {
+            pr_int(444);
+            return;
+        }
         
+    }
     if (vectors_comparison(path[0],(Vector2){-1,-1}))
     {
     }

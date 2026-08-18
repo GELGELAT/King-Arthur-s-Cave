@@ -117,8 +117,14 @@ typedef struct EnemyCharacteristics
     int fast_max_physical_damage;
     int fast_min_physical_damage;
 }EnemyCharacteristics;
+typedef struct EnemyStats
+{
+    int max_timer;
+    int current_timer;
+}EnemyStats;
 typedef struct EnemyMain
 {
+    EnemyStats* enemy_stats;
     char* name;
     int index;
     int live;
@@ -440,7 +446,7 @@ typedef struct PlayerAnimations
     int size_x;
     int size_y;
     int alignment_x;
-    int alignment_y
+    int alignment_y;
 }PlayerAnimations;
 typedef struct PlayerBodyPos
 {
@@ -473,7 +479,7 @@ typedef struct EnemyAnimations
     int size_x;
     int size_y;
     int alignment_x;
-    int alignment_y
+    int alignment_y;
 }EnemyAnimations;
 typedef struct EnemyActions
 {

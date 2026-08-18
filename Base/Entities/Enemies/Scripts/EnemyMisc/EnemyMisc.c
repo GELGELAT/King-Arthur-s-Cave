@@ -18,8 +18,14 @@ void enemy_life_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
     {
         return;
     }
+    
     if ( enemy->enemy_characteristics->heal_points<=0)
     {
+        if (revival_check(game_data,game_anim,enemy))
+        {
+            
+            return;
+        }
         enemy->enemy_main->live = 0;
         int enemy_x = enemy->enemy_position->position_tiles->pos_tiles.x;
         int enemy_y = enemy->enemy_position->position_tiles->pos_tiles.y;
@@ -91,11 +97,10 @@ void enemies_rand_spawn(GAME_DATA* game_data,GAME_ANIM* game_anim)
                     
                     
                 }
-                int skin = -1;
-                if (j == 0)
-                {
-                    skin = rand_num_within(0,1);
-                }
+                
+                
+                int skin = rand_num_within(0,1);
+                
                 spawn_enemy(game_anim,game_data,pos_x,pos_y,enemy_indexes,j,skin);
                 pos_find = false;
             }
