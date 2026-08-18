@@ -129,7 +129,7 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
         enemy->enemy_animations->size_y = rand_num_within(84,92);
          enemy->enemy_animations->alignment_x =48;
           enemy->enemy_animations->alignment_y =64;
-        if (skin = RESETTER_ZOMBIE)
+        if (skin == RESETTER_ZOMBIE)
         {
             enemy->enemy_animations->dying = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_dying_animation;
             enemy->enemy_animations->corpse = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_corpse_animation;
@@ -137,6 +137,11 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
             enemy->enemy_main->enemy_stats->current_timer = 0;
             enemy->enemy_animations->skin =  RESETTER_ZOMBIE;
         }
+        else
+        {
+            enemy->enemy_animations->skin =  0;
+        }
+        
         
     }
     else if (enemy_type == 3)
