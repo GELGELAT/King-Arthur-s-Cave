@@ -472,10 +472,10 @@ typedef struct EnemyAnimations
     Animation breathe;
     Animation attack;
     Animation walk;
-    Animation die;
     Animation corpse;
     Animation receiving_damage;
-    Animation dying;
+    Animation fall;
+    Animation preparation;
     int size_x;
     int size_y;
     int alignment_x;
@@ -588,36 +588,43 @@ typedef struct ArmEnemiesAnimations
     Animation arm_0_breathe_animation;
     Animation arm_0_walk_animation;
     Animation arm_0_attack_animation;
-    Animation arm_0_die_animation;
+    Animation arm_0_corpse_animation;
+    Animation arm_0_receiving_damage_animation;
+    Animation arm_0_fall_animation;
     Animation arm_1_breathe_animation;
     Animation arm_1_walk_animation;
     Animation arm_1_attack_animation;
-    Animation arm_1_die_animation;
+    Animation arm_1_corpse_animation;
+    Animation arm_1_receiving_damage_animation;
+    Animation arm_1_fall_animation;
+    Animation arm_1_preparation_animation;
 }ArmEnemiesAnimations;
 typedef struct SkeletonEnemiesAnimations
 {
     Animation skeleton_breathe_animation;
     Animation skeleton_walk_animation;
     Animation skeleton_attack_animation;
-    Animation skeleton_die_animation;
+    Animation skeleton_corpse_animation;
+    Animation skeleton_receiving_damage_animation;
+    Animation skeleton_fall_animation;
 }SkeletonEnemiesAnimations;
 typedef struct ZombieEnemiesAnimations
 {
     Animation zombie_breathe_animation;
     Animation zombie_walk_animation;
     Animation zombie_attack_animation;
-    Animation zombie_die_animation;
     Animation zombie_corpse_animation;
     Animation zombie_receiving_damage_animation;
-    Animation zombie_dying_animation;
+    Animation zombie_fall_animation;
 }ZombieEnemiesAnimations;
 typedef struct KnightZombieEnemiesAnimations
 {
-    Texture2D knight_zombie_animation;
     Animation knight_zombie_breathe_animation;
     Animation knight_zombie_walk_animation;
     Animation knight_zombie_attack_animation;
-    Animation knight_zombie_die_animation;
+    Animation knight_zombie_corpse_animation;
+    Animation knight_zombie_receiving_damage_animation;
+    Animation knight_zombie_fall_animation;
 }KnightZombieEnemiesAnimations;
 typedef struct EnemiesAnimations
 {

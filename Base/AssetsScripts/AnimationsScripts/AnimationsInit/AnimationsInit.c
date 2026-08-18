@@ -54,48 +54,61 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     Animation skeleton_breathe_animation =create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,96,32,32},8,alloc);
     Animation skeleton_walk_animation =create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,0,32,32},16,alloc);
     Animation skeleton_attack_animation =create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,32,32,32},8,alloc);
-    Animation skeleton_die_animation=create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,64,32,32},8,alloc);
+    Animation skeleton_receiving_damage_animation=create_animation(skeleton_textur,Width,4,32,32,(Rectangle){0,64,32,32},8,alloc);
     game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_breathe_animation=skeleton_breathe_animation;
     game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_walk_animation=skeleton_walk_animation;
     game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_attack_animation=skeleton_attack_animation;
-    game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_die_animation=skeleton_die_animation;
+    game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_receiving_damage_animation=skeleton_receiving_damage_animation;
 
-    //ARM 0 ANIM
+    Animation skeleton_fall_animation =create_animation(skeleton_textur,Width,3,32,32,(Rectangle){0,128,32,32},8,alloc);
+    Animation skeleton_corpse_animation=create_animation(skeleton_textur,Width,1,32,32,(Rectangle){96,128,32,32},8,alloc);
+    game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_fall_animation=skeleton_fall_animation;
+    game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_corpse_animation=skeleton_corpse_animation;
+    //ARM 0 ANIM CHICKEN
     Texture2D arm_0_textur = game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_0_texturs;
     Animation arm_0_breathe_animation =create_animation(arm_0_textur,Width,4,16,16,(Rectangle){0,48,16,16},8,alloc);
     Animation arm_0_walk_animation =create_animation(arm_0_textur,Width,4,16,16,(Rectangle){0,0,16,16},16,alloc);
     Animation arm_0_attack_animation =create_animation(arm_0_textur,Width,4,16,16,(Rectangle){0,32,16,16},8,alloc);
-    Animation arm_0_die_animation=create_animation(arm_0_textur,Width,3,16,16,(Rectangle){0,16,16,16},8,alloc);
+    Animation arm_0_receiving_damage_animation=create_animation(arm_0_textur,Width,3,16,16,(Rectangle){0,16,16,16},8,alloc);
     game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_breathe_animation=arm_0_breathe_animation;
     game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_walk_animation=arm_0_walk_animation;
     game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_attack_animation=arm_0_attack_animation;
-    game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_die_animation=arm_0_die_animation;
-    //ARM 1 ANIM
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_receiving_damage_animation=arm_0_receiving_damage_animation;
+    Animation arm_0_fall_animation =create_animation(arm_0_textur,Width,3,16,16,(Rectangle){0,64,16,16},8,alloc);
+    Animation arm_0_corpse_animation=create_animation(arm_0_textur,Width,1,16,16,(Rectangle){48,16,16,16},8,alloc);
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_fall_animation=arm_0_fall_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_corpse_animation=arm_0_corpse_animation;
+    //ARM 1 ANIM ARM
     Texture2D arm_1_textur = game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_1_texturs;
     Animation arm_1_breathe_animation =create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,32,16,16},8,alloc);
     Animation arm_1_walk_animation =create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,0,16,16},16,alloc);
     Animation arm_1_attack_animation =create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,16,16,16},8,alloc);
-    Animation arm_1_die_animation=create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,48,16,16},8,alloc);
+    Animation arm_1_receiving_damage_animation=create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,48,16,16},8,alloc);
     game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_breathe_animation=arm_1_breathe_animation;
     game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_walk_animation=arm_1_walk_animation;
     game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_attack_animation=arm_1_attack_animation;
-    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_die_animation=arm_1_die_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_receiving_damage_animation=arm_1_receiving_damage_animation;
+
+    Animation arm_1_fall_animation =create_animation(arm_1_textur,Width,2,16,16,(Rectangle){0,48,16,16},8,alloc);
+    Animation arm_1_corpse_animation=create_animation(arm_1_textur,Width,1,16,16,(Rectangle){32,48,16,16},8,alloc);
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_fall_animation=arm_1_fall_animation;
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_corpse_animation=arm_1_corpse_animation;
+    Animation arm_1_preparation_animation=create_animation(arm_1_textur,Width,3,16,16,(Rectangle){0,64,16,16},4,alloc);
+    game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_preparation_animation=arm_1_preparation_animation;
     //ZOMBIE 0 ANIM
     Texture2D zombie_textur = game_anim->texturs->enemies_texturs->zombie_enemies_textur->zombie_texturs;
     Animation zombie_breathe_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,80,25,20},8,alloc);
     Animation zombie_walk_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,0,25,20},12,alloc);
     Animation zombie_attack_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,20,25,20},16,alloc);
-    Animation zombie_die_animation=create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,40,25,20},8,alloc);
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_breathe_animation=zombie_breathe_animation;
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_walk_animation=zombie_walk_animation;
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_attack_animation=zombie_attack_animation;
-    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_die_animation=zombie_die_animation;
 
     Animation zombie_corpse_animation=create_animation(zombie_textur,Width,1,-25,20,(Rectangle){75,60,25,20},8,alloc);
-    Animation zombie_dying_animation=create_animation(zombie_textur,Width,3,-25,20,(Rectangle){0,60,25,20},8,alloc);
+    Animation zombie_fall_animation=create_animation(zombie_textur,Width,3,-25,20,(Rectangle){0,60,25,20},8,alloc);
     Animation zombie_receiving_damage_animation=create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,40,25,20},8,alloc);
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_corpse_animation=zombie_corpse_animation;
-    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_dying_animation=zombie_dying_animation;
+    game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_fall_animation=zombie_fall_animation;
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_receiving_damage_animation=zombie_receiving_damage_animation;
 
     //ZOMBIEKNIGHT 0 ANIM
@@ -103,12 +116,16 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     Animation knight_zombie_breathe_animation =create_animation(knight_zombie_textur,Width,4,32,32,(Rectangle){0,128,32,32},8,alloc);
     Animation knight_zombie_walk_animation =create_animation(knight_zombie_textur,Width,4,32,32,(Rectangle){0,0,32,32},12,alloc);
     Animation knight_zombie_attack_animation =create_animation(knight_zombie_textur,Width,4,32,32,(Rectangle){0,32,32,32},8,alloc);
-    Animation knight_zombie_die_animation=create_animation(knight_zombie_textur,Width,3,32,32,(Rectangle){0,64,32,32},8,alloc);
+    Animation knight_zombie_receiving_damage_animation=create_animation(knight_zombie_textur,Width,2,32,32,(Rectangle){0,96,32,32},8,alloc);
     game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_breathe_animation=knight_zombie_breathe_animation;
     game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_walk_animation=knight_zombie_walk_animation;
     game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_attack_animation=knight_zombie_attack_animation;
-    game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_die_animation=knight_zombie_die_animation;
+    game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_receiving_damage_animation=knight_zombie_receiving_damage_animation;
 
+    Animation knight_zombie_fall_animation =create_animation(knight_zombie_textur,Width,5,32,32,(Rectangle){0,64,32,32},8,alloc);
+    Animation knight_zombie_corpse_animation=create_animation(knight_zombie_textur,Width,1,32,32,(Rectangle){128,96,32,32},8,alloc);
+    game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_fall_animation=knight_zombie_fall_animation;
+    game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_corpse_animation=knight_zombie_corpse_animation;
     //PLAYER HUMAN ANIM
     Texture2D player_human_textur = game_anim->texturs->player_texturs->player_human->human_textur;
     Animation player_human_breathe_animation =create_animation(player_human_textur,Width,4,-32,32,(Rectangle){96,96,-32,32},8,alloc);

@@ -266,3 +266,9 @@ void append_to_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim
     }
     
 }
+float play_full_animation(Animation* animation,float speed)
+{
+    float full_anim_play_time = animation->framesSpeed*animation->frameCount;
+    float rel_anim_play_time = full_anim_play_time * speed;
+    return rel_anim_play_time;
+}

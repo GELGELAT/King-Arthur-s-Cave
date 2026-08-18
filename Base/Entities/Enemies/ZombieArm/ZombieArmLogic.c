@@ -20,8 +20,8 @@ bool arm_zombie_jump_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
         {
             
             enemy->enemy_misc->next_move = path[1];
-            Action* preparation = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,PREPARATION,END,-1,-1,
-                    &enemy->enemy_position->position_pixels->pos_pixels,path[1],path[1],48,5);
+            Action* preparation = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,PREPARATION,START,-1,-1,
+                    &enemy->enemy_position->position_pixels->pos_pixels,path[1],path[1],1,1);
             append_action_to_actions_map(game_data,preparation);
             return true;
             

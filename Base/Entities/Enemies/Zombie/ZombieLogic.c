@@ -41,13 +41,13 @@ bool revival_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
         Vector2 old_tile = enemy->enemy_position->position_tiles->pos_tiles;
         Vector2 new_tile = enemy->enemy_position->position_tiles->pos_tiles;
         //enemy->current_animation[0] = &enemy->enemy_animations->corpse;
-        Action* dying = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,FALL,DURING,-1,-1,
+        Action* fall = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,FALL,DURING,-1,-1,
         &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,24,1);
-        Action* corpse = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,CORPSE,START,-1,-1,
+        Action* corpse = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,CORPSE,DURING,-1,-1,
         &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
-        dying->queue->ending_action=corpse;
+        fall->queue->ending_action=corpse;
 
-        append_action_to_actions_map(game_data,dying);
+        append_action_to_actions_map(game_data,fall);
         return true;
     }
     return false;

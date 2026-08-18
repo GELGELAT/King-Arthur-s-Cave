@@ -38,6 +38,7 @@
 #define PREPARATION 4
 #define FALL 5
 #define CORPSE 6
+#define RECEIVING_DAMAGE 7
 
 //ТИП ОБЬЕКТА КОТОРЫЙ ДЕЛАЕТ ДЕЙСТВИЕ
 //4 enemy

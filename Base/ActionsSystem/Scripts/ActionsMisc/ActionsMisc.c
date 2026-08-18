@@ -32,14 +32,14 @@ void enemy_animation_direction(int directing_x,int directing_y,Enemy* enemy)
         enemy->enemy_animations->walk.cur_frameRec.width = -width;
         enemy->enemy_animations->attack.cur_frameRec.width = -width;
         enemy->enemy_animations->breathe.cur_frameRec.width = -width;
-        enemy->enemy_animations->die.cur_frameRec.width = -width;
+        enemy->enemy_animations->fall.cur_frameRec.width = -width;
     }
     if (directing_x<0)
     {
         enemy->enemy_animations->walk.cur_frameRec.width = width;
         enemy->enemy_animations->attack.cur_frameRec.width = width;
         enemy->enemy_animations->breathe.cur_frameRec.width = width;
-        enemy->enemy_animations->die.cur_frameRec.width = width;
+        enemy->enemy_animations->fall.cur_frameRec.width = width;
     }
     
 }
