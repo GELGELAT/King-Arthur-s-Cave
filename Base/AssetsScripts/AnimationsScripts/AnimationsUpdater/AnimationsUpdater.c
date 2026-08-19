@@ -53,7 +53,7 @@ void update_animation(Animation* anim)
     //pr_int(anim->currentFrame);
     //pr_int(anim->texture.id);
     anim->framesCounter+=1;
-    if (anim->framesCounter > (anim->framesSpeed)) 
+    if (anim->framesCounter >= (anim->framesSpeed)) 
     {
         anim->framesCounter = 0;
         anim->currentFrame++;

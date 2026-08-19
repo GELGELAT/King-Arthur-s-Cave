@@ -26,16 +26,16 @@ bool chicken_zombie_dobble_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
                 Vector2 new_tile = {new_tile_x,new_tile_y};
                 Vector2 old_tile = {old_tile_x,old_tile_y};
                 Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
-                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,1,5);
                 Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
-                &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+                &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,1,5);
                 attack1->queue->ending_action=moving1;
 
                 Action* attack2 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
-                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,1,5);
                 moving1->queue->ending_action = attack2;
                 Action* moving2 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
-                &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+                &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,1,5);
                 attack2->queue->ending_action=moving2;
 
                 append_action_to_actions_map(game_data,attack1);
@@ -62,7 +62,7 @@ bool chicken_zombie_dobble_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
                 Vector2 new_tile_attack = {new_tile_attack_x,new_tile_attack_y};
                 Vector2 old_tile_attack = {old_tile_attack_x,old_tile_attack_y};
                 Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
-                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,1,5);
                 
                 col_map[old_tile_x][old_tile_y] = 'f';
                 col_map[new_tile_x][new_tile_y] = 'm';
@@ -75,10 +75,10 @@ bool chicken_zombie_dobble_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
                 id_map[old_tile_x][old_tile_y] = -1;
                 id_map[new_tile_x][new_tile_y] = cur_id;
                 Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
-                &enemy->enemy_position->position_pixels->pos_pixels,old_tile_attack,new_tile_attack,1,5);
+                &enemy->enemy_position->position_pixels->pos_pixels,old_tile_attack,new_tile_attack,1,1,5);
                 moving->queue->ending_action = attack1;
                 Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
-                &enemy->enemy_position->position_pixels->pos_pixels,new_tile_attack ,old_tile_attack,1,5);
+                &enemy->enemy_position->position_pixels->pos_pixels,new_tile_attack ,old_tile_attack,1,1,5);
                 attack1->queue->ending_action=moving1;
                 append_action_to_actions_map(game_data,moving);
                 enemy->enemy_characteristics->enemy_stamina->stamina-=2;

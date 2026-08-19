@@ -10,6 +10,7 @@ build/Base/Gamemode/InitializationLogic.o: \
  Base/AssetsScripts/AnimationsScripts/AnimationsLogic/AnimationsLogic.h \
  Base/AssetsScripts/AnimationsScripts/AnimationsUpdater/AnimationsUpdater.h \
  Base/AssetsScripts/AnimationsScripts/AnimationsInit/AnimationsInit.h \
+ Base/Entities/Enemies/Scripts/EnemyMisc/EnemyMisc.h \
  Base/Entities/Enemies/Scripts/EnemyLogic/EnemyLogic.h \
  Base/Entities/Items/ItemLogic/ItemLogic.h \
  Base/Entities/Player/PlayerLogic/PlayerLogic.h \
@@ -27,14 +28,14 @@ build/Base/Gamemode/InitializationLogic.o: \
  Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h \
  Base/MainUpdatersScripts/Updater/UpdaterCamera/UpdaterCamera.h \
  Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.h \
- Base/Entities/Enemies/Scripts/EnemyMisc/EnemyMisc.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h \
  Base/Entities/Enemies/Scripts/EnemySpawn/EnemySpawn.h \
  Base/Entities/Enemies/ZombieArm/ZombieArmLogic.h \
  Base/Entities/Enemies/ZombieChicken/ZombieChickenLogic.h \
- Base/Entities/Enemies/Zombie/ZombieLogic.h
+ Base/Entities/Enemies/Zombie/ZombieLogic.h \
+ Base/AssetsScripts/AssetsAnimSpeed.h
 Base/Gamemode/InitializationLogic.h:
 Base/structurs.h:
 Base/RayLibs/raylib.h:
@@ -48,6 +49,7 @@ Base/AssetsScripts/TextursScripts/TextursInit/TextursInit.h:
 Base/AssetsScripts/AnimationsScripts/AnimationsLogic/AnimationsLogic.h:
 Base/AssetsScripts/AnimationsScripts/AnimationsUpdater/AnimationsUpdater.h:
 Base/AssetsScripts/AnimationsScripts/AnimationsInit/AnimationsInit.h:
+Base/Entities/Enemies/Scripts/EnemyMisc/EnemyMisc.h:
 Base/Entities/Enemies/Scripts/EnemyLogic/EnemyLogic.h:
 Base/Entities/Items/ItemLogic/ItemLogic.h:
 Base/Entities/Player/PlayerLogic/PlayerLogic.h:
@@ -65,7 +67,6 @@ Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h:
 Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h:
 Base/MainUpdatersScripts/Updater/UpdaterCamera/UpdaterCamera.h:
 Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.h:
-Base/Entities/Enemies/Scripts/EnemyMisc/EnemyMisc.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h:
@@ -73,3 +74,4 @@ Base/Entities/Enemies/Scripts/EnemySpawn/EnemySpawn.h:
 Base/Entities/Enemies/ZombieArm/ZombieArmLogic.h:
 Base/Entities/Enemies/ZombieChicken/ZombieChickenLogic.h:
 Base/Entities/Enemies/Zombie/ZombieLogic.h:
+Base/AssetsScripts/AssetsAnimSpeed.h:

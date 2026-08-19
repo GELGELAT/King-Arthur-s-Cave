@@ -34,11 +34,11 @@ void enemy_life_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
         Vector2 new_tile = {enemy->enemy_position->position_tiles->pos_tiles.x,enemy->enemy_position->position_tiles->pos_tiles.y};
         Vector2 old_tile = {enemy->enemy_position->position_tiles->pos_tiles.x,enemy->enemy_position->position_tiles->pos_tiles.y};
         Action* fall = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,FALL,DURING,-1,-1,
-        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,play_full_animation(&enemy->enemy_animations->fall,1),1);
+        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,ENEMY_FALL_DIE_SPEED_ANIM);
         Action* corpse = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,CORPSE,DURING,-1,-1,
-        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,30,1);
+        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,ENEMY_CORPSE_FALLING_TIME_ANIM,1,1);
         Action* die = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,DIE,START,-1,-1,
-        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,1);
+        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,MOMENTAL_SPEED_ANIM,1,1);
         fall->queue->ending_action =corpse;
         corpse->queue->ending_action =die;
         append_action_to_actions_map(game_data,fall);

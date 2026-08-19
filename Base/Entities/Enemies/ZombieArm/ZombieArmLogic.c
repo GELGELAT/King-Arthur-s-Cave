@@ -21,7 +21,7 @@ bool arm_zombie_jump_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
             
             enemy->enemy_misc->next_move = path[1];
             Action* preparation = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,PREPARATION,START,-1,-1,
-                    &enemy->enemy_position->position_pixels->pos_pixels,path[1],path[1],1,1);
+                    &enemy->enemy_position->position_pixels->pos_pixels,path[1],path[1],1,1,1);
             append_action_to_actions_map(game_data,preparation);
             return true;
             
@@ -38,11 +38,11 @@ bool arm_zombie_jump_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
             Vector2 old_tile = {old_tile_x,old_tile_y};
             
             Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
-            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,1,5);
             Action* attack = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,RANDOM_MOVING,ATTACK,DURING,-1,-1,
-                    &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,48,5);
+                    &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,48,1,5);
             Action* moving2 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
-            &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+            &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,1,5);
             moving1->queue->ending_action = attack;
             attack->queue->ending_action =moving2;
             append_action_to_actions_map(game_data,moving1);
@@ -80,7 +80,7 @@ bool arm_zombie_jump_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
             id_map[new_x][new_y] = cur_id;
 
             Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
-            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,1,5);
             append_action_to_actions_map(game_data,moving1);
             enemy->enemy_misc->activated = false;
             enemy->enemy_characteristics->enemy_stamina->stamina-=4;
@@ -100,11 +100,11 @@ bool arm_zombie_jump_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
             int m_id = id_map[(int)next_move.x][(int)next_move.y];
             
             Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
-            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+            &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,1,5);
             Action* attack = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,RANDOM_MOVING,ATTACK,DURING,-1,m_id,
-                    &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,48,5);
+                    &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,48,1,5);
             Action* moving2 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
-            &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+            &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,1,5);
             moving1->queue->ending_action = attack;
             attack->queue->ending_action =moving2;
             append_action_to_actions_map(game_data,moving1);

@@ -1,5 +1,5 @@
 #include "AnimationsLogic.h"
-
+#include <math.h>
 void append_player_anim_to_arr(GAME_ANIM* game_anim,Animation** anim)
 {
     Animation*** queue = game_anim->maps->animation_player_map->animation_map_queue;
@@ -266,9 +266,47 @@ void append_to_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim
     }
     
 }
-float play_full_animation(Animation* animation,float speed)
+void play_full_animation(GAME_DATA* game_data,Action* action,float directing_x,float directing_y)
 {
-    float full_anim_play_time = animation->framesSpeed*animation->frameCount;
-    float rel_anim_play_time = full_anim_play_time * speed;
-    return rel_anim_play_time;
+    
+    if (action->misc->max_fill == 2)
+    {
+        Animation* current_animation;
+        if (action->object->object_type == ENEMY)
+        {
+            Enemy* enemy = get_enemy_from_enemy_map(game_data,action->object->object_index);
+            current_animation = enemy->current_animation[0];
+        }
+        else if (action->object->object_type == PLAYER)
+        {
+            
+            current_animation = game_data->player->current_anim[0];
+        }
+        directing_x *=64;
+        directing_y *=64;
+        if (directing_x<0)
+        {
+            directing_x *=-1;
+        }
+        if (directing_y<0)
+        {
+            directing_y *=-1;
+        }
+        float full_path = sqrtf(directing_x*directing_x+directing_y*directing_y);
+        
+        if (full_path == 0)
+        {
+            float speed = action->misc->speed;
+            float amount_frames = current_animation->frameCount* action->misc->amount_full_moves*speed;
+            action->misc->max_fill = amount_frames-1;
+            current_animation->framesSpeed = speed;
+            return;
+        }
+        float speed = action->misc->speed;
+        float full_play_time = full_path /speed;
+        float amount_frames = current_animation->frameCount* action->misc->amount_full_moves;
+        float per_one_frame_speed = full_play_time/amount_frames;
+        current_animation->framesSpeed = per_one_frame_speed;
+        
+    }
 }

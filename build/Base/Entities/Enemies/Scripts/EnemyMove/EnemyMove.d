@@ -9,6 +9,8 @@ build/Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.o: \
  Base/AssetsScripts/AnimationsScripts/AnimationsLogic/AnimationsLogic.h \
  Base/AssetsScripts/AnimationsScripts/AnimationsUpdater/AnimationsUpdater.h \
  Base/AssetsScripts/AnimationsScripts/AnimationsInit/AnimationsInit.h \
+ Base/Entities/Enemies/Scripts/EnemyMisc/EnemyMisc.h \
+ Base/AssetsScripts/AssetsAnimSpeed.h \
  Base/Entities/Items/ItemLogic/ItemLogic.h \
  Base/Entities/Player/PlayerLogic/PlayerLogic.h \
  Base/Entities/Player/PlayerItem/PlayerItem.h \
@@ -25,7 +27,6 @@ build/Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.o: \
  Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h \
  Base/MainUpdatersScripts/Updater/UpdaterCamera/UpdaterCamera.h \
  Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.h \
- Base/Entities/Enemies/Scripts/EnemyMisc/EnemyMisc.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h \
  Base/Entities/Enemies/Scripts/EnemySpawn/EnemySpawn.h \
@@ -45,6 +46,8 @@ Base/AssetsScripts/TextursScripts/TextursInit/TextursInit.h:
 Base/AssetsScripts/AnimationsScripts/AnimationsLogic/AnimationsLogic.h:
 Base/AssetsScripts/AnimationsScripts/AnimationsUpdater/AnimationsUpdater.h:
 Base/AssetsScripts/AnimationsScripts/AnimationsInit/AnimationsInit.h:
+Base/Entities/Enemies/Scripts/EnemyMisc/EnemyMisc.h:
+Base/AssetsScripts/AssetsAnimSpeed.h:
 Base/Entities/Items/ItemLogic/ItemLogic.h:
 Base/Entities/Player/PlayerLogic/PlayerLogic.h:
 Base/Entities/Player/PlayerItem/PlayerItem.h:
@@ -61,7 +64,6 @@ Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h:
 Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h:
 Base/MainUpdatersScripts/Updater/UpdaterCamera/UpdaterCamera.h:
 Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.h:
-Base/Entities/Enemies/Scripts/EnemyMisc/EnemyMisc.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h:
 Base/Entities/Enemies/Scripts/EnemySpawn/EnemySpawn.h:

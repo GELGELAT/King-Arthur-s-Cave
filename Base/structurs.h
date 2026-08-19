@@ -36,6 +36,7 @@ typedef struct ActionObjectInfo
 }ActionObjectInfo;
 typedef struct ActionMiscInfo
 {
+    float amount_full_moves;
     float current_fill; //типо таймера
     float max_fill; //макс заполнение таймера
     float speed; //скорость движения
@@ -430,7 +431,7 @@ typedef struct Animation
     int currentFrame;
     int frameCount;
     int framesCounter;
-    int framesSpeed;
+    float framesSpeed;
     float frameWidth;
     float frameHeight;
     bool isPlaying;
@@ -708,7 +709,8 @@ Player *create_player(Allocator *alloc, int start_posX, int start_posY);
 
 ActionsMap* create_action_map(Allocator* alloc);
 
-Action *create_action(Allocator *alloc, int flow, int object_type, int object_index, int movement_type, int action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float speed);
+Action *create_action(Allocator *alloc, int flow, int object_type, int object_index, int movement_type, int action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float amount_full_anim, float speed);
+
 
 
 

@@ -98,8 +98,8 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     //ZOMBIE 0 ANIM
     Texture2D zombie_textur = game_anim->texturs->enemies_texturs->zombie_enemies_textur->zombie_texturs;
     Animation zombie_breathe_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,80,25,20},8,alloc);
-    Animation zombie_walk_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,0,25,20},12,alloc);
-    Animation zombie_attack_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,20,25,20},16,alloc);
+    Animation zombie_walk_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,0,25,20},8,alloc);
+    Animation zombie_attack_animation =create_animation(zombie_textur,Width,4,-25,20,(Rectangle){0,20,25,20},8,alloc);
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_breathe_animation=zombie_breathe_animation;
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_walk_animation=zombie_walk_animation;
     game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_attack_animation=zombie_attack_animation;

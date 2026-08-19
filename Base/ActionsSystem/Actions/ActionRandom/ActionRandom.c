@@ -220,7 +220,7 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
                 }
                 //player_animation_direction(-directing_x,-directing_y,game_data->player);
             }
-            
+            play_full_animation(game_data,action,directing_x,directing_y);
         
             
             *current_state = FIRST_STAGE;

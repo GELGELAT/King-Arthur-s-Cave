@@ -40,6 +40,8 @@
 #define CORPSE 6
 #define RECEIVING_DAMAGE 7
 
+//ТИП АНИМАЦИИ
+#define ANIMATION_FULL_PLAY -2
 //ТИП ОБЬЕКТА КОТОРЫЙ ДЕЛАЕТ ДЕЙСТВИЕ
 //4 enemy
 

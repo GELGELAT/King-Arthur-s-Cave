@@ -69,7 +69,7 @@ bool pos_player_updater(GAME_DATA *game_data,GAME_ANIM* game_anim)
                 //game_data->player->player_pos->position_pixels->pos_pixels = new_pos;
                 game_data->player->player_pos->position_tiles->pos_tiles = new_tile;
                 Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,FORWARD,MOVING,END,-1,-1,
-                &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+                &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,2,PLAYER_WALK_SPEED_ANIM);
                 append_action_to_actions_map(game_data,moving);
                 
                 
@@ -81,9 +81,9 @@ bool pos_player_updater(GAME_DATA *game_data,GAME_ANIM* game_anim)
                 Vector2 new_tile = {new_tile_x,new_tile_y};
                 Vector2 old_tile = {old_tile_x,old_tile_y};
                 Action* mine = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,FORWARD,MINE,END,-1,-1,
-                &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,1,5);
+                &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,PLAYER_MINE_SPEED_ANIM);
                 Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,BACK,MOVING,END,-1,-1,
-                &game_data->player->player_pos->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
+                &game_data->player->player_pos->position_pixels->pos_pixels,new_tile ,old_tile,PLAY_FULL_ANIM,2,PLAYER_WALK_SPEED_ANIM);
                 mine->queue->ending_action=moving;
                 append_action_to_actions_map(game_data,mine);
                 //map[new_tile_x][new_tile_y] = 'f';
@@ -102,18 +102,19 @@ bool pos_player_updater(GAME_DATA *game_data,GAME_ANIM* game_anim)
             }
             if ((map[new_tile_x][new_tile_y] == 'm'))
             {
-                Vector2 new_tile = {new_tile_x,new_tile_y};
-                Vector2 old_tile = {old_tile_x,old_tile_y};
-                Action* attack = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,FORWARD,ATTACK,END,-1,-1,
-                &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,1,5);
-                Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,BACK,MOVING,END,-1,-1,
-                &game_data->player->player_pos->position_pixels->pos_pixels,new_tile ,old_tile,1,5);
-                attack->queue->ending_action=moving;
                 int index = game_data->maps->enemy_map->index_map[new_tile_x][new_tile_y];
                 Enemy* enemy = get_enemy_from_enemy_map(game_data,index);
-                Action* receiving_damage = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,index,RANDOM_MOVING,RECEIVING_DAMAGE,START,-1,-1,
-                &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,120,5);
-                moving->queue->beginning_action = receiving_damage;
+                Vector2 new_tile = {new_tile_x,new_tile_y};
+                Vector2 old_tile = {old_tile_x,old_tile_y};
+                Action* attack = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,FORWARD,ATTACK,END,ENEMY,index,
+                &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,PLAYER_ATTACK_SPEED_ANIM);
+                Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,BACK,MOVING,END,-1,-1,
+                &game_data->player->player_pos->position_pixels->pos_pixels,new_tile ,old_tile,PLAY_FULL_ANIM,2,PLAYER_WALK_SPEED_ANIM);
+                attack->queue->ending_action=moving;
+                
+                //Action* receiving_damage = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,index,RANDOM_MOVING,RECEIVING_DAMAGE,START,-1,-1,
+               // &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,ENEMY_RECEIVING_DAMAGE_TIME_ANIM,1,5);
+               // moving->queue->beginning_action = receiving_damage;
                 append_action_to_actions_map(game_data,attack);
                 //player_attaks(game_data,game_anim,new_tile_x,new_tile_y);
             }

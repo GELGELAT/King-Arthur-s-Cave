@@ -163,6 +163,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
     }
     else if (during_type == DURING)
     {
+
         int* current_state = &action->misc->current_state;
 
         int object_type = action->object->object_type;
@@ -219,7 +220,6 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                     
                 }
                 enemy_animation_direction(directing_x,directing_y,enemy);
-                
             }
             else if (object_type == PLAYER)
             {
@@ -237,7 +237,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                 }
                 player_animation_direction(directing_x,directing_y,game_data->player);
             }
-            
+            play_full_animation(game_data,action,directing_x,directing_y);
         
             
             *current_state = FIRST_STAGE;
@@ -249,7 +249,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
             float speed = action->misc->speed;
             float* cur_pixel_pos_x = &action->pos->position_pixels->x;
             float* cur_pixel_pos_y = &action->pos->position_pixels->y;
-            action->misc->current_fill+=speed;
+            action->misc->current_fill+=1;
             if (action->misc->current_fill <action->misc->max_fill)
             {
                 
@@ -282,7 +282,9 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                         {
                             enemy_attack(game_data,enemy);
                         }
+                        
                     }
+                    
                     append_action_to_actions_map(game_data,ending_action);
                     next_action_flag = true;
                 }
@@ -297,6 +299,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                         }
                         else
                         {
+                            pr_int(444);
                             int enemy_index = action->object->object_index;
                             Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
                             enemy->current_animation[0] = &enemy->enemy_animations->breathe;
