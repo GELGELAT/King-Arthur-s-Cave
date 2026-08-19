@@ -18,25 +18,38 @@ void enemy_life_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
     {
         return;
     }
+    
     if ( enemy->enemy_characteristics->heal_points<=0)
     {
-        enemy->enemy_main->live = 0;
+        enemy->enemy_characteristics->heal_points=0;
+        if (revival_check(game_data,game_anim,enemy))
+        {
+            
+            return;
+        }
+        enemy->enemy_main->live = DIED;
         int enemy_x = enemy->enemy_position->position_tiles->pos_tiles.x;
         int enemy_y = enemy->enemy_position->position_tiles->pos_tiles.y;
-        /*
+        
         Vector2 new_tile = {enemy->enemy_position->position_tiles->pos_tiles.x,enemy->enemy_position->position_tiles->pos_tiles.y};
         Vector2 old_tile = {enemy->enemy_position->position_tiles->pos_tiles.x,enemy->enemy_position->position_tiles->pos_tiles.y};
-        Action* die = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,RANDOM_MOVING,DIE,END,-1,-1,
-        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,30,5);
-        append_action_to_actions_map(game_data,die);
-        */
+        Action* fall = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,FALL,DURING,-1,-1,
+        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,ENEMY_FALL_DIE_SPEED_ANIM);
+        Action* corpse = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,CORPSE,DURING,-1,-1,
+        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,ENEMY_CORPSE_FALLING_TIME_ANIM,1,1);
+        Action* die = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,DIE,START,-1,-1,
+        &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,MOMENTAL_SPEED_ANIM,1,1);
+        fall->queue->ending_action =corpse;
+        corpse->queue->ending_action =die;
+        append_action_to_actions_map(game_data,fall);
+        /*
         pr_int(enemy->enemy_main->index);
         game_data->maps->cells_map->cells[enemy_x][enemy_y]->objects[2] = NULL;
         game_data->maps->collision_map->grid[enemy_x][enemy_y] = 'f';
         game_data->maps->enemy_map->index_map[enemy_x][enemy_y] = -1;
         items_drop(game_data,game_anim,enemy,(int)enemy_x,(int)enemy_y);
         delete_from_move_queue(game_data,enemy->enemy_main->index);
-        
+        */
 
     }
 }
@@ -91,11 +104,10 @@ void enemies_rand_spawn(GAME_DATA* game_data,GAME_ANIM* game_anim)
                     
                     
                 }
-                int skin = -1;
-                if (j == 0)
-                {
-                    skin = rand_num_within(0,1);
-                }
+                
+                
+                int skin = rand_num_within(0,1);
+                
                 spawn_enemy(game_anim,game_data,pos_x,pos_y,enemy_indexes,j,skin);
                 pos_find = false;
             }

@@ -17,10 +17,15 @@
 
 #include "ZombieArmLogic.h"
 #include "ZombieChickenLogic.h"
+#include "ZombieLogic.h"
 
+#define ALIVE 1
+#define DIED 0
+#define NEAR_DIE 2
 
 #define CHICKEN_ZOMBIE 0
 #define ARM_ZOMBIE 1
+#define RESETTER_ZOMBIE 1
 
 
 void enemies_finding(GAME_DATA *game_data);

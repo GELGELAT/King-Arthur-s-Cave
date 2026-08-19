@@ -62,7 +62,7 @@ ActionsMap* create_action_map(Allocator* alloc)
 }
 
 Action* create_action(Allocator* alloc,int flow,int object_type,int object_index,int movement_type ,int action_type ,int during_type,int affected_type,int affected_index,
-    Vector2* position_pixels,Vector2 old_tile,Vector2 new_tile,float max_fill,float speed)
+    Vector2* position_pixels,Vector2 old_tile,Vector2 new_tile,float max_fill,float amount_full_anim,float speed)
 {
     Action* action = alloc_alloc(alloc,sizeof(Action));
     action->flow = flow;
@@ -92,6 +92,7 @@ Action* create_action(Allocator* alloc,int flow,int object_type,int object_index
     action->queue=queue;
     action->queue->beginning_action= NULL;
     action->queue->ending_action =NULL;
+    action->misc->amount_full_moves = amount_full_anim;
     return action;
 }
 

@@ -4,6 +4,7 @@ void forward_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
     int during_type = action->main->during_type;
     if (during_type == END)
     {
+        
         int* current_state = &action->misc->current_state;
 
         int object_type = action->object->object_type;
@@ -15,6 +16,7 @@ void forward_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
         float new_tile_y = action->pos->new_tile.y;
         float directing_x = new_tile_x-old_tile_x;
         float directing_y = new_tile_y-old_tile_y;
+        
         if (*current_state== ZERO_STAGE)
         {
             Action* beginning_action = action->queue->beginning_action;
@@ -52,16 +54,17 @@ void forward_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                 {
                     game_data->player->current_anim[0] = &game_data->player->player_anim->player_attack_animation;
                     game_data->player->current_anim[0]->currentFrame =0;
+                    game_data->player->current_anim[0]->framesCounter = 0;
                 }
                 else if (action_type == MINE)
                 {
                     game_data->player->current_anim[0] = &game_data->player->player_anim->player_mine_animation;
                     game_data->player->current_anim[0]->currentFrame =0;
+                    game_data->player->current_anim[0]->framesCounter = 0;
                 }
                 player_animation_direction(directing_x,directing_y,game_data->player);
             }
-            
-        
+            play_full_animation(game_data,action,directing_x,directing_y);
             
             *current_state = FIRST_STAGE;
         }
@@ -122,6 +125,10 @@ void forward_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                         if (action_type == ATTACK)
                         {
                             player_attaks(game_data,game_anim,action->pos->new_tile.x,action->pos->new_tile.y);
+                            Enemy* enemy = get_enemy_from_enemy_map(game_data,action->object->affected_index);
+                            Action* receiving_damage = create_action(game_data->allocators->alloc_data,MAIN_MAP,action->object->affected_type,action->object->affected_index,RANDOM_MOVING,RECEIVING_DAMAGE,START,-1,-1,
+                            &enemy->enemy_position->position_pixels->pos_pixels,action->pos->new_tile,action->pos->new_tile,ENEMY_RECEIVING_DAMAGE_TIME_ANIM,1,5);
+                            append_action_to_actions_map(game_data,receiving_damage);
                         }
                         else if (action_type == MINE)
                         {

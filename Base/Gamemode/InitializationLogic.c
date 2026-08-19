@@ -210,14 +210,14 @@ bool enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
     int posX = game_data->player->player_pos->position_tiles->pos_tiles.x;
     int posY = game_data->player->player_pos->position_tiles->pos_tiles.y;
 
-    //spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,1,-1);
-    // spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,0,1);
-   // spawn_enemy(game_anim,game_data,posX+1,posY+1,enemy_indexes,0,1);
-   // spawn_enemy(game_anim,game_data,posX-1,posY-1,enemy_indexes,0,0);
-  //  spawn_enemy(game_anim,game_data,posX-1,posY+1,enemy_indexes,0,0);
-    //spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,0,0);
+   // spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,2,1);
+    // spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,0,0);
+    //spawn_enemy(game_anim,game_data,posX+1,posY+1,enemy_indexes,0,1);
+   // spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,1,1);
+   //spawn_enemy(game_anim,game_data,posX-1,posY+1,enemy_indexes,2,1);
+   // spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,3,0);
     
-   enemies_rand_spawn(game_data,game_anim);
+  enemies_rand_spawn(game_data,game_anim);
 
                 
 }

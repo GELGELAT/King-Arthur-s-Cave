@@ -25,8 +25,8 @@ void spawn_enemy(GAME_ANIM *game_anim,GAME_DATA *game_data,int pos_x, int pos_y,
 }
 
 int enemy_damage[4][2] = {{5,10},{10,15},{15,20},{20,25}};
-int enemy_heal_points[4] = {{20},{30},{40},{50}};
-int enemy_defens[4] = {{2},{3},{4},{5}};
+int enemy_heal_points[4] = {20,30,40,50};
+int enemy_defens[4] = {2,3,4,5};
 
 
 
@@ -34,7 +34,9 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
 {
     Enemy* enemy = alloc_alloc(alloc,sizeof(Enemy));
     EnemyMisc* enemy_misc = alloc_alloc(alloc,sizeof(EnemyMisc));
+    
     EnemyMain* enemy_main = alloc_alloc(alloc,sizeof(EnemyMain));
+    EnemyStats* enemy_stats = alloc_alloc(alloc,sizeof(EnemyStats));
     EnemyCharacteristics* enemy_characteristics = alloc_alloc(alloc,sizeof(EnemyCharacteristics));
     EnemyPos* enemy_position = alloc_alloc(alloc,sizeof(EnemyPos));
     EnemyTilesPos* position_tiles = alloc_alloc(alloc,sizeof(EnemyTilesPos));
@@ -42,8 +44,11 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
     EnemyAnimations* enemy_animations = alloc_alloc(alloc,sizeof(EnemyAnimations));
     Animation** current_animations = alloc_alloc(alloc,sizeof(Animation*));
     EnemyStamina* enemy_stamina = alloc_alloc(alloc,sizeof(EnemyStamina));
+    
     enemy->enemy_characteristics = enemy_characteristics;
     enemy->enemy_main =enemy_main;
+    enemy->enemy_main->enemy_stats = enemy_stats;
+    
     enemy->enemy_misc =enemy_misc;
     enemy->enemy_misc->activated = false;
     enemy->enemy_position = enemy_position;
@@ -61,8 +66,9 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
         enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
         enemy->enemy_animations->walk = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_walk_animation;
         enemy->enemy_animations->attack = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_attack_animation;
-        enemy->enemy_animations->die = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_die_animation;
-       // enemy->current_animation = &enemy->enemy_animations->die;
+        enemy->enemy_animations->fall = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_fall_animation;
+        enemy->enemy_animations->corpse=game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_corpse_animation;
+        enemy->enemy_animations->receiving_damage=game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_receiving_damage_animation;
         //enemy->current_animation = &enemy->enemy_animations->walk;
         enemy->current_animation[0] = &enemy->enemy_animations->breathe;
         enemy->enemy_animations->size_x = rand_num_within(114,132);
@@ -79,7 +85,9 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
             enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
             enemy->enemy_animations->walk = game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_walk_animation;
             enemy->enemy_animations->attack = game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_attack_animation;
-            enemy->enemy_animations->die =game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_die_animation;
+            enemy->enemy_animations->fall =game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_fall_animation;
+            enemy->enemy_animations->corpse = game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_corpse_animation;
+            enemy->enemy_animations->receiving_damage =game_anim->animations->enemies_animation->arm_enemies_animations->arm_0_receiving_damage_animation;
             enemy->current_animation[0] = &enemy->enemy_animations->breathe;
             enemy->enemy_animations->size_x = rand_num_within(48,64);
             enemy->enemy_animations->size_y = rand_num_within(48,64);
@@ -96,7 +104,11 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
             enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
             enemy->enemy_animations->walk = game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_walk_animation;
             enemy->enemy_animations->attack = game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_attack_animation;
-            enemy->enemy_animations->die =game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_die_animation;
+            enemy->enemy_animations->fall =game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_fall_animation;
+            enemy->enemy_animations->corpse = game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_corpse_animation;
+            enemy->enemy_animations->receiving_damage =game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_receiving_damage_animation;
+            enemy->enemy_animations->preparation =game_anim->animations->enemies_animation->arm_enemies_animations->arm_1_preparation_animation;
+
             enemy->current_animation[0] = &enemy->enemy_animations->breathe;
             enemy->enemy_animations->size_x = rand_num_within(48,64);
             enemy->enemy_animations->size_y = rand_num_within(48,64);
@@ -116,14 +128,28 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
         enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
         enemy->enemy_animations->walk = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_walk_animation;
         enemy->enemy_animations->attack = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_attack_animation;
-        enemy->enemy_animations->die = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_die_animation;
-       // enemy->current_animation = &enemy->enemy_animations->die;
+        enemy->enemy_animations->fall = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_fall_animation;
+        enemy->enemy_animations->corpse = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_corpse_animation;
+        enemy->enemy_animations->receiving_damage = game_anim->animations->enemies_animation->zombie_enemies_animations->zombie_receiving_damage_animation;
         //enemy->current_animation = &enemy->enemy_animations->walk;
         enemy->current_animation[0] = &enemy->enemy_animations->breathe;
         enemy->enemy_animations->size_x = rand_num_within(84,92);
         enemy->enemy_animations->size_y = rand_num_within(84,92);
          enemy->enemy_animations->alignment_x =48;
           enemy->enemy_animations->alignment_y =64;
+        if (skin == RESETTER_ZOMBIE)
+        {
+
+            enemy->enemy_main->enemy_stats->max_timer = 4;
+            enemy->enemy_main->enemy_stats->current_timer = 0;
+            enemy->enemy_animations->skin =  RESETTER_ZOMBIE;
+        }
+        else
+        {
+            enemy->enemy_animations->skin =  0;
+        }
+        
+        
     }
     else if (enemy_type == 3)
     {
@@ -131,8 +157,10 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
         enemy->enemy_animations->breathe.currentFrame = rand_num_within(0,3);
         enemy->enemy_animations->walk = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_walk_animation;
         enemy->enemy_animations->attack = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_attack_animation;
-        enemy->enemy_animations->die = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_die_animation;
-       // enemy->current_animation = &enemy->enemy_animations->die;
+        enemy->enemy_animations->fall = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_fall_animation;
+        enemy->enemy_animations->corpse = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_corpse_animation;
+        enemy->enemy_animations->receiving_damage = game_anim->animations->enemies_animation->knight_zombie_enemies_animations->knight_zombie_receiving_damage_animation;
+
         //enemy->current_animation = &enemy->enemy_animations->walk;
         enemy->current_animation[0] = &enemy->enemy_animations->breathe;
         enemy->enemy_animations->size_x = rand_num_within(114,132);

@@ -25,6 +25,7 @@
 
 #include "TextursLogic.h"
 #include "AnimationsLogic.h"
+#include "AssetsAnimSpeed.h"
 
 extern char* floor_texturs[];
 extern char* wall_texturs[];

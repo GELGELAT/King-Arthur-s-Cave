@@ -25,16 +25,23 @@
 #define RANDOM_MOVING 3
 
 //ТИП СОБЫТИЯ
+#define START -1
 #define END 0
 #define DURING 1
 
 //ТИП ДЕЙСТВИЯ
+#define BREATH -1
 #define MOVING 0
 #define ATTACK 1
 #define MINE 2
 #define DIE 3
 #define PREPARATION 4
+#define FALL 5
+#define CORPSE 6
+#define RECEIVING_DAMAGE 7
 
+//ТИП АНИМАЦИИ
+#define ANIMATION_FULL_PLAY -2
 //ТИП ОБЬЕКТА КОТОРЫЙ ДЕЛАЕТ ДЕЙСТВИЕ
 //4 enemy
 

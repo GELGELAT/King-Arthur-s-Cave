@@ -4,6 +4,8 @@
 #include "AssetsLogic.h"
 #include "AnimationsUpdater.h"
 #include "AnimationsInit.h"
+#include "EnemyMisc.h"
+
 void append_player_anim_to_arr(GAME_ANIM *game_anim, Animation **anim);
 
 void draw_animation(Animation *anim, Vector2 pos, int size_x, int size_y, int pos_index, float rotate);
@@ -19,6 +21,10 @@ void delete_from_item_anim_queue(GAME_DATA *game_data, GAME_ANIM *game_anim, int
 void append_item_animation(GAME_ANIM *game_anim, int object_type, int textur_type, int object_id);
 
 void append_to_anim_enemy_list_updater(GAME_DATA *game_data, GAME_ANIM *game_anim, Enemy *enemy);
+
+void play_full_animation(GAME_DATA *game_data, Action *action, float directing_x, float directing_y);
+
+
 
 #endif
 

@@ -23,5 +23,5 @@ void player_attaks(GAME_DATA* game_data, GAME_ANIM* game_anim,int enemy_x, int e
     }
     current_enemy->enemy_characteristics->heal_points = enemy_heals - damage_after_def;
     pr_int_with_text(current_enemy->enemy_characteristics->heal_points,"enemy hp");
-    enemy_life_check(game_data,game_anim,current_enemy);
+    
 }
