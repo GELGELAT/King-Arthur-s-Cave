@@ -13,3 +13,8 @@ Added unique behaviors for the zombie chicken and zombie hand.
 ------------------------------------
 16.08.26
 Started dividing project into folders.
+------------------------------------
+19.08.26
+System of interaction between animations and actions has been improved.
+Added death animations
+Added unique behaviors for the zombie.
