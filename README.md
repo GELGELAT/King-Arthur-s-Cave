@@ -18,3 +18,7 @@ Started dividing project into folders.
 System of interaction between animations and actions has been improved.
 Added death animations
 Added unique behaviors for the zombie.
+------------------------------------
+22.08.26
+Added animations for head.
+<img width="795" height="593" alt="изображение" src="https://github.com/user-attachments/assets/42f830fb-7ae7-4eca-98d6-ec41084c3ede" />
