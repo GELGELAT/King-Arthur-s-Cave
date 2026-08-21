@@ -23,6 +23,7 @@
 
 void GAME_UPDATE(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
+void update_animations(GAME_ANIM *game_anim);
 
 #endif
 

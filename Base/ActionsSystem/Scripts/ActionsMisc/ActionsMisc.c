@@ -1,24 +1,32 @@
 #include "ActionsMisc.h"
-
+int current_direction = 0;
 void player_animation_direction(int directing_x,int directing_y,Player* player)
 {
-    int width = player->player_anim->player_breathe_animation.frameWidth;
+    int width = player->player_anim->player_action_animation->player_breathe_animation.frameWidth;
     if (directing_x>0)
     {
-        player->player_anim->player_attack_animation.cur_frameRec.width = -width;
-        player->player_anim ->player_breathe_animation.cur_frameRec.width= -width;
-        player->player_anim->player_walk_animation.cur_frameRec.width = -width;
-        player->player_anim->player_mine_animation.cur_frameRec.width = -width;
+        player->player_anim->player_action_animation->player_attack_animation.cur_frameRec.width = -width;
+        player->player_anim->player_action_animation ->player_breathe_animation.cur_frameRec.width= -width;
+        player->player_anim->player_action_animation->player_walk_animation.cur_frameRec.width = -width;
+        player->player_anim->player_action_animation->player_mine_animation.cur_frameRec.width = -width;
+        head_list[0]->cur_frameRec.width = 16;
+        head_list[1]->cur_frameRec.width =16;
+        head_list[2]->cur_frameRec.width = 16;
+        current_direction = RIGHT;
         //player->player_anim. = -width;
        // player->player_anim = -width;
     }
     if (directing_x<0)
     {
         
-        player->player_anim->player_attack_animation.cur_frameRec.width = width;
-        player->player_anim ->player_breathe_animation.cur_frameRec.width= width;
-        player->player_anim->player_walk_animation.cur_frameRec.width = width;
-        player->player_anim->player_mine_animation.cur_frameRec.width = width;
+        player->player_anim->player_action_animation->player_attack_animation.cur_frameRec.width = width;
+        player->player_anim->player_action_animation ->player_breathe_animation.cur_frameRec.width= width;
+        player->player_anim->player_action_animation->player_walk_animation.cur_frameRec.width = width;
+        player->player_anim->player_action_animation->player_mine_animation.cur_frameRec.width = width;
+        head_list[0]->cur_frameRec.width = -16;
+        head_list[1]->cur_frameRec.width = -16;
+        head_list[2]->cur_frameRec.width = -16;
+        current_direction = LEFT;
        // player->player_anim = width;
        // player->player_anim = width;
     }

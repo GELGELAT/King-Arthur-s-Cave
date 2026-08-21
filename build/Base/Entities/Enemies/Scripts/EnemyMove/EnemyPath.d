@@ -15,6 +15,9 @@ build/Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.o: \
  Base/Entities/Player/PlayerLogic/PlayerLogic.h \
  Base/Entities/Player/PlayerItem/PlayerItem.h \
  Base/Entities/Player/PlayerMove/PlayerMove.h \
+ Base/Entities/Player/PlayerEquipment/PlayerEquipment.h \
+ Base/Entities/Player/PlayerHead/PlayerHead.h \
+ Base/Entities/Player/PlayerAnimations/PlayerAnimations.h \
  Base/Entities/Items/ItemMisc/ItemMisc.h \
  Base/Entities/Items/ItemSpawn/ItemSpawn.h \
  Base/MainUpdatersScripts/Updater/UpdaterLogic/UpdaterLogic.h \
@@ -52,6 +55,9 @@ Base/Entities/Items/ItemLogic/ItemLogic.h:
 Base/Entities/Player/PlayerLogic/PlayerLogic.h:
 Base/Entities/Player/PlayerItem/PlayerItem.h:
 Base/Entities/Player/PlayerMove/PlayerMove.h:
+Base/Entities/Player/PlayerEquipment/PlayerEquipment.h:
+Base/Entities/Player/PlayerHead/PlayerHead.h:
+Base/Entities/Player/PlayerAnimations/PlayerAnimations.h:
 Base/Entities/Items/ItemMisc/ItemMisc.h:
 Base/Entities/Items/ItemSpawn/ItemSpawn.h:
 Base/MainUpdatersScripts/Updater/UpdaterLogic/UpdaterLogic.h:

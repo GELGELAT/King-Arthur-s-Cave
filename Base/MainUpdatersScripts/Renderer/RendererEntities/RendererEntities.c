@@ -108,10 +108,14 @@ void player_draw(GAME_DATA *game_data)
      
             //pr_int(cur_enemy->current_animation->texture.id);
     Player* player = game_data->player;
-    int pos_x = player->player_pos->position_pixels->pos_pixels.x-player->player_anim->alignment_x;
-    int pos_y =player->player_pos->position_pixels->pos_pixels.y-player->player_anim->alignment_y;
-    draw_animation(player->current_anim[0],(Vector2){pos_x,pos_y},player->player_anim->size_x,player->player_anim->size_y,4,0);
+    int pos_player_x = player->player_pos->position_pixels->pos_pixels.x-player->player_anim->player_action_animation->alignment_x;
+    int pos_player_y =player->player_pos->position_pixels->pos_pixels.y-player->player_anim->player_action_animation->alignment_y;
+    int pos_head_x = player->player_pos->head_pos->current_pos.x;
+    int pos_head_y =player->player_pos->head_pos->current_pos.y;
+    draw_animation(player->current_animations->current_anim[0],(Vector2){pos_player_x,pos_player_y},player->player_anim->player_action_animation->size_x,player->player_anim->player_action_animation->size_y,4,0);
+    draw_animation(player->current_animations->current_head_anim[0],(Vector2){pos_head_x,pos_head_y},player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0);
     //DrawCircle(game_data->player->player_pos->position_pixels->pos_pixels.x,game_data->player->player_pos->position_pixels->pos_pixels.y, 32.0f, GOLD); 
+
 }
 int rand_pos[4][2] = {{0,0},{0,32},{32,0},{32,32}};
 void any_coins_draw(GAME_ANIM* game_anim, Vector2 pos,int coins_type, int frame_index,int pos_index)

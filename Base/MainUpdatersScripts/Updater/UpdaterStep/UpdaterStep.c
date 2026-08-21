@@ -55,7 +55,7 @@ bool pos_player_updater(GAME_DATA *game_data,GAME_ANIM* game_anim)
             if (map[new_tile_x][new_tile_y] == 'f')
             {
                 
-                delete_from_item_anim_queue(game_data,game_anim,player_ground_check(game_data,new_tile_x,new_tile_y));
+                delete_from_item_anim_queue(game_data,game_anim,player_ground_check(game_data,game_anim,new_tile_x,new_tile_y));
                 map[old_tile_x][old_tile_y] = 'f';
                 map[new_tile_x][new_tile_y] = 'p';
 

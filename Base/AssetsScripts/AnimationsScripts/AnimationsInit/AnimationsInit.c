@@ -139,6 +139,47 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     //game_anim->animations->player_animation->human_animations->player_die_animation =player_human_die_animation;
     game_anim->animations->player_animation->human_animations->player_mine_animation =player_human_mine_animation;
     game_anim->animations->player_animation->human_animations->player_walk_animation =player_human_walk_animation;
+    //PLAYER EQUIPMENTS ANIM
+    Texture2D armors_no_lines = game_anim->texturs->items_texturs->equipment_texturs->armors_texturs->armors_no_lines;
+    Texture2D swords_no_lines = game_anim->texturs->items_texturs->equipment_texturs->swords_texturs->swords_no_lines;
+    Texture2D helmets_no_lines = game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets_no_lines;
+    //ARMOR
+    Animation wooden_armor_no_line =create_animation(armors_no_lines,Width,1,18,16,(Rectangle){0,0,18,16},8,alloc);
+    Animation leather_armor_no_line =create_animation(armors_no_lines,Width,1,18,16,(Rectangle){18,0,18,16},8,alloc);
+    Animation iron_armor_no_line =create_animation(armors_no_lines,Width,1,18,16,(Rectangle){36,0,18,16},8,alloc);
+    Animation mithril_armor_no_line =create_animation(armors_no_lines,Width,1,18,16,(Rectangle){54,0,18,16},8,alloc);
+    game_anim->animations->items_animation->equipment_animation->armors_animation->wooden_armor_no_line =wooden_armor_no_line;
+    game_anim->animations->items_animation->equipment_animation->armors_animation->leather_armor_no_line =leather_armor_no_line;
+    game_anim->animations->items_animation->equipment_animation->armors_animation->iron_armor_no_line = iron_armor_no_line;
+    game_anim->animations->items_animation->equipment_animation->armors_animation->mithril_armor_no_line = mithril_armor_no_line;
+
+    //SWORD
+    Animation wooden_weapon_no_line =create_animation(swords_no_lines,Width,1,17,16,(Rectangle){0,0,17,16},8,alloc);
+    Animation stone_weapon_no_line =create_animation(swords_no_lines,Width,1,17,16,(Rectangle){17,0,17,16},8,alloc);
+    Animation iron_weapon_no_line =create_animation(swords_no_lines,Width,1,17,16,(Rectangle){34,0,17,16},8,alloc);
+    Animation mithril_weapon_no_line =create_animation(swords_no_lines,Width,1,17,16,(Rectangle){51,0,17,16},8,alloc);
+    game_anim->animations->items_animation->equipment_animation->swords_animation->wooden_weapon_no_line =wooden_weapon_no_line;
+    game_anim->animations->items_animation->equipment_animation->swords_animation->stone_weapon_no_line =stone_weapon_no_line;
+    game_anim->animations->items_animation->equipment_animation->swords_animation->iron_weapon_no_line = iron_weapon_no_line;
+    game_anim->animations->items_animation->equipment_animation->swords_animation->mithril_weapon_no_line = mithril_weapon_no_line;
+    //HELMET
+    Animation wooden_helmet_no_line =create_animation(helmets_no_lines,Width,1,17,16,(Rectangle){0,0,17,16},8,alloc);
+    Animation leather_helmet_no_line =create_animation(helmets_no_lines,Width,1,17,16,(Rectangle){17,0,17,16},8,alloc);
+    Animation iron_helmet_no_line =create_animation(helmets_no_lines,Width,1,17,16,(Rectangle){34,0,17,16},8,alloc);
+    Animation mithril_helmet_no_line =create_animation(helmets_no_lines,Width,1,17,16,(Rectangle){51,0,17,16},8,alloc);
+    game_anim->animations->items_animation->equipment_animation->helmets_animation->wooden_HELMET_no_line =wooden_helmet_no_line;
+    game_anim->animations->items_animation->equipment_animation->helmets_animation->leather_HELMET_no_line =leather_helmet_no_line;
+    game_anim->animations->items_animation->equipment_animation->helmets_animation->iron_HELMET_no_line = iron_helmet_no_line;
+    game_anim->animations->items_animation->equipment_animation->helmets_animation->mithril_HELMET_no_line = mithril_helmet_no_line;
+    //HEADS HUMAN
+    Texture2D heads = game_anim->texturs->player_texturs->heads_texturs;
+    Animation human_head_0_ordinary =create_animation(heads,Width,1,-16,16,(Rectangle){0,0,16,16},8,alloc);
+    Animation human_head_0_angry =create_animation(heads,Width,1,-16,16,(Rectangle){16,0,16,16},8,alloc);
+    Animation human_head_0_weak =create_animation(heads,Width,1,-16,16,(Rectangle){32,0,16,16},8,alloc);
+    game_anim->animations->player_animation->human_head_animations->human_head_0_animations->ordinary=human_head_0_ordinary;
+    game_anim->animations->player_animation->human_head_animations->human_head_0_animations->angry=human_head_0_angry;
+    game_anim->animations->player_animation->human_head_animations->human_head_0_animations->weak=human_head_0_weak;
+
 }
 Animation create_animation(Texture2D textur,int direction,int frame_count,int frame_width,int frame_height,Rectangle start_frame,int anim_speed,Allocator* alloc)
 {
@@ -204,21 +245,28 @@ Animations* create_animations_struct(Allocator* alloc)
     animation->world_animation->tiles_animation->floor_animation = floor_animation;
     animation->world_animation->tiles_animation->wall_animation = wall_animation;
 
+
+
     PlayersAnimations * player_animation = alloc_alloc(alloc,sizeof(PlayersAnimations ));
     HumanAnimations * human_animations = alloc_alloc(alloc,sizeof(HumanAnimations ));
     animation->player_animation=player_animation;
     animation->player_animation->human_animations =human_animations;
-    
+    HumanHeadAnimations  * human_head_animations = alloc_alloc(alloc,sizeof(HumanHeadAnimations  ));
+    animation->player_animation->human_head_animations = human_head_animations;
+    HumanHead0Animations   * human_head_0_animations = alloc_alloc(alloc,sizeof(HumanHead0Animations   ));
+    animation->player_animation->human_head_animations->human_head_0_animations = human_head_0_animations;
+    /*
+    PlayerEquipmentsAnimations * player_equipments_animations = alloc_alloc(alloc,sizeof(PlayerEquipmentsAnimations ));
+    animation->player_animation->player_equipments_animations=player_equipments_animations;
+    ArmorsEquipmentsAnimations  * armors = alloc_alloc(alloc,sizeof(ArmorsEquipmentsAnimations  ));
+    HelmetsEquipmentsAnimations  * helmets = alloc_alloc(alloc,sizeof(HelmetsEquipmentsAnimations  ));
+    SwordsEquipmentsAnimations  * swords = alloc_alloc(alloc,sizeof(SwordsEquipmentsAnimations  ));
 
+    animation->items_animation->equipment_animation->armors_animation =armors;
     
+    animation->items_animation->equipment_animation->helmets_animation =helmets;
+    animation->items_animation->equipment_animation->swords_animation =swords;
+    */
     return animation;
 }
 
-void player_anim_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
-{
-    Player* player = game_data->player;
-    player->player_anim->player_breathe_animation = game_anim->animations->player_animation->human_animations->player_breathe_animation;
-    player->player_anim->player_walk_animation = game_anim->animations->player_animation->human_animations->player_walk_animation;
-    player->player_anim->player_attack_animation =game_anim->animations->player_animation->human_animations->player_attack_animation;
-    player->player_anim->player_mine_animation = game_anim->animations->player_animation->human_animations->player_mine_animation;
-}

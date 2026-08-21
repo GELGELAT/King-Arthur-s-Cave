@@ -52,6 +52,15 @@ Texturs* create_texturs_struct(Allocator* alloc)
 
     texturs->player_texturs =player_texturs;
     texturs->player_texturs->player_human = player_human;
+    ArmorTexturs  * equipment_armors_texturs = alloc_alloc(alloc,sizeof(ArmorTexturs   ));
+    HelmetTexturs  * equipment_helmets_texturs = alloc_alloc(alloc,sizeof(HelmetTexturs   ));
+    SwordTexturs  * equipment_swords_texturs = alloc_alloc(alloc,sizeof(SwordTexturs   ));
+
+    texturs->items_texturs->equipment_texturs->armors_texturs =equipment_armors_texturs;
+    texturs->items_texturs->equipment_texturs->helmets_texturs=equipment_helmets_texturs;
+    texturs->items_texturs->equipment_texturs->swords_texturs=equipment_swords_texturs;
+
+
     return texturs;
 }
 void texturs_init(GAME_ANIM* game_anim)
@@ -98,6 +107,13 @@ void equipment_textur_init(GAME_ANIM* game_anim)
     Texture2D helmets_texturs = LoadTexture("Texturs/Equipment/Helmets/helmets.png");
     game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets=helmets_texturs;
 
+    Texture2D armor_no_line_texturs = LoadTexture("Texturs/Equipment/Armor/armor_no_line.png");
+    game_anim->texturs->items_texturs->equipment_texturs->armors_texturs->armors_no_lines=armor_no_line_texturs;
+    Texture2D swords_no_line_texturs = LoadTexture("Texturs/Equipment/Swords/swords_no_line.png");
+    game_anim->texturs->items_texturs->equipment_texturs->swords_texturs->swords_no_lines=swords_no_line_texturs;
+    Texture2D helmets_no_line_texturs = LoadTexture("Texturs/Equipment/Helmets/helmets_no_line.png");
+    game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets_no_lines=helmets_no_line_texturs;
+
 }
 void enemies_textur_init(GAME_ANIM* game_anim)
 {
@@ -119,9 +135,9 @@ void enemies_textur_init(GAME_ANIM* game_anim)
 void player_textur_init(GAME_ANIM* game_anim)
 {
     Texture2D player_human = LoadTexture("Texturs/Player/player_human.png");
-
+    Texture2D head_human = LoadTexture("Texturs/Player/heads.png");
     game_anim->texturs->player_texturs->player_human->human_textur = player_human;
-
+    game_anim->texturs->player_texturs->heads_texturs = head_human;
 
 }
 

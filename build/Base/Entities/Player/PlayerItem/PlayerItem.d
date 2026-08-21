@@ -34,7 +34,10 @@ build/Base/Entities/Player/PlayerItem/PlayerItem.o: \
  Base/Entities/Enemies/ZombieChicken/ZombieChickenLogic.h \
  Base/Entities/Enemies/Zombie/ZombieLogic.h \
  Base/Entities/Player/PlayerItem/PlayerItem.h \
- Base/Entities/Player/PlayerMove/PlayerMove.h
+ Base/Entities/Player/PlayerMove/PlayerMove.h \
+ Base/Entities/Player/PlayerEquipment/PlayerEquipment.h \
+ Base/Entities/Player/PlayerHead/PlayerHead.h \
+ Base/Entities/Player/PlayerAnimations/PlayerAnimations.h
 Base/Entities/Player/PlayerItem/PlayerItem.h:
 Base/Entities/Player/PlayerLogic/PlayerLogic.h:
 Base/structurs.h:
@@ -72,3 +75,6 @@ Base/Entities/Enemies/ZombieChicken/ZombieChickenLogic.h:
 Base/Entities/Enemies/Zombie/ZombieLogic.h:
 Base/Entities/Player/PlayerItem/PlayerItem.h:
 Base/Entities/Player/PlayerMove/PlayerMove.h:
+Base/Entities/Player/PlayerEquipment/PlayerEquipment.h:
+Base/Entities/Player/PlayerHead/PlayerHead.h:
+Base/Entities/Player/PlayerAnimations/PlayerAnimations.h:

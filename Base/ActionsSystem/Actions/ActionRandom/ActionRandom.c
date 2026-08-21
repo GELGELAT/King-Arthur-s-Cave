@@ -47,15 +47,15 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
             {
                 if (action_type == MOVING)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_walk_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_walk_animation;
                 }
                 else if (action_type == ATTACK)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_attack_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_attack_animation;
                 }
                 else if (action_type == MINE)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_mine_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_mine_animation;
                     
                 }
                 //player_animation_direction(-directing_x,-directing_y,game_data->player);
@@ -147,7 +147,7 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
                     }
                     else if (object_type == PLAYER)
                     {
-                        game_data->player->current_anim[0] = &game_data->player->player_anim->player_breathe_animation;
+                        game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_breathe_animation;
                     }
                 }
                 
@@ -208,15 +208,15 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
             {
                 if (action_type == MOVING)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_walk_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_walk_animation;
                 }
                 else if (action_type == ATTACK)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_attack_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_attack_animation;
                 }
                 else if (action_type == MINE)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_mine_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_mine_animation;
                 }
                 //player_animation_direction(-directing_x,-directing_y,game_data->player);
             }
@@ -341,7 +341,7 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
                     }
                     else if (object_type == PLAYER)
                     {
-                        game_data->player->current_anim[0] = &game_data->player->player_anim->player_breathe_animation;
+                        game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_breathe_animation;
                     }
                 }
                 
@@ -402,15 +402,15 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
             {
                 if (action_type == MOVING)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_walk_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_walk_animation;
                 }
                 else if (action_type == ATTACK)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_attack_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_attack_animation;
                 }
                 else if (action_type == MINE)
                 {
-                    game_data->player->current_anim[0] = &game_data->player->player_anim->player_mine_animation;
+                    game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_mine_animation;
                 }
                 //player_animation_direction(-directing_x,-directing_y,game_data->player);
             }
@@ -540,7 +540,7 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
                     }
                     else if (object_type == PLAYER)
                     {
-                        game_data->player->current_anim[0] = &game_data->player->player_anim->player_breathe_animation;
+                        game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_breathe_animation;
                     }
                 }
                 

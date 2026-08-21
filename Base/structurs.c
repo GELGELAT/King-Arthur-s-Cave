@@ -33,19 +33,45 @@ Player* create_player(Allocator* alloc,int start_posX,int start_posY)
 
     player->player_stats = player_stats;
     player->player_pos = player_pos;
-    PlayerAnimations* player_anim = alloc_alloc(alloc,sizeof(PlayerAnimations));
-    player->player_anim =player_anim;
-    PlayerBodyPos  * body_pos = alloc_alloc(alloc,sizeof(PlayerBodyPos  ));
-    player->body_pos=body_pos;
-    player->current_anim = alloc_alloc(alloc,sizeof(Animation*));
-
-
+    PlayerCurrentAnimations * current_animations = alloc_alloc(alloc,sizeof(PlayerCurrentAnimations));
+    player->current_animations = current_animations;
+    player->current_animations->current_anim = alloc_alloc(alloc,sizeof(Animation*));
+    PlayerCurrentEquipmentAnimations * current_equipment_anim = alloc_alloc(alloc,sizeof(PlayerCurrentEquipmentAnimations));
+    player->current_animations->current_equipment_anim = current_equipment_anim;
+    player->current_animations->current_head_anim=alloc_alloc(alloc,sizeof(Animation*));
+    PlayerAnimations * player_anim = alloc_alloc(alloc,sizeof(PlayerAnimations));
+    player->player_anim=player_anim;
+    PlayerActionAnimations * player_action_animation = alloc_alloc(alloc,sizeof(PlayerActionAnimations));
+    player->player_anim->player_action_animation =player_action_animation;
+    PlayerEquipmentAnimations * player_equipment_animation = alloc_alloc(alloc,sizeof(PlayerEquipmentAnimations));
+    player->player_anim->player_equipment_animation=player_equipment_animation;
+    PlayerHeadAnimations * player_head_animation = alloc_alloc(alloc,sizeof(PlayerHeadAnimations));
+    player->player_anim->player_head_animation=player_head_animation;
+    PlayerEquipmentOffsetPos * equipment_pos = alloc_alloc(alloc,sizeof(PlayerEquipmentOffsetPos));
+    player->player_pos->equipment_pos=equipment_pos;
+    HeadOffsetPos  * head_pos = alloc_alloc(alloc,sizeof(HeadOffsetPos ));
+    player->player_pos->head_pos=head_pos;
+    ArmorOffsetPos   * armor_pos = alloc_alloc(alloc,sizeof(ArmorOffsetPos  ));
+    player->player_pos->equipment_pos->armor_pos=armor_pos;
+    HelmetOffsetPos   * helmet_pos = alloc_alloc(alloc,sizeof(HelmetOffsetPos  ));
+    player->player_pos->equipment_pos->helmet_pos=helmet_pos;
+    SwordOffsetPos   * sword_pos = alloc_alloc(alloc,sizeof(SwordOffsetPos  ));
+    player->player_pos->equipment_pos->sword_pos=sword_pos;
     
-    player->current_anim[0] = &player->player_anim->player_breathe_animation;
-    player->player_anim->size_x =96;
-    player->player_anim->size_y =96;
-    player->player_anim->alignment_x = 48;
-    player->player_anim->alignment_y = 60;
+    player->current_animations->current_equipment_anim->current_armor_anim =alloc_alloc(alloc,sizeof(Animation*));
+    player->current_animations->current_equipment_anim->current_helmet_anim = alloc_alloc(alloc,sizeof(Animation*));
+    player->current_animations->current_equipment_anim->current_sword_anim = alloc_alloc(alloc,sizeof(Animation*));
+    player->current_animations->current_equipment_anim->current_armor_anim[0] =NULL;
+    player->current_animations->current_equipment_anim->current_helmet_anim[0] = NULL;
+    player->current_animations->current_equipment_anim->current_sword_anim[0] =NULL;
+    player->current_animations->current_anim[0] = &player->player_anim->player_action_animation->player_breathe_animation;
+    player->current_animations->current_head_anim[0] = &player->player_anim->player_head_animation->ordinary_head_animation;
+    player->player_anim->player_action_animation->size_x =96;
+    player->player_anim->player_action_animation->size_y =96;
+    player->player_anim->player_action_animation->alignment_x = 48;
+    player->player_anim->player_action_animation->alignment_y = 60;
+
+
     return player;
 }
 

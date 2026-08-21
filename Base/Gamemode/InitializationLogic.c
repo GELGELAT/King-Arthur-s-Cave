@@ -41,10 +41,11 @@ bool structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int ti
 {
     texturs_init(game_anim);
     anim_init(game_anim);
+    init_equipment_animations(game_anim);
     create_animations(game_data,game_anim);
     player_init( game_data);
     player_anim_init(game_data,game_anim);
-    append_player_anim_to_arr(game_anim,game_data->player->current_anim);
+    
     cells_map_init(game_data, tilesX,  tilesY,  tileSize);
     collision_map_init(game_data);
     action_map_init(game_data);
