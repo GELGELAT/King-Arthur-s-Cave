@@ -12,6 +12,10 @@ void append_player_anim_to_arr(GAME_ANIM* game_anim,Animation** anim)
 }
 void draw_animation(Animation* anim,Vector2 pos,int size_x,int size_y,int pos_index,float rotate) 
 {
+    if (anim == NULL)
+    {
+        return;
+    }
     int rand_pos[5][2] = {{0,0},{0,32},{32,0},{32,32},{0,0}};
     if (!anim->isPlaying)
     {
@@ -280,7 +284,7 @@ void play_full_animation(GAME_DATA* game_data,Action* action,float directing_x,f
         else if (action->object->object_type == PLAYER)
         {
             
-            current_animation = game_data->player->current_anim[0];
+            current_animation = game_data->player->current_animations->current_anim[0];
         }
         directing_x *=64;
         directing_y *=64;

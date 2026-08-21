@@ -158,13 +158,7 @@ typedef struct PlayerPixelsPos
     Vector2 pos_pixels;
 
 }PlayerPixelsPos;
-typedef struct PlayerPos
-{
-    PlayerTilesPos* position_tiles;
-    PlayerPixelsPos* position_pixels;
 
-
-}PlayerPos;
 
 typedef struct PlayerExp
 {
@@ -331,18 +325,21 @@ typedef struct ArmorTexturs
 {
     Texture2D armors;
     Rectangle frames[4];
+    Texture2D armors_no_lines;
 }ArmorTexturs;
 
 typedef struct SwordTexturs
 {
     Texture2D swords;
     Rectangle frames[4];
+    Texture2D swords_no_lines;
 }SwordTexturs;
 
 typedef struct HelmetTexturs
 {
     Texture2D helmets;
     Rectangle frames[4];
+    Texture2D helmets_no_lines;
 }HelmetTexturs;
 
 typedef struct EquipmentTexturs
@@ -412,6 +409,7 @@ typedef struct PlayerHuman
 typedef struct PlayerTexturs
 {
     PlayerHuman* player_human;
+    Texture2D heads_texturs;
 }PlayerTexturs;
 typedef struct Texturs
 {
@@ -437,7 +435,34 @@ typedef struct Animation
     bool isPlaying;
     int index;
 }Animation ;
-typedef struct PlayerAnimations
+
+
+
+typedef struct PlayerCurrentEquipmentAnimations
+{
+    Animation** current_armor_anim;
+    Animation** current_sword_anim;
+    Animation** current_helmet_anim;
+    
+}PlayerCurrentEquipmentAnimations;
+typedef struct PlayerEquipmentAnimations
+{
+    Animation armor_animation;
+    Animation sword_animation;
+    Animation helmet_animation;
+    
+}PlayerEquipmentAnimations;
+typedef struct PlayerHeadAnimations
+{
+    Animation ordinary_head_animation;
+    Animation angry_head_animation;
+    Animation weak_head_animation;
+    int size_x;
+    int size_y;
+    int alignment_x;
+    int alignment_y;
+}PlayerHeadAnimations;
+typedef struct PlayerActionAnimations
 {
     Animation player_breathe_animation;
     Animation player_walk_animation;
@@ -448,24 +473,68 @@ typedef struct PlayerAnimations
     int size_y;
     int alignment_x;
     int alignment_y;
-}PlayerAnimations;
-typedef struct PlayerBodyPos
+    
+}PlayerActionAnimations;
+typedef struct PlayerAnimations
 {
-    Vector2 armor;
-    Vector2 helmet;
-    Vector2 sword;
-    Vector2 head;
+    PlayerEquipmentAnimations* player_equipment_animation;
+    PlayerActionAnimations*player_action_animation;
+    PlayerHeadAnimations* player_head_animation;
+}PlayerAnimations;
+typedef struct ArmorOffsetPos
+{
+    Vector2 offset;
+    Vector2 alignment;
 
-}PlayerBodyPos;
+}ArmorOffsetPos;
+typedef struct HelmetOffsetPos
+{
+    Vector2 offset;
+    Vector2 alignment;
 
+}HelmetOffsetPos;
+typedef struct SwordOffsetPos
+{
+    Vector2 offset;
+    Vector2 alignment;
+
+}SwordOffsetPos;
+typedef struct HeadOffsetPos
+{
+    Vector2 current_pos;
+    Vector2 offset;
+    Vector2 alignment;
+
+}HeadOffsetPos;
+typedef struct PlayerEquipmentOffsetPos
+{
+    ArmorOffsetPos* armor_pos;
+    HelmetOffsetPos* helmet_pos;
+    SwordOffsetPos* sword_pos;
+    
+
+}PlayerEquipmentOffsetPos;
+
+typedef struct PlayerCurrentAnimations
+{
+    Animation** current_anim;
+    Animation** current_head_anim;
+    PlayerCurrentEquipmentAnimations* current_equipment_anim;
+}PlayerCurrentAnimations;
+typedef struct PlayerPos
+{
+    PlayerTilesPos* position_tiles;
+    PlayerPixelsPos* position_pixels;
+    HeadOffsetPos* head_pos;
+    PlayerEquipmentOffsetPos* equipment_pos;
+
+}PlayerPos;
 typedef struct Player
 {
-    PlayerPos* player_pos;
     PlayerStats* player_stats;
-    //PlayerActions* player_actions;
+    PlayerPos* player_pos;
+    PlayerCurrentAnimations* current_animations;
     PlayerAnimations* player_anim;
-    PlayerBodyPos* body_pos;
-    Animation** current_anim;
 }Player;
 typedef struct EnemyAnimations
 {
@@ -529,6 +598,10 @@ typedef struct ArmorAnimation
     Animation leather_armor;
     Animation iron_armor;
     Animation mithril_armor;
+    Animation wooden_armor_no_line;
+    Animation leather_armor_no_line;
+    Animation iron_armor_no_line;
+    Animation mithril_armor_no_line;
 
 }ArmorAnimation;
 
@@ -538,6 +611,10 @@ typedef struct SwordAnimation
     Animation stone_weapon;
     Animation iron_weapon;
     Animation mithril_weapon;
+    Animation wooden_weapon_no_line;
+    Animation stone_weapon_no_line;
+    Animation iron_weapon_no_line;
+    Animation mithril_weapon_no_line;
 
 }SwordAnimation;
 
@@ -547,6 +624,10 @@ typedef struct HelmetAnimation
     Animation leather_HELMET;
     Animation iron_HELMET;
     Animation mithril_HELMET;
+    Animation wooden_HELMET_no_line;
+    Animation leather_HELMET_no_line;
+    Animation iron_HELMET_no_line;
+    Animation mithril_HELMET_no_line;
 
 }HelmetAnimation;
 
@@ -643,10 +724,52 @@ typedef struct HumanAnimations
     Animation player_mine_animation;
     
 }HumanAnimations;
+typedef struct ArmorsEquipmentsAnimations
+{
+    Animation wooden_armor;
+    Animation leather_armor;
+    Animation iron_armor;
+    Animation mithril_armor;
+    
+}ArmorsEquipmentsAnimations;
+typedef struct SwordsEquipmentsAnimations
+{
+    Animation wooden_weapon;
+    Animation stone_weapon;
+    Animation iron_weapon;
+    Animation mithril_weapon;
+}SwordsEquipmentsAnimations;
+typedef struct HelmetsEquipmentsAnimations
+{
+    Animation wooden_helmet;
+    Animation leather_helmet;
+    Animation iron_helmet;
+    Animation mithril_helmet;
+    
+}HelmetsEquipmentsAnimations;
+
+typedef struct PlayerEquipmentsAnimations
+{
+    ArmorsEquipmentsAnimations* armors;
+    SwordsEquipmentsAnimations* swords;
+    HelmetsEquipmentsAnimations* helmets;
+}PlayerEquipmentsAnimations;
+typedef struct HumanHead0Animations
+{
+    Animation ordinary;
+    Animation angry;
+    Animation weak;
+}HumanHead0Animations;
+typedef struct HumanHeadAnimations
+{
+    HumanHead0Animations* human_head_0_animations;
+    
+}HumanHeadAnimations;
 typedef struct PlayersAnimations
 {
     HumanAnimations* human_animations;
-    
+    HumanHeadAnimations* human_head_animations;
+    //PlayerEquipmentsAnimations* player_equipments_animations;
 }PlayersAnimations;
 typedef struct Animations
 {
@@ -657,14 +780,7 @@ typedef struct Animations
     GUIAnimation* gui_animation;
 }Animations;
 
-typedef struct GAME_DATA
-{
-    Player* player;
-    Maps* maps;
-    Allocators* allocators;
-    Misc* misc;
 
-}GAME_DATA;
 
 typedef struct AnimationItemsMap
 {
@@ -692,7 +808,14 @@ typedef struct AnimationMaps
     AnimationPlayerMap* animation_player_map;
 
 }AnimationMaps;
+typedef struct GAME_DATA
+{
+    Player* player;
+    Maps* maps;
+    Allocators* allocators;
+    Misc* misc;
 
+}GAME_DATA;
 
 
 typedef struct GAME_ANIM

@@ -30,7 +30,7 @@
 #define DURING 1
 
 //ТИП ДЕЙСТВИЯ
-#define BREATH -1
+#define BREATH 8
 #define MOVING 0
 #define ATTACK 1
 #define MINE 2

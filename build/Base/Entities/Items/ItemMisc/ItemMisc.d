@@ -16,6 +16,9 @@ build/Base/Entities/Items/ItemMisc/ItemMisc.o: \
  Base/Entities/Player/PlayerLogic/PlayerLogic.h \
  Base/Entities/Player/PlayerItem/PlayerItem.h \
  Base/Entities/Player/PlayerMove/PlayerMove.h \
+ Base/Entities/Player/PlayerEquipment/PlayerEquipment.h \
+ Base/Entities/Player/PlayerHead/PlayerHead.h \
+ Base/Entities/Player/PlayerAnimations/PlayerAnimations.h \
  Base/ActionsSystem/Scripts/ActionsUpdaterLogic/ActionsUpdaterLogic.h \
  Base/ActionsSystem/Scripts/ActionsMisc/ActionsMisc.h \
  Base/ActionsSystem/Actions/ActionForward/ActionForward.h \
@@ -53,6 +56,9 @@ Base/MapScripts/FogLogic/FogLogic.h:
 Base/Entities/Player/PlayerLogic/PlayerLogic.h:
 Base/Entities/Player/PlayerItem/PlayerItem.h:
 Base/Entities/Player/PlayerMove/PlayerMove.h:
+Base/Entities/Player/PlayerEquipment/PlayerEquipment.h:
+Base/Entities/Player/PlayerHead/PlayerHead.h:
+Base/Entities/Player/PlayerAnimations/PlayerAnimations.h:
 Base/ActionsSystem/Scripts/ActionsUpdaterLogic/ActionsUpdaterLogic.h:
 Base/ActionsSystem/Scripts/ActionsMisc/ActionsMisc.h:
 Base/ActionsSystem/Actions/ActionForward/ActionForward.h:

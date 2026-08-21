@@ -8,7 +8,10 @@
 
 #include "PlayerItem.h"
 #include "PlayerMove.h"
-void apply_equipment(Player *player, int item_type, int index);
+#include "PlayerEquipment.h"
+#include "PlayerHead.h"
+#include "PlayerAnimations.h"
+
 
 
 #endif

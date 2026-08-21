@@ -8,7 +8,6 @@ Animation create_animation(Texture2D textur, int direction, int frame_count, int
 
 Animations *create_animations_struct(Allocator *alloc);
 
-void player_anim_init(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
 #endif
 

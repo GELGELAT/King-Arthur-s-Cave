@@ -1,6 +1,6 @@
 #include "PlayerItem.h"
 
-int player_ground_check(GAME_DATA* game_data,int new_x,int new_y)
+int player_ground_check(GAME_DATA* game_data,GAME_ANIM* game_anim,int new_x,int new_y)
 {
     int taken=-2;
     CellsMap* objects_map =game_data->maps->cells_map;
@@ -8,7 +8,7 @@ int player_ground_check(GAME_DATA* game_data,int new_x,int new_y)
     
     if (items_indices[new_x][new_y] != -1)
     {
-         taken = take_item(game_data,items_indices[new_x][new_y],new_x,new_y);
+         taken = take_item(game_data,game_anim,items_indices[new_x][new_y],new_x,new_y);
     }
     if (taken != -1)
     {
@@ -18,7 +18,7 @@ int player_ground_check(GAME_DATA* game_data,int new_x,int new_y)
     }
 }
 
-int take_item(GAME_DATA* game_data,int index,int pos_x,int pos_y)
+int take_item(GAME_DATA* game_data,GAME_ANIM* game_anim,int index,int pos_x,int pos_y)
 {
     Player* player = game_data->player;
     Item** items_map = game_data->maps->items_map->items_map;
@@ -31,7 +31,7 @@ int take_item(GAME_DATA* game_data,int index,int pos_x,int pos_y)
             if (player->player_stats->player_equipment_tier->armor_tier < i+1) 
             {
                 player->player_stats->player_equipment_tier->armor_tier = i+1;
-                apply_equipment(player,ARMOR_CHEST,i);
+                apply_equipment(game_data,game_anim,player,ARMOR_CHEST,i);
                 return index;
             }
             return -1;
@@ -41,7 +41,7 @@ int take_item(GAME_DATA* game_data,int index,int pos_x,int pos_y)
             if (player->player_stats->player_equipment_tier->sword_tier < i+1)
             {
                 player->player_stats->player_equipment_tier->sword_tier = i+1;
-                apply_equipment(player,WEAPON,i);
+                apply_equipment(game_data,game_anim,player,WEAPON,i);
                 return index;
             }
             return -1;
@@ -51,7 +51,7 @@ int take_item(GAME_DATA* game_data,int index,int pos_x,int pos_y)
             if (player->player_stats->player_equipment_tier->HELMET_tier < i+1)
             {
                 player->player_stats->player_equipment_tier->HELMET_tier = i+1;
-                apply_equipment(player,HELMET,i);
+                apply_equipment(game_data,game_anim,player,HELMET,i);
                 return index;
             }
             return -1;
