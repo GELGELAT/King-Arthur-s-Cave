@@ -12,6 +12,12 @@ void player_animation_direction(int directing_x,int directing_y,Player* player)
         head_list[0]->cur_frameRec.width = 16;
         head_list[1]->cur_frameRec.width =16;
         head_list[2]->cur_frameRec.width = 16;
+        for (int i=0;i<4;i++)
+        {
+            armor_list[i]->cur_frameRec.width = 17;
+            sword_list[i]->cur_frameRec.width = 17;
+            helmet_list[i]->cur_frameRec.width = 17;
+        }
         current_direction = RIGHT;
         //player->player_anim. = -width;
        // player->player_anim = -width;
@@ -26,6 +32,12 @@ void player_animation_direction(int directing_x,int directing_y,Player* player)
         head_list[0]->cur_frameRec.width = -16;
         head_list[1]->cur_frameRec.width = -16;
         head_list[2]->cur_frameRec.width = -16;
+        for (int i=0;i<4;i++)
+        {
+            armor_list[i]->cur_frameRec.width = -17;
+            sword_list[i]->cur_frameRec.width = -17;
+            helmet_list[i]->cur_frameRec.width = -17;
+        }
         current_direction = LEFT;
        // player->player_anim = width;
        // player->player_anim = width;

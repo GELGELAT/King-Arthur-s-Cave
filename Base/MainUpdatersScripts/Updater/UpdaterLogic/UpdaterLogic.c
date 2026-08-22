@@ -7,6 +7,7 @@ void GAME_UPDATE(GAME_DATA *game_data,GAME_ANIM* game_anim)
     main_action_map_updater(game_data,game_anim);
     update_animations(game_anim);
     update_current_head(game_data);
+    update_equipment_pos(game_data);
 }
 
 void update_animations(GAME_ANIM* game_anim)

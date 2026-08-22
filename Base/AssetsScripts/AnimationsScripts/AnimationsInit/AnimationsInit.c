@@ -144,10 +144,10 @@ void create_animations(GAME_DATA* game_data,GAME_ANIM*game_anim)
     Texture2D swords_no_lines = game_anim->texturs->items_texturs->equipment_texturs->swords_texturs->swords_no_lines;
     Texture2D helmets_no_lines = game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets_no_lines;
     //ARMOR
-    Animation wooden_armor_no_line =create_animation(armors_no_lines,Width,1,18,16,(Rectangle){0,0,18,16},8,alloc);
-    Animation leather_armor_no_line =create_animation(armors_no_lines,Width,1,18,16,(Rectangle){18,0,18,16},8,alloc);
-    Animation iron_armor_no_line =create_animation(armors_no_lines,Width,1,18,16,(Rectangle){36,0,18,16},8,alloc);
-    Animation mithril_armor_no_line =create_animation(armors_no_lines,Width,1,18,16,(Rectangle){54,0,18,16},8,alloc);
+    Animation wooden_armor_no_line =create_animation(armors_no_lines,Width,1,17,16,(Rectangle){0,0,17,16},8,alloc);
+    Animation leather_armor_no_line =create_animation(armors_no_lines,Width,1,17,16,(Rectangle){17,0,17,16},8,alloc);
+    Animation iron_armor_no_line =create_animation(armors_no_lines,Width,1,17,16,(Rectangle){34,0,17,16},8,alloc);
+    Animation mithril_armor_no_line =create_animation(armors_no_lines,Width,1,17,16,(Rectangle){51,0,17,16},8,alloc);
     game_anim->animations->items_animation->equipment_animation->armors_animation->wooden_armor_no_line =wooden_armor_no_line;
     game_anim->animations->items_animation->equipment_animation->armors_animation->leather_armor_no_line =leather_armor_no_line;
     game_anim->animations->items_animation->equipment_animation->armors_animation->iron_armor_no_line = iron_armor_no_line;

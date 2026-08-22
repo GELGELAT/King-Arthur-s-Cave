@@ -109,9 +109,9 @@ void equipment_textur_init(GAME_ANIM* game_anim)
 
     Texture2D armor_no_line_texturs = LoadTexture("Texturs/Equipment/Armor/armor_no_line.png");
     game_anim->texturs->items_texturs->equipment_texturs->armors_texturs->armors_no_lines=armor_no_line_texturs;
-    Texture2D swords_no_line_texturs = LoadTexture("Texturs/Equipment/Swords/swords_no_line.png");
+    Texture2D swords_no_line_texturs = LoadTexture("Texturs/Equipment/Swords/swords_no_lines.png");
     game_anim->texturs->items_texturs->equipment_texturs->swords_texturs->swords_no_lines=swords_no_line_texturs;
-    Texture2D helmets_no_line_texturs = LoadTexture("Texturs/Equipment/Helmets/helmets_no_line.png");
+    Texture2D helmets_no_line_texturs = LoadTexture("Texturs/Equipment/Helmets/helmets_no_lines.png");
     game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets_no_lines=helmets_no_line_texturs;
 
 }

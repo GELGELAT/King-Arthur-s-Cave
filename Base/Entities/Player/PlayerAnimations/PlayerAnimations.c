@@ -12,6 +12,7 @@ void player_anim_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
     init_head_animations(game_data,game_anim);
     init_player_animations(game_data);
     init_head_offsets_and_alignment_animations(game_data,game_anim);
+    init_equipment_animations(game_data,game_anim);
     append_player_anim_to_arr(game_anim,game_data->player->current_animations->current_anim);
 }
 void init_player_animations(GAME_DATA* game_data)

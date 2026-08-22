@@ -41,7 +41,7 @@ bool structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int ti
 {
     texturs_init(game_anim);
     anim_init(game_anim);
-    init_equipment_animations(game_anim);
+    //init_equipment_animations(game_data,game_anim);
     create_animations(game_data,game_anim);
     player_init( game_data);
     player_anim_init(game_data,game_anim);
@@ -218,7 +218,7 @@ bool enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
    //spawn_enemy(game_anim,game_data,posX-1,posY+1,enemy_indexes,2,1);
    // spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,3,0);
     
-  enemies_rand_spawn(game_data,game_anim);
+  //enemies_rand_spawn(game_data,game_anim);
 
                 
 }
@@ -230,7 +230,14 @@ bool items_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
 
 
 
-    //spawn_item(game_data,posX-1,posY-1,textur(ARMOR_CHEST,2));
-    equipments_rand_spawn(game_data,game_anim);
+    spawn_item(game_data,game_anim,posX-1,posY-1,textur(HELMET,1));
+    spawn_item(game_data,game_anim,posX-1,posY+1,textur(HELMET,0));
+    spawn_item(game_data,game_anim,posX+1,posY+1,textur(HELMET,2));
+    spawn_item(game_data,game_anim,posX+1,posY-1,textur(HELMET,3));
+    spawn_item(game_data,game_anim,posX,posY-1,textur(ARMOR_CHEST,0));
+    spawn_item(game_data,game_anim,posX+1,posY,textur(ARMOR_CHEST,1));
+    spawn_item(game_data,game_anim,posX,posY+1,textur(ARMOR_CHEST,2));
+    spawn_item(game_data,game_anim,posX-1,posY,textur(ARMOR_CHEST,3));
+    //equipments_rand_spawn(game_data,game_anim);
 
 }

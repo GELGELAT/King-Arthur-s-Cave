@@ -483,18 +483,21 @@ typedef struct PlayerAnimations
 }PlayerAnimations;
 typedef struct ArmorOffsetPos
 {
+    Vector2 current_pos;
     Vector2 offset;
     Vector2 alignment;
 
 }ArmorOffsetPos;
 typedef struct HelmetOffsetPos
 {
+    Vector2 current_pos;
     Vector2 offset;
     Vector2 alignment;
 
 }HelmetOffsetPos;
 typedef struct SwordOffsetPos
 {
+    Vector2 current_pos;
     Vector2 offset;
     Vector2 alignment;
 
