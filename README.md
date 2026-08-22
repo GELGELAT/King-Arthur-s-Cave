@@ -8,17 +8,21 @@ Turn-based dungeon crawl roguelike. (Project for the 3rd semester at NSU)
 <img width="1081" height="702" alt="изображение" src="https://github.com/user-attachments/assets/1b4499d4-407b-429c-bdfe-1df20752f923" />
 ------------------------------------
 14.08.26
-Action system added.
-Added unique behaviors for the zombie chicken and zombie hand.
+-Action system added.
+-Added unique behaviors for the zombie chicken and zombie hand.
 ------------------------------------
 16.08.26
-Started dividing project into folders.
+-Started dividing project into folders.
 ------------------------------------
 19.08.26
-System of interaction between animations and actions has been improved.
-Added death animations
-Added unique behaviors for the zombie.
+-System of interaction between animations and actions has been improved.
+-Added death animations
+-Added unique behaviors for the zombie.
 ------------------------------------
 22.08.26
-Added animations for head.
+-Added animations for head.
 <img width="795" height="593" alt="изображение" src="https://github.com/user-attachments/assets/42f830fb-7ae7-4eca-98d6-ec41084c3ede" />
+------------------------------------
+23.08.26
+-Added animations for armor and helmet.
+<img width="796" height="595" alt="изображение" src="https://github.com/user-attachments/assets/8d537c47-3d0e-4c11-81e3-c80b3f5b28ee" />
