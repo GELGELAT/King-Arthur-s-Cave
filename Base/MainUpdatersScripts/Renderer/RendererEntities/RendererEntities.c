@@ -117,7 +117,7 @@ void player_draw(GAME_DATA *game_data)
     draw_animation(player->current_animations->current_equipment_anim->current_armor_anim[0],*equipment_pos_list[ARMOR_CHEST],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0);
     draw_animation(player->current_animations->current_head_anim[0],(Vector2){pos_head_x,pos_head_y},player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0);
     draw_animation(player->current_animations->current_equipment_anim->current_helmet_anim[0],*equipment_pos_list[HELMET],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0);
-    draw_animation(player->current_animations->current_equipment_anim->current_sword_anim[0],*equipment_pos_list[WEAPON],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0);
+    draw_animation(player->current_animations->current_equipment_anim->current_sword_anim[0],*equipment_pos_list[WEAPON],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,sword_rotate[current_direction]);
     //DrawCircle(game_data->player->player_pos->position_pixels->pos_pixels.x,game_data->player->player_pos->position_pixels->pos_pixels.y, 32.0f, GOLD); 
 
 }

@@ -500,7 +500,7 @@ typedef struct SwordOffsetPos
     Vector2 current_pos;
     Vector2 offset;
     Vector2 alignment;
-
+    float current_rotate;
 }SwordOffsetPos;
 typedef struct HeadOffsetPos
 {

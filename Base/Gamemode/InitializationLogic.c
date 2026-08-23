@@ -230,14 +230,11 @@ bool items_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
 
 
 
-    spawn_item(game_data,game_anim,posX-1,posY-1,textur(HELMET,1));
-    spawn_item(game_data,game_anim,posX-1,posY+1,textur(HELMET,0));
-    spawn_item(game_data,game_anim,posX+1,posY+1,textur(HELMET,2));
-    spawn_item(game_data,game_anim,posX+1,posY-1,textur(HELMET,3));
-    spawn_item(game_data,game_anim,posX,posY-1,textur(ARMOR_CHEST,0));
-    spawn_item(game_data,game_anim,posX+1,posY,textur(ARMOR_CHEST,1));
-    spawn_item(game_data,game_anim,posX,posY+1,textur(ARMOR_CHEST,2));
-    spawn_item(game_data,game_anim,posX-1,posY,textur(ARMOR_CHEST,3));
-    //equipments_rand_spawn(game_data,game_anim);
+  //  spawn_item(game_data,game_anim,posX-1,posY-1,textur(WEAPON,1));
+  //  spawn_item(game_data,game_anim,posX-1,posY+1,textur(WEAPON,0));
+   // spawn_item(game_data,game_anim,posX+1,posY+1,textur(WEAPON,2));
+   // spawn_item(game_data,game_anim,posX+1,posY-1,textur(WEAPON,3));
+
+    equipments_rand_spawn(game_data,game_anim);
 
 }
