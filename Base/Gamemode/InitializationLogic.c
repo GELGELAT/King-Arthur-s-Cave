@@ -145,7 +145,7 @@ bool collision_map_init(GAME_DATA* game_data)
 bool action_map_init(GAME_DATA* game_data)
 {
 
-    ActionsMap* map = create_action_map(game_data->allocators->alloc_data);
+    ActionsMap* map = create_action_map(game_data->allocators->alloc_data,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
     game_data->maps->actins_map = map;
 }
 bool fog_init(GAME_DATA* game_data)
@@ -218,7 +218,7 @@ bool enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
    //spawn_enemy(game_anim,game_data,posX-1,posY+1,enemy_indexes,2,1);
    // spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,3,0);
     
-  //enemies_rand_spawn(game_data,game_anim);
+  enemies_rand_spawn(game_data,game_anim);
 
                 
 }

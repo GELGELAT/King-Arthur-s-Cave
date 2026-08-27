@@ -7,8 +7,9 @@
 #include "RendererEntities.h"
 #include "RendererItems.h"
 #include "RendererMap.h"
+#include "RendererActionsTiles.h"
+void GAME_DRAW(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
 
 #endif
 
-void GAME_DRAW(GAME_DATA *game_data, GAME_ANIM *game_anim);

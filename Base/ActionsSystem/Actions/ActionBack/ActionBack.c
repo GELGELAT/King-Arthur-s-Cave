@@ -7,7 +7,7 @@ void back_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Actio
         int* current_state = &action->misc->current_state;
 
         int object_type = action->object->object_type;
-        int action_type = action->main->action_type;
+        int* action_type = action->main->action_type;
 
         float old_tile_x = action->pos->old_tile.x;
         float old_tile_y = action->pos->old_tile.y;
@@ -37,13 +37,13 @@ void back_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Actio
             {
                 int enemy_index = action->object->object_index;
                 Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
-                if (action_type == MOVING)
+                if (action_type[0] == MOVING)
                 {
                     enemy->current_animation[0] = &enemy->enemy_animations->walk;
                     enemy->current_animation[0]->currentFrame =0;
                     enemy->current_animation[0]->framesCounter = 0;
                 }
-                else if (action_type == ATTACK)
+                else if (action_type[0] == ATTACK)
                 {
                     enemy->current_animation[0] = &enemy->enemy_animations->attack;
                     enemy->current_animation[0]->currentFrame =0;
@@ -54,15 +54,15 @@ void back_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Actio
             }
             else if (object_type == PLAYER)
             {
-                if (action_type == MOVING)
+                if (action_type[0] == MOVING)
                 {
                     game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_walk_animation;
                 }
-                else if (action_type == ATTACK)
+                else if (action_type[0] == ATTACK)
                 {
                     game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_attack_animation;
                 }
-                else if (action_type == MINE)
+                else if (action_type[0] == MINE)
                 {
                     game_data->player->current_animations->current_anim[0] = &game_data->player->player_anim->player_action_animation->player_mine_animation;
                 }
@@ -128,7 +128,7 @@ void back_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Actio
                 {
                     if (object_type == PLAYER)
                     {
-                        if (action_type == ATTACK)
+                        if (action_type[0] == ATTACK)
                         {
                             player_attaks(game_data,game_anim,action->pos->new_tile.x,action->pos->new_tile.y);
                         }
@@ -137,7 +137,7 @@ void back_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Actio
                     {
                         int enemy_index = action->object->object_index;
                         Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
-                        if (action_type == ATTACK)
+                        if (action_type[0] == ATTACK)
                         {
                             enemy_attack(game_data,enemy);
                         }

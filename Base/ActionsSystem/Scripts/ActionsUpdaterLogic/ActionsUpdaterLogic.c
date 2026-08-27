@@ -1,4 +1,30 @@
 #include "ActionsUpdaterLogic.h"
+
+//MOVEMENT
+int movement_without_moving_none[2]= {WITHOUT_MOVING,NONE};
+int movement_forward_none[2] ={FORWARD,NONE};
+int movement_back_none[2] ={BACK,NONE};
+int movement_random_moving_none[2] ={RANDOM_MOVING,NONE};
+
+//ACTIONS
+//ENEMY DIE
+int action_fall_die[2] = {FALL,DIE};
+int action_corpse_die[2] ={CORPSE,DIE};
+int action_die_die[2] ={DIE,DIE};
+
+//MOVING WALK
+int action_moving_none[2] ={MOVING,NONE};
+
+//MINE 
+int action_mine_none[2] ={MINE,NONE};
+//ATTACK
+int action_attack_none[2] ={ATTACK,NONE};
+//BREATH
+int action_breath_none[2] ={BREATH,NONE};
+//PREPARATION
+int action_preparation_none[2] ={PREPARATION,NONE};
+
+
 void main_action_map_updater(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
     Action** action_maps = game_data->maps->actins_map->actions_main_queue;
@@ -12,26 +38,26 @@ void main_action_map_updater(GAME_DATA* game_data,GAME_ANIM* game_anim)
         if (current_fill >=max_fill)
         {
             delete_action_from_main_action_map(game_data,i);
+            //destroy_allocator(current_action->alloc);
             continue;
         }
-        int movement_type = current_action->main->movement_type;
-        
-        if (movement_type == WITHOUT_MOVING)
+        int* movement_type = current_action->main->movement_type;
+        if (movement_type[0] == WITHOUT_MOVING)
         {
             without_movement_action_update(game_data,game_anim,current_action);
             
         }
-        else if (movement_type == FORWARD)
+        else if (movement_type[0] == FORWARD)
         {
             forward_movement_action_update(game_data,game_anim,current_action);
             
         }
-        else if (movement_type == BACK)
+        else if (movement_type[0] == BACK)
         {
             back_movement_action_update(game_data,game_anim,current_action);
             
         }
-        else if (movement_type == RANDOM_MOVING)
+        else if (movement_type[0] == RANDOM_MOVING)
         {
             random_movement_action_update(game_data,game_anim,current_action);
             
@@ -63,10 +89,11 @@ void delete_action_from_main_action_map(GAME_DATA* game_data,int current_pos_at_
 {
     int* amount = &game_data->maps->actins_map->amount_actions_main_queue;
     Action** map = game_data->maps->actins_map->actions_main_queue;
+    //Action* current_action = map[current_pos_at_map];
     for (int i=current_pos_at_map;i<*amount-1;i++)
     {
         map[i] =map[i+1];
     }
     *amount-=1;
-    
+    //destroy_allocator(current_action->alloc);
 }

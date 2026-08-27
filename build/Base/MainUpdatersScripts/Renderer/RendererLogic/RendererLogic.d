@@ -27,6 +27,8 @@ build/Base/MainUpdatersScripts/Renderer/RendererLogic/RendererLogic.o: \
  Base/ActionsSystem/Actions/ActionBack/ActionBack.h \
  Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h \
  Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h \
+ Base/ActionsSystem/ActionsManager/ActionsManager.h \
+ Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h \
  Base/MainUpdatersScripts/Updater/UpdaterCamera/UpdaterCamera.h \
  Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h \
@@ -40,7 +42,8 @@ build/Base/MainUpdatersScripts/Renderer/RendererLogic/RendererLogic.o: \
  Base/MainUpdatersScripts/Renderer/RendererEntities/RendererEntities.h \
  Base/MainUpdatersScripts/Renderer/RendererLogic/RendererLogic.h \
  Base/MainUpdatersScripts/Renderer/RendererItems/RendererItems.h \
- Base/MainUpdatersScripts/Renderer/RendererMap/RendererMap.h
+ Base/MainUpdatersScripts/Renderer/RendererMap/RendererMap.h \
+ Base/MainUpdatersScripts/Renderer/RendererMap/RendererActionsTiles.h
 Base/MainUpdatersScripts/Renderer/RendererLogic/RendererLogic.h:
 Base/structurs.h:
 Base/RayLibs/raylib.h:
@@ -71,6 +74,8 @@ Base/ActionsSystem/Actions/ActionForward/ActionForward.h:
 Base/ActionsSystem/Actions/ActionBack/ActionBack.h:
 Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h:
 Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h:
+Base/ActionsSystem/ActionsManager/ActionsManager.h:
+Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h:
 Base/MainUpdatersScripts/Updater/UpdaterCamera/UpdaterCamera.h:
 Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h:
@@ -85,3 +90,4 @@ Base/MainUpdatersScripts/Renderer/RendererEntities/RendererEntities.h:
 Base/MainUpdatersScripts/Renderer/RendererLogic/RendererLogic.h:
 Base/MainUpdatersScripts/Renderer/RendererItems/RendererItems.h:
 Base/MainUpdatersScripts/Renderer/RendererMap/RendererMap.h:
+Base/MainUpdatersScripts/Renderer/RendererMap/RendererActionsTiles.h:

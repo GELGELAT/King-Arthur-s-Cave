@@ -25,6 +25,8 @@ build/Base/main.o: Base/main.c Base/RayLibs/raylib.h Base/structurs.h \
  Base/ActionsSystem/Actions/ActionBack/ActionBack.h \
  Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h \
  Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h \
+ Base/ActionsSystem/ActionsManager/ActionsManager.h \
+ Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h \
@@ -39,6 +41,7 @@ build/Base/main.o: Base/main.c Base/RayLibs/raylib.h Base/structurs.h \
  Base/MainUpdatersScripts/Renderer/RendererEntities/RendererEntities.h \
  Base/MainUpdatersScripts/Renderer/RendererItems/RendererItems.h \
  Base/MainUpdatersScripts/Renderer/RendererMap/RendererMap.h \
+ Base/MainUpdatersScripts/Renderer/RendererMap/RendererActionsTiles.h \
  Base/Gamemode/InitializationLogic.h \
  Base/MapScripts/Generators/Scripts/Generators.h \
  Base/MapScripts/Generators/Cave/CaveGenerator.h
@@ -71,6 +74,8 @@ Base/ActionsSystem/Actions/ActionForward/ActionForward.h:
 Base/ActionsSystem/Actions/ActionBack/ActionBack.h:
 Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h:
 Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h:
+Base/ActionsSystem/ActionsManager/ActionsManager.h:
+Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h:
@@ -86,6 +91,7 @@ Base/MainUpdatersScripts/Renderer/RendererLogic/RendererLogic.h:
 Base/MainUpdatersScripts/Renderer/RendererEntities/RendererEntities.h:
 Base/MainUpdatersScripts/Renderer/RendererItems/RendererItems.h:
 Base/MainUpdatersScripts/Renderer/RendererMap/RendererMap.h:
+Base/MainUpdatersScripts/Renderer/RendererMap/RendererActionsTiles.h:
 Base/Gamemode/InitializationLogic.h:
 Base/MapScripts/Generators/Scripts/Generators.h:
 Base/MapScripts/Generators/Cave/CaveGenerator.h:

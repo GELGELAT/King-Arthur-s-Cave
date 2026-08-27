@@ -26,6 +26,8 @@ build/Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.o: \
  Base/ActionsSystem/Actions/ActionBack/ActionBack.h \
  Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h \
  Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h \
+ Base/ActionsSystem/ActionsManager/ActionsManager.h \
+ Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h \
@@ -65,6 +67,8 @@ Base/ActionsSystem/Actions/ActionForward/ActionForward.h:
 Base/ActionsSystem/Actions/ActionBack/ActionBack.h:
 Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h:
 Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h:
+Base/ActionsSystem/ActionsManager/ActionsManager.h:
+Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyPath.h:

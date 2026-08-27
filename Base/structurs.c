@@ -75,7 +75,7 @@ Player* create_player(Allocator* alloc,int start_posX,int start_posY)
     return player;
 }
 
-ActionsMap* create_action_map(Allocator* alloc)
+ActionsMap* create_action_map(Allocator* alloc,int tilesX,int tilesY)
 {
     ActionsMap* actions_map = alloc_alloc(alloc,sizeof(ActionsMap));
     Action**actions_main_queue= alloc_alloc(alloc,sizeof(Action*)*100);
@@ -84,10 +84,21 @@ ActionsMap* create_action_map(Allocator* alloc)
     actions_map->actions_effects_queue =actions_effects_queue;
     actions_map->amount_actions_effects_queue=0;
     actions_map->amount_actions_main_queue=0;
+    char** tiles_map = alloc_alloc(alloc,sizeof(char*)*tilesX);
+    for (int i=0;i<tilesX;i++)
+    {
+        tiles_map[i] = alloc_alloc(alloc,sizeof(char)*tilesY);
+        for (int j=0;j<tilesY;j++)
+        {
+            tiles_map[i][j]='0';
+        }
+    }
+    actions_map->tiles_glow =tiles_map;
+    actions_map->current_state=0;
     return actions_map;
 }
 
-Action* create_action(Allocator* alloc,int flow,int object_type,int object_index,int movement_type ,int action_type ,int during_type,int affected_type,int affected_index,
+Action* create_action(Allocator* alloc,int flow,int object_type,int object_index,int* movement_type ,int* action_type ,int during_type,int affected_type,int affected_index,
     Vector2* position_pixels,Vector2 old_tile,Vector2 new_tile,float max_fill,float amount_full_anim,float speed)
 {
     Action* action = alloc_alloc(alloc,sizeof(Action));
@@ -97,6 +108,7 @@ Action* create_action(Allocator* alloc,int flow,int object_type,int object_index
     action->main->action_type =action_type;
     action->main->during_type =during_type;
     action->main->movement_type =movement_type;
+    action->main->action_type =action_type;
     ActionMiscInfo *misc =alloc_alloc(alloc,sizeof(ActionMiscInfo));
     action->misc=misc;
     action->misc->current_fill=0;
@@ -119,6 +131,7 @@ Action* create_action(Allocator* alloc,int flow,int object_type,int object_index
     action->queue->beginning_action= NULL;
     action->queue->ending_action =NULL;
     action->misc->amount_full_moves = amount_full_anim;
+    action->alloc = alloc;
     return action;
 }
 

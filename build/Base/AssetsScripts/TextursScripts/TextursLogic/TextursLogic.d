@@ -26,6 +26,8 @@ build/Base/AssetsScripts/TextursScripts/TextursLogic/TextursLogic.o: \
  Base/ActionsSystem/Actions/ActionBack/ActionBack.h \
  Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h \
  Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h \
+ Base/ActionsSystem/ActionsManager/ActionsManager.h \
+ Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h \
  Base/MainUpdatersScripts/Updater/UpdaterCamera/UpdaterCamera.h \
  Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.h \
  Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h \
@@ -66,6 +68,8 @@ Base/ActionsSystem/Actions/ActionForward/ActionForward.h:
 Base/ActionsSystem/Actions/ActionBack/ActionBack.h:
 Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h:
 Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h:
+Base/ActionsSystem/ActionsManager/ActionsManager.h:
+Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h:
 Base/MainUpdatersScripts/Updater/UpdaterCamera/UpdaterCamera.h:
 Base/MainUpdatersScripts/Updater/UpdaterStep/UpdaterStep.h:
 Base/Entities/Enemies/Scripts/EnemyMove/EnemyMove.h:

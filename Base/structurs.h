@@ -14,6 +14,8 @@ typedef struct Enemy Enemy;
 typedef struct Animation Animation;
 typedef struct Action Action;
 
+
+
 typedef struct ActionPosInfo
 {
     Vector2* position_pixels; //указатель на позицию обьекта
@@ -23,9 +25,9 @@ typedef struct ActionPosInfo
 }ActionPos;
 typedef struct ActionMainInfo
 {
-    int movement_type; //тип движения 
+    int* movement_type; //тип движения 
     int during_type; //когда должно произойти
-    int action_type; //что должно произойти
+    int* action_type; //что должно произойти
 }ActionMainInfo;
 typedef struct ActionObjectInfo
 {
@@ -57,6 +59,7 @@ typedef struct Action
     ActionMiscInfo* misc;
     int flow;
     ActionQueueInfo* queue;
+    Allocator* alloc;
     
     
 }Action;
@@ -66,6 +69,8 @@ typedef struct ActionsMap
     int amount_actions_main_queue;
     Action**actions_effects_queue;
     int amount_actions_effects_queue;
+    char** tiles_glow;
+    int current_state;
 }ActionsMap;
 
 typedef struct ItemMain
@@ -833,9 +838,11 @@ typedef struct GAME_ANIM
 
 Player *create_player(Allocator *alloc, int start_posX, int start_posY);
 
-ActionsMap* create_action_map(Allocator* alloc);
+ActionsMap *create_action_map(Allocator *alloc, int tilesX, int tilesY);
 
-Action *create_action(Allocator *alloc, int flow, int object_type, int object_index, int movement_type, int action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float amount_full_anim, float speed);
+
+Action *create_action(Allocator *alloc, int flow, int object_type, int object_index, int* movement_type, int* action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float amount_full_anim, float speed);
+
 
 
 

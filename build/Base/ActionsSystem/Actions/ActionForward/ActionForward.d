@@ -36,7 +36,9 @@ build/Base/ActionsSystem/Actions/ActionForward/ActionForward.o: \
  Base/ActionsSystem/Actions/ActionForward/ActionForward.h \
  Base/ActionsSystem/Actions/ActionBack/ActionBack.h \
  Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h \
- Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h
+ Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h \
+ Base/ActionsSystem/ActionsManager/ActionsManager.h \
+ Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h
 Base/ActionsSystem/Actions/ActionForward/ActionForward.h:
 Base/ActionsSystem/Scripts/ActionsUpdaterLogic/ActionsUpdaterLogic.h:
 Base/structurs.h:
@@ -77,3 +79,5 @@ Base/ActionsSystem/Actions/ActionForward/ActionForward.h:
 Base/ActionsSystem/Actions/ActionBack/ActionBack.h:
 Base/ActionsSystem/Actions/ActionRandom/ActionRandom.h:
 Base/ActionsSystem/Actions/ActionWithout/ActionWithout.h:
+Base/ActionsSystem/ActionsManager/ActionsManager.h:
+Base/ActionsSystem/Scripts/ActionsTilesLogic/ActionsTilesLogic.h:

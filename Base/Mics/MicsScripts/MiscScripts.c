@@ -220,3 +220,7 @@ Vector2 rand_pos_within(int tilesX,int tilesY, float size_zone_coefficient,float
 
     
 }
+Vector2 vector_sum(Vector2 v1,Vector2 v2)
+{
+    return (Vector2){v1.x+v2.x,v1.y+v2.y};
+}
