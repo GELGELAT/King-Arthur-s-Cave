@@ -60,6 +60,20 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
     enemy->current_animation = current_animations;
     enemy->enemy_characteristics->enemy_stamina = enemy_stamina;
     enemy->enemy_main->live = 1;
+    EnemyAnimationsEffects * enemy_animations_effects = alloc_alloc(alloc,sizeof(EnemyAnimationsEffects ));
+    enemy->enemy_animations_effects=enemy_animations_effects;
+    EnemyAnimationsInfo  * effect_attack = alloc_alloc(alloc,sizeof(EnemyAnimationsInfo  ));
+    enemy->enemy_animations_effects->effect_attack =effect_attack;
+    Animation** current_attack_animation = alloc_alloc(alloc,sizeof(Animation*));
+    enemy->enemy_animations_effects->effect_attack->anim = game_anim->animations->enemies_animation->attack_enemies_animation;
+    EnemyCurrentEffects   * enemy_current_effects = alloc_alloc(alloc,sizeof(EnemyCurrentEffects   ));
+    enemy->enemy_current_effects =enemy_current_effects;
+    enemy->enemy_current_effects->current_attack_animation=current_attack_animation;
+    enemy->enemy_current_effects->current_attack_animation[0] = NULL;
+    enemy->enemy_animations_effects->effect_attack->size_x=64;
+    enemy->enemy_animations_effects->effect_attack->size_y=64;
+    enemy->enemy_animations_effects->effect_attack->alignment_x=0;
+          enemy->enemy_animations_effects->effect_attack->alignment_y=0;
     if (enemy_type == 1)
     {
         enemy->enemy_animations->breathe = game_anim->animations->enemies_animation->skeleton_enemies_animations->skeleton_breathe_animation;
@@ -75,6 +89,8 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
         enemy->enemy_animations->size_y = rand_num_within(114,132);
          enemy->enemy_animations->alignment_x =64;
           enemy->enemy_animations->alignment_y =96;
+          enemy->enemy_animations_effects->effect_attack->alignment_x=-38;
+          enemy->enemy_animations_effects->effect_attack->alignment_y=-56;
     }
     else if (enemy_type == 0)
     {
@@ -184,7 +200,6 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
     enemy->enemy_characteristics->min_physical_damage = enemy_damage[enemy_type][0]; 
     enemy->enemy_characteristics->max_physical_damage = enemy_damage[enemy_type][1];
     enemy->enemy_characteristics->defense = enemy_defens[enemy_type];
-    
 
     return enemy;
 }

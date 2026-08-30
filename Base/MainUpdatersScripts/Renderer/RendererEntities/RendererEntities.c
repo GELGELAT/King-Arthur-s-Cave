@@ -25,7 +25,8 @@ void draw_enemy(GAME_DATA* game_data)
             int pos_x = cur_enemy->enemy_position->position_pixels->pos_pixels.x -cur_enemy->enemy_animations->alignment_x;
             int pos_y =cur_enemy->enemy_position->position_pixels->pos_pixels.y -cur_enemy->enemy_animations->alignment_y;
             //pr_int(cur_enemy->current_animation->texture.id);
-            draw_animation(cur_enemy->current_animation[0],(Vector2){pos_x,pos_y},cur_enemy->enemy_animations->size_x,cur_enemy->enemy_animations->size_y,4,0);
+            draw_animation(cur_enemy->current_animation[0],(Vector2){pos_x,pos_y},cur_enemy->enemy_animations->size_x,cur_enemy->enemy_animations->size_y,4,0,WHITE);
+            draw_animation(cur_enemy->enemy_current_effects->current_attack_animation[0],(Vector2){pos_x-cur_enemy->enemy_animations_effects->effect_attack->alignment_x,pos_y-cur_enemy->enemy_animations_effects->effect_attack->alignment_y},cur_enemy->enemy_animations_effects->effect_attack->size_x,cur_enemy->enemy_animations_effects->effect_attack->size_y,4,0,WHITE);
         }
         
         
@@ -54,13 +55,13 @@ void draw_item(GAME_DATA* game_data,GAME_ANIM* game_anim,char** objects,int x,in
         if (objects[1]==armor_chest_texturs[i])
         {
             Animation cur_anim = get_item_animation(game_anim,index_item);
-            draw_animation(&cur_anim,pos_1,64,64,4,0);
+            draw_animation(&cur_anim,pos_1,64,64,4,0,WHITE);
             //DrawCircle(pos_1.x+32,pos_1.y+32, 20.0f, color_armor_chest_texturs[i]);        
         }
         else if (objects[1]==weapon_texturs[i])
         {
             Animation cur_anim = get_item_animation(game_anim,index_item);
-            draw_animation(&cur_anim,pos_1,64,64,4,0);
+            draw_animation(&cur_anim,pos_1,64,64,4,0,WHITE);
             //DrawCircle(pos_1.x+32,pos_1.y+32, 10.0f, color_weapon_texturs[i]);
                 
 
@@ -68,7 +69,7 @@ void draw_item(GAME_DATA* game_data,GAME_ANIM* game_anim,char** objects,int x,in
         else if (objects[1]==HELMET_texturs[i])
         {
             Animation cur_anim = get_item_animation(game_anim,index_item);
-            draw_animation(&cur_anim,pos_1,64,64,4,0);
+            draw_animation(&cur_anim,pos_1,64,64,4,0,WHITE);
             //DrawCircle(pos_1.x+32,pos_1.y+32, 5.0f, color_HELMET_texturs[i]);
                 
 
@@ -85,7 +86,7 @@ void draw_item(GAME_DATA* game_data,GAME_ANIM* game_anim,char** objects,int x,in
         else if (objects[1]==heals_texturs[i])
         {
             Animation cur_anim = get_item_animation(game_anim,index_item);
-            draw_animation(&cur_anim,pos_1,32,32,pos_index,0);
+            draw_animation(&cur_anim,pos_1,32,32,pos_index,0,WHITE);
             //DrawCircle(pos_1.x+32,pos_1.y+32, 5.0f, RED);
                 
 
@@ -93,7 +94,7 @@ void draw_item(GAME_DATA* game_data,GAME_ANIM* game_anim,char** objects,int x,in
         else if (objects[1]==experience_texturs[i])
         {
             Animation cur_anim = get_item_animation(game_anim,index_item);
-            draw_animation(&cur_anim,pos_1,32,32,pos_index,0);
+            draw_animation(&cur_anim,pos_1,32,32,pos_index,0,WHITE);
             //DrawCircle(pos_1.x+32,pos_1.y+32, 5.0f, BLUE);
                 
 
@@ -113,11 +114,11 @@ void player_draw(GAME_DATA *game_data)
     int pos_head_x = player->player_pos->head_pos->current_pos.x;
     int pos_head_y =player->player_pos->head_pos->current_pos.y;
 
-    draw_animation(player->current_animations->current_anim[0],(Vector2){pos_player_x,pos_player_y},player->player_anim->player_action_animation->size_x,player->player_anim->player_action_animation->size_y,4,0);
-    draw_animation(player->current_animations->current_equipment_anim->current_armor_anim[0],*equipment_pos_list[ARMOR_CHEST],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0);
-    draw_animation(player->current_animations->current_head_anim[0],(Vector2){pos_head_x,pos_head_y},player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0);
-    draw_animation(player->current_animations->current_equipment_anim->current_helmet_anim[0],*equipment_pos_list[HELMET],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0);
-    draw_animation(player->current_animations->current_equipment_anim->current_sword_anim[0],*equipment_pos_list[WEAPON],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,sword_rotate[current_direction]);
+    draw_animation(player->current_animations->current_anim[0],(Vector2){pos_player_x,pos_player_y},player->player_anim->player_action_animation->size_x,player->player_anim->player_action_animation->size_y,4,0,WHITE);
+    draw_animation(player->current_animations->current_equipment_anim->current_armor_anim[0],*equipment_pos_list[ARMOR_CHEST],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0,WHITE);
+    draw_animation(player->current_animations->current_head_anim[0],(Vector2){pos_head_x,pos_head_y},player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0,WHITE);
+    draw_animation(player->current_animations->current_equipment_anim->current_helmet_anim[0],*equipment_pos_list[HELMET],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,0,WHITE);
+    draw_animation(player->current_animations->current_equipment_anim->current_sword_anim[0],*equipment_pos_list[WEAPON],player->player_anim->player_head_animation->size_x,player->player_anim->player_head_animation->size_y,4,sword_rotate[current_direction],WHITE);
     //DrawCircle(game_data->player->player_pos->position_pixels->pos_pixels.x,game_data->player->player_pos->position_pixels->pos_pixels.y, 32.0f, GOLD); 
 
 }

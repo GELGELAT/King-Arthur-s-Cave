@@ -48,3 +48,19 @@ bool actions_mouse_click_check(GAME_DATA* game_data,Vector2 mouse_click)
         return false;
     }
 }
+void init_actions_tiles_queue(GAME_DATA* game_data,GAME_ANIM* game_anim)
+{
+    Animation**queue = game_anim->maps->animation_world_maps->animation_action_tiles_map->animation_action_tiles_map_queue;
+    queue[0] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_animation;
+    queue[1] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_glow_effect_animation_1;
+    queue[2] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_glow_effect_animation_2;
+    queue[3] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_glow_effect_animation_3;
+    queue[4] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_glow_effect_animation_4;
+
+    queue[5] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_line_animation_1;
+    queue[6] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_line_animation_2;
+    queue[7] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_line_animation_3;
+    queue[8] =&game_anim->animations->world_animation->tiles_animation->action_tiles_animations->tiles_backlight_line_animation_4;
+
+    game_anim->maps->animation_world_maps->animation_action_tiles_map->amount_animation_action_tiles_map_queue = 9;
+}

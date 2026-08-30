@@ -8,6 +8,8 @@ void update_items_animations(GAME_ANIM *game_anim);
 
 void update_player_animations(GAME_ANIM *game_anim);
 
+void update_action_tiles_animations(GAME_ANIM *game_anim);
+
 void update_animation(Animation *anim);
 
 #endif

@@ -53,7 +53,7 @@ bool structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int ti
     enemy_map_init(game_data); 
     path_init(game_data);
     items_map_init(game_data);
-    
+    init_actions_tiles_queue(game_data,game_anim);
 
     return true;
 

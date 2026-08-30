@@ -163,6 +163,14 @@ AnimationEnemyMap* create_anim_enemies_map(GAME_ANIM* game_anim)
     return enemy_map;
 
 }
+AnimationActionTilesMap* create_anim_action_tiles_map(GAME_ANIM* game_anim)
+{
+    AnimationActionTilesMap* action_tiles_map = alloc_alloc(game_anim->anim_alloc,sizeof(AnimationActionTilesMap));
+    action_tiles_map->animation_action_tiles_map_queue = alloc_alloc(game_anim->anim_alloc,sizeof(Animation*)*20);
+    action_tiles_map->amount_animation_action_tiles_map_queue = 0;
+    return action_tiles_map;
+
+}
 AnimationPlayerMap* create_anim_player_map(GAME_ANIM* game_anim)
 {
     AnimationPlayerMap* player_map = alloc_alloc(game_anim->anim_alloc,sizeof(AnimationPlayerMap));
@@ -196,6 +204,15 @@ GAME_ANIM* create_game_anim()
     game_anim->maps->animation_items_map = items_map;
     game_anim->maps->animation_enemies_map = create_anim_enemies_map(game_anim);
     game_anim->maps->animation_player_map=create_anim_player_map(game_anim);
+    AnimationWorldMaps * animation_world_maps = alloc_alloc(alloc,sizeof(AnimationWorldMaps));
+    game_anim->maps->animation_world_maps = animation_world_maps;
+    game_anim->maps->animation_world_maps->animation_action_tiles_map = create_anim_action_tiles_map(game_anim);
+    //AnimationActionTilesMap  * animation_action_tiles_map = alloc_alloc(alloc,sizeof(AnimationActionTilesMap ));
+    //animation_world_maps->animation_action_tiles_map =animation_action_tiles_map;
+    //game_anim->maps->animation_world_maps = animation_world_maps;
+    //game_anim->maps->animation_world_maps->animation_action_tiles_map->animation_action_tiles_map_queue = alloc_alloc(game_anim->anim_alloc,sizeof(Animation**)*5);
+    //game_anim->maps->animation_world_maps->animation_action_tiles_map->amount_animation_action_tiles_map_queue = 0;
+    //game_anim->maps->animation_world_maps->animation_action_tiles_map=create_anim_action_tiles_map(game_anim);
     return game_anim;
 }
 

@@ -56,6 +56,7 @@ void enemy_animation_direction(int directing_x,int directing_y,Enemy* enemy)
         enemy->enemy_animations->corpse.cur_frameRec.width = -width;
         enemy->enemy_animations->preparation.cur_frameRec.width = -width;
         enemy->enemy_animations->receiving_damage.cur_frameRec.width = -width;
+        enemy->enemy_animations_effects->effect_attack->anim.cur_frameRec.width=24;
     }
     if (directing_x<0)
     {
@@ -66,6 +67,7 @@ void enemy_animation_direction(int directing_x,int directing_y,Enemy* enemy)
         enemy->enemy_animations->corpse.cur_frameRec.width = width;
         enemy->enemy_animations->preparation.cur_frameRec.width = width;
         enemy->enemy_animations->receiving_damage.cur_frameRec.width = width;
+        enemy->enemy_animations_effects->effect_attack->anim.cur_frameRec.width=-24;
     }
     
 }

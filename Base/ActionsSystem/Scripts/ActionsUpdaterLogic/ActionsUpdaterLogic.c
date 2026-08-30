@@ -19,6 +19,7 @@ int action_moving_none[2] ={MOVING,NONE};
 int action_mine_none[2] ={MINE,NONE};
 //ATTACK
 int action_attack_none[2] ={ATTACK,NONE};
+int action_attack_punch[2] ={ATTACK,ATTACK_PUNCH};
 //BREATH
 int action_breath_none[2] ={BREATH,NONE};
 //PREPARATION
@@ -37,7 +38,7 @@ void main_action_map_updater(GAME_DATA* game_data,GAME_ANIM* game_anim)
         float max_fill = current_action->misc->max_fill;
         if (current_fill >=max_fill)
         {
-            delete_action_from_main_action_map(game_data,i);
+            delete_action_from_queue_action_map(game_data,current_action->flow,i);
             //destroy_allocator(current_action->alloc);
             continue;
         }
@@ -64,7 +65,45 @@ void main_action_map_updater(GAME_DATA* game_data,GAME_ANIM* game_anim)
         }
     }
 }
-
+void effects_action_map_updater(GAME_DATA* game_data,GAME_ANIM* game_anim)
+{
+    Action** action_maps = game_data->maps->actins_map->actions_effects_queue;
+    int* amount = &game_data->maps->actins_map->amount_actions_effects_queue;
+    for (int i =0;i<*amount;i++)
+    {
+        //pr_int(*amount);
+        Action* current_action = action_maps[i];
+        float current_fill = current_action->misc->current_fill;
+        float max_fill = current_action->misc->max_fill;
+        if (current_fill >=max_fill)
+        {
+            delete_action_from_queue_action_map(game_data,current_action->flow,i);
+            //destroy_allocator(current_action->alloc);
+            continue;
+        }
+        int* movement_type = current_action->main->movement_type;
+        if (movement_type[0] == WITHOUT_MOVING)
+        {
+            without_movement_action_update(game_data,game_anim,current_action);
+            
+        }
+        else if (movement_type[0] == FORWARD)
+        {
+            forward_movement_action_update(game_data,game_anim,current_action);
+            
+        }
+        else if (movement_type[0] == BACK)
+        {
+            back_movement_action_update(game_data,game_anim,current_action);
+            
+        }
+        else if (movement_type[0] == RANDOM_MOVING)
+        {
+            random_movement_action_update(game_data,game_anim,current_action);
+            
+        }
+    }
+}
 void append_action_to_actions_map(GAME_DATA* game_data,Action* action)
 {
     ActionsMap* action_maps = game_data->maps->actins_map;
@@ -85,10 +124,20 @@ void append_action_to_actions_map(GAME_DATA* game_data,Action* action)
     
 
 }
-void delete_action_from_main_action_map(GAME_DATA* game_data,int current_pos_at_map)
+void delete_action_from_queue_action_map(GAME_DATA* game_data,int queue,int current_pos_at_map)
 {
-    int* amount = &game_data->maps->actins_map->amount_actions_main_queue;
-    Action** map = game_data->maps->actins_map->actions_main_queue;
+    int* amount;
+    Action** map;
+    if (queue == MAIN_MAP)
+    {
+        amount = &game_data->maps->actins_map->amount_actions_main_queue;
+        map = game_data->maps->actins_map->actions_main_queue;
+    }
+    else
+    {
+        amount = &game_data->maps->actins_map->amount_actions_effects_queue;
+        map = game_data->maps->actins_map->actions_effects_queue;
+    }
     //Action* current_action = map[current_pos_at_map];
     for (int i=current_pos_at_map;i<*amount-1;i++)
     {

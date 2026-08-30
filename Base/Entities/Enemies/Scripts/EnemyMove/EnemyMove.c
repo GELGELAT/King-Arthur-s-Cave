@@ -115,7 +115,7 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         }
         else
         {
-            Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_forward_none,action_attack_none,END,-1,-1,
+            Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_forward_none,action_attack_punch,END,-1,-1,
             &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,ENEMY_ATTACK_SPEED_ANIM);
             
             Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_back_none,action_moving_none,END,-1,-1,

@@ -1,5 +1,6 @@
 #include "UpdaterStep.h"
 bool enemy_step_flag = false;
+bool card_using_flag = false;
 int player_action_move_dx[] = {0,1,0,-1,0};
 int player_action_move_dy[] = {-1,0,1,0,0};
 void pos_player_updater(GAME_DATA *game_data,GAME_ANIM* game_anim)
@@ -37,8 +38,7 @@ void player_actions_logic(GAME_DATA *game_data,GAME_ANIM* game_anim)
 }
 void card_actions_logic(GAME_DATA* game_data)
 {
-
-    if(IsKeyPressed(KEY_ONE))
+    if(IsKeyPressed(KEY_ONE) && game_data->maps->actins_map->current_state == 0)
     {
         
         actions_mark_tiles(game_data,game_data->player->player_pos->position_tiles->pos_tiles,actions_tiles_glow_plus_one,actions_tiles_glow_plus_one_amount);
@@ -59,8 +59,12 @@ void card_actions_logic(GAME_DATA* game_data)
         
 }
 
-int moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_step_direction)
+void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_step_direction)
 {
+    if (game_data->maps->actins_map->current_state == 1)
+    {
+        return;
+    }
     char** map = game_data->maps->collision_map->grid;
     if(IsKeyPressed(KEY_W))
     {

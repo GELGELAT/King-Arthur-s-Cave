@@ -12,5 +12,7 @@ void actions_clear_mark_tiles(GAME_DATA *game_data);
 
 bool actions_mouse_click_check(GAME_DATA *game_data, Vector2 mouse_click);
 
+void init_actions_tiles_queue(GAME_DATA *game_data, GAME_ANIM *game_anim);
+
 #endif
 

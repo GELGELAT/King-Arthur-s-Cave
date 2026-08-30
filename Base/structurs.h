@@ -311,15 +311,22 @@ typedef struct WallTexturs
     Texture2D ground_wall;
     Rectangle frames[4];
 }WallTexturs;
-
+typedef struct ActionTilesTexturs
+{
+    Texture2D tiles_backlight;
+    Texture2D tiles_backlight_glow_effect;
+    Texture2D tiles_backlight_line;
+}ActionTilesTexturs;
 typedef struct TilesTexturs
 {
     FloorTexturs* floor_texturs;
     WallTexturs* wall_texturs;
+    ActionTilesTexturs* action_tiles_texturs;
 }TilesTexturs;
 typedef struct WorldTexturs
 {
     TilesTexturs* tiles_texturs;
+    
 }WorldTexturs;
 typedef struct GUITexturs
 {
@@ -416,12 +423,21 @@ typedef struct PlayerTexturs
     PlayerHuman* player_human;
     Texture2D heads_texturs;
 }PlayerTexturs;
+typedef struct WeaponEffects
+{
+    Texture2D weapon_attacks;
+}WeaponEffects;
+typedef struct EffectsTexturs
+{
+    WeaponEffects* weapon_effects;
+}EffectsTexturs;
 typedef struct Texturs
 {
     WorldTexturs* world_texturs;
     ItemsTexturs* items_texturs;
     EnemiesTexturs* enemies_texturs;
     PlayerTexturs* player_texturs;
+    EffectsTexturs* effects_texturs;
     GUITexturs* gui_texturs;
 }Texturs;
 
@@ -565,6 +581,24 @@ typedef struct EnemyActions
     Action* enemy_attack;
     Action* enemy_die;
 }EnemyActions;
+typedef struct EnemyCurrentEffects
+{
+    Animation** current_attack_animation;
+
+}EnemyCurrentEffects;
+typedef struct EnemyAnimationsInfo
+{
+    Animation anim;
+    int size_x;
+    int size_y;
+    int alignment_x;
+    int alignment_y;
+    float rotate;
+}EnemyAnimationsInfo;
+typedef struct EnemyAnimationsEffects
+{
+    EnemyAnimationsInfo* effect_attack;
+}EnemyAnimationsEffects;
 typedef struct Enemy
 {
     EnemyMain* enemy_main;
@@ -572,7 +606,8 @@ typedef struct Enemy
     EnemyPos* enemy_position;
     EnemyMisc* enemy_misc;
     EnemyAnimations* enemy_animations;
-    EnemyActions* enemy_actions;
+    EnemyAnimationsEffects* enemy_animations_effects;
+    EnemyCurrentEffects* enemy_current_effects;
     Animation** current_animation;
 }Enemy;
 typedef struct FloorAnimation
@@ -585,11 +620,24 @@ typedef struct WallAnimation
     Animation ground_wall;
 
 }WallAnimation;
+typedef struct ActionTilesAnimations
+{
+    Animation tiles_backlight_animation;
+    Animation tiles_backlight_glow_effect_animation_1;
+    Animation tiles_backlight_glow_effect_animation_2;
+    Animation tiles_backlight_glow_effect_animation_3;
+    Animation tiles_backlight_glow_effect_animation_4;
+    Animation tiles_backlight_line_animation_1;
+    Animation tiles_backlight_line_animation_2;
+    Animation tiles_backlight_line_animation_3;
+    Animation tiles_backlight_line_animation_4;
 
+}ActionTilesAnimations;
 typedef struct TilesAnimation
 {
     FloorAnimation* floor_animation;
     WallAnimation* wall_animation;
+    ActionTilesAnimations* action_tiles_animations;
 }TilesAnimation;
 typedef struct WorldAnimation
 {
@@ -722,6 +770,7 @@ typedef struct EnemiesAnimations
     SkeletonEnemiesAnimations*skeleton_enemies_animations;
     ZombieEnemiesAnimations*zombie_enemies_animations;
     KnightZombieEnemiesAnimations*knight_zombie_enemies_animations;
+    Animation attack_enemies_animation;
 }EnemiesAnimations;
 typedef struct HumanAnimations
 {
@@ -773,11 +822,16 @@ typedef struct HumanHeadAnimations
     HumanHead0Animations* human_head_0_animations;
     
 }HumanHeadAnimations;
+typedef struct HumanAttacksAnimations
+{
+    Animation jab;
+    Animation slash;
+}HumanAttacksAnimations;
 typedef struct PlayersAnimations
 {
     HumanAnimations* human_animations;
     HumanHeadAnimations* human_head_animations;
-    //PlayerEquipmentsAnimations* player_equipments_animations;
+    HumanAttacksAnimations* human_attacks_animations;
 }PlayersAnimations;
 typedef struct Animations
 {
@@ -809,12 +863,24 @@ typedef struct AnimationPlayerMap
     int amount_animation_map_queue;
 
 }AnimationPlayerMap;
+typedef struct AnimationActionTilesMap
+{
+    Animation** animation_action_tiles_map_queue;
+    int amount_animation_action_tiles_map_queue;
+
+}AnimationActionTilesMap;
+typedef struct AnimationWorldMaps
+{
+    AnimationActionTilesMap* animation_action_tiles_map;
+
+
+}AnimationWorldMaps;
 typedef struct AnimationMaps
 {
     AnimationItemsMap* animation_items_map;
     AnimationEnemyMap* animation_enemies_map;
     AnimationPlayerMap* animation_player_map;
-
+    AnimationWorldMaps* animation_world_maps;
 }AnimationMaps;
 typedef struct GAME_DATA
 {
@@ -852,6 +918,8 @@ Action *create_action(Allocator *alloc, int flow, int object_type, int object_in
 GAME_DATA *create_game_data();
 
 AnimationEnemyMap *create_anim_enemies_map(GAME_ANIM *game_anim);
+
+AnimationActionTilesMap *create_anim_action_tiles_map(GAME_ANIM *game_anim);
 
 AnimationPlayerMap *create_anim_player_map(GAME_ANIM *game_anim);
 

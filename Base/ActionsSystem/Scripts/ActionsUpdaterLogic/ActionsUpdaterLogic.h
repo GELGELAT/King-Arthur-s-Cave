@@ -83,6 +83,9 @@ extern int action_die_die[2];
 extern int action_moving_none[2];
 extern int action_mine_none[2];
 extern int action_attack_none[2];
+extern int action_attack_punch[2];
+
+
 extern int action_breath_none[2];
 extern int action_preparation_none[2];
 
@@ -90,8 +93,9 @@ extern int action_preparation_none[2];
 
 void main_action_map_updater(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
-void append_action_to_actions_map(GAME_DATA *game_data, Action *action);
-void delete_action_from_main_action_map(GAME_DATA* game_data,int current_pos_at_map);
+void effects_action_map_updater(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
+void append_action_to_actions_map(GAME_DATA *game_data, Action *action);
+void delete_action_from_queue_action_map(GAME_DATA *game_data, int queue, int current_pos_at_map);
 
 #endif
