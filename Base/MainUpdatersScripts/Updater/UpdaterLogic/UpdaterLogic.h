@@ -21,6 +21,8 @@
 #define third_state 2
 #define DIE_TIME 35
 
+extern bool enemy_step_flag;
+
 void GAME_UPDATE(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
 void update_animations(GAME_ANIM *game_anim);

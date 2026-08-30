@@ -8,7 +8,8 @@
 
 void append_player_anim_to_arr(GAME_ANIM *game_anim, Animation **anim);
 
-void draw_animation(Animation *anim, Vector2 pos, int size_x, int size_y, int pos_index, float rotate);
+void draw_animation(Animation *anim, Vector2 pos, int size_x, int size_y, int pos_index, float rotate, Color color);
+
 
 Animation get_item_animation(GAME_ANIM *game_anim, int index);
 

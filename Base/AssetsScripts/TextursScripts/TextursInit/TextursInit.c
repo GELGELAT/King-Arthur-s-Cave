@@ -1,69 +1,74 @@
 #include "TextursInit.h"
 
-
-Texturs* create_texturs_struct(Allocator* alloc)
+Texturs *create_texturs_struct(Allocator *alloc)
 {
-    Texturs* texturs = alloc_alloc(alloc,sizeof(Texturs));
-    GUITexturs* gui_texturs = alloc_alloc(alloc,sizeof(GUITexturs));
-    WorldTexturs* world_texturs = alloc_alloc(alloc,sizeof(WorldTexturs));
-    TilesTexturs* tiles_texturs = alloc_alloc(alloc,sizeof(TilesTexturs));
-    FloorTexturs* floor_texturs = alloc_alloc(alloc,sizeof(FloorTexturs));
-    WallTexturs* wall_texturs = alloc_alloc(alloc,sizeof(WallTexturs));
-    ItemsTexturs*items_texturs = alloc_alloc(alloc,sizeof(ItemsTexturs));
-    EquipmentTexturs* equipment_texturs = alloc_alloc(alloc,sizeof(EquipmentTexturs));
+    Texturs *texturs = alloc_alloc(alloc, sizeof(Texturs));
+    GUITexturs *gui_texturs = alloc_alloc(alloc, sizeof(GUITexturs));
+    WorldTexturs *world_texturs = alloc_alloc(alloc, sizeof(WorldTexturs));
+    TilesTexturs *tiles_texturs = alloc_alloc(alloc, sizeof(TilesTexturs));
+    FloorTexturs *floor_texturs = alloc_alloc(alloc, sizeof(FloorTexturs));
+    WallTexturs *wall_texturs = alloc_alloc(alloc, sizeof(WallTexturs));
+    ItemsTexturs *items_texturs = alloc_alloc(alloc, sizeof(ItemsTexturs));
+    EquipmentTexturs *equipment_texturs = alloc_alloc(alloc, sizeof(EquipmentTexturs));
 
-    MiscellaneousTexturs* misc_texturs = alloc_alloc(alloc,sizeof(MiscellaneousTexturs));
-    ArmorTexturs* armors_texturs = alloc_alloc(alloc,sizeof(ArmorTexturs));
-    HelmetTexturs* helmets_texturs = alloc_alloc(alloc,sizeof(HelmetTexturs));
-    SwordTexturs* swords_texturs = alloc_alloc(alloc,sizeof(SwordTexturs));
-    CoinsTexturs* coins_texturs = alloc_alloc(alloc,sizeof(CoinsTexturs));
-    ExpTexturs* exps_texturs = alloc_alloc(alloc,sizeof(ExpTexturs));
-    HealTexturs* heals_texturs = alloc_alloc(alloc,sizeof(HealTexturs));
+    MiscellaneousTexturs *misc_texturs = alloc_alloc(alloc, sizeof(MiscellaneousTexturs));
+    ArmorTexturs *armors_texturs = alloc_alloc(alloc, sizeof(ArmorTexturs));
+    HelmetTexturs *helmets_texturs = alloc_alloc(alloc, sizeof(HelmetTexturs));
+    SwordTexturs *swords_texturs = alloc_alloc(alloc, sizeof(SwordTexturs));
+    CoinsTexturs *coins_texturs = alloc_alloc(alloc, sizeof(CoinsTexturs));
+    ExpTexturs *exps_texturs = alloc_alloc(alloc, sizeof(ExpTexturs));
+    HealTexturs *heals_texturs = alloc_alloc(alloc, sizeof(HealTexturs));
 
-    EnemiesTexturs* enemies_texturs = alloc_alloc(alloc,sizeof(EnemiesTexturs));
+    EnemiesTexturs *enemies_texturs = alloc_alloc(alloc, sizeof(EnemiesTexturs));
 
-    ArmEnemiesTexturs* arm_enemies_textur = alloc_alloc(alloc,sizeof(ArmEnemiesTexturs));
-    SkeletonEnemiesTexturs* skeleton_enemies_textur = alloc_alloc(alloc,sizeof(SkeletonEnemiesTexturs));
-    KnightZombieEnemiesTexturs* knight_zombie_enemies_textur = alloc_alloc(alloc,sizeof(KnightZombieEnemiesTexturs));
-    ZombieEnemiesTexturs* zombie_enemies_textur = alloc_alloc(alloc,sizeof(ZombieEnemiesTexturs));
-    texturs->enemies_texturs =enemies_texturs;
+    ArmEnemiesTexturs *arm_enemies_textur = alloc_alloc(alloc, sizeof(ArmEnemiesTexturs));
+    SkeletonEnemiesTexturs *skeleton_enemies_textur = alloc_alloc(alloc, sizeof(SkeletonEnemiesTexturs));
+    KnightZombieEnemiesTexturs *knight_zombie_enemies_textur = alloc_alloc(alloc, sizeof(KnightZombieEnemiesTexturs));
+    ZombieEnemiesTexturs *zombie_enemies_textur = alloc_alloc(alloc, sizeof(ZombieEnemiesTexturs));
+    texturs->enemies_texturs = enemies_texturs;
     texturs->enemies_texturs->arm_enemies_textur = arm_enemies_textur;
-    texturs->enemies_texturs->skeleton_enemies_textur =skeleton_enemies_textur;
-    texturs->enemies_texturs->knight_zombie_enemies_textur =knight_zombie_enemies_textur;
+    texturs->enemies_texturs->skeleton_enemies_textur = skeleton_enemies_textur;
+    texturs->enemies_texturs->knight_zombie_enemies_textur = knight_zombie_enemies_textur;
     texturs->enemies_texturs->zombie_enemies_textur = zombie_enemies_textur;
 
-    texturs->items_texturs=items_texturs;
-    texturs->items_texturs->equipment_texturs=equipment_texturs;
-    texturs->items_texturs->misc_texturs=misc_texturs;
-    texturs->items_texturs->equipment_texturs->armors_texturs=armors_texturs;
-    texturs->items_texturs->equipment_texturs->helmets_texturs=helmets_texturs;
-    texturs->items_texturs->equipment_texturs->swords_texturs=swords_texturs;
-    texturs->items_texturs->misc_texturs->coins_texturs=coins_texturs;
-    texturs->items_texturs->misc_texturs->exps_texturs=exps_texturs;
-    texturs->items_texturs->misc_texturs->heals_texturs=heals_texturs;
+    texturs->items_texturs = items_texturs;
+    texturs->items_texturs->equipment_texturs = equipment_texturs;
+    texturs->items_texturs->misc_texturs = misc_texturs;
+    texturs->items_texturs->equipment_texturs->armors_texturs = armors_texturs;
+    texturs->items_texturs->equipment_texturs->helmets_texturs = helmets_texturs;
+    texturs->items_texturs->equipment_texturs->swords_texturs = swords_texturs;
+    texturs->items_texturs->misc_texturs->coins_texturs = coins_texturs;
+    texturs->items_texturs->misc_texturs->exps_texturs = exps_texturs;
+    texturs->items_texturs->misc_texturs->heals_texturs = heals_texturs;
 
     texturs->gui_texturs = gui_texturs;
     texturs->world_texturs = world_texturs;
-    texturs->world_texturs->tiles_texturs= tiles_texturs;
+    texturs->world_texturs->tiles_texturs = tiles_texturs;
     texturs->world_texturs->tiles_texturs->floor_texturs = floor_texturs;
     texturs->world_texturs->tiles_texturs->wall_texturs = wall_texturs;
-    PlayerTexturs * player_texturs = alloc_alloc(alloc,sizeof(PlayerTexturs ));
-    PlayerHuman  * player_human = alloc_alloc(alloc,sizeof(PlayerHuman  ));
+    PlayerTexturs *player_texturs = alloc_alloc(alloc, sizeof(PlayerTexturs));
+    PlayerHuman *player_human = alloc_alloc(alloc, sizeof(PlayerHuman));
 
-    texturs->player_texturs =player_texturs;
+    texturs->player_texturs = player_texturs;
     texturs->player_texturs->player_human = player_human;
-    ArmorTexturs  * equipment_armors_texturs = alloc_alloc(alloc,sizeof(ArmorTexturs   ));
-    HelmetTexturs  * equipment_helmets_texturs = alloc_alloc(alloc,sizeof(HelmetTexturs   ));
-    SwordTexturs  * equipment_swords_texturs = alloc_alloc(alloc,sizeof(SwordTexturs   ));
+    ArmorTexturs *equipment_armors_texturs = alloc_alloc(alloc, sizeof(ArmorTexturs));
+    HelmetTexturs *equipment_helmets_texturs = alloc_alloc(alloc, sizeof(HelmetTexturs));
+    SwordTexturs *equipment_swords_texturs = alloc_alloc(alloc, sizeof(SwordTexturs));
 
-    texturs->items_texturs->equipment_texturs->armors_texturs =equipment_armors_texturs;
-    texturs->items_texturs->equipment_texturs->helmets_texturs=equipment_helmets_texturs;
-    texturs->items_texturs->equipment_texturs->swords_texturs=equipment_swords_texturs;
-
+    texturs->items_texturs->equipment_texturs->armors_texturs = equipment_armors_texturs;
+    texturs->items_texturs->equipment_texturs->helmets_texturs = equipment_helmets_texturs;
+    texturs->items_texturs->equipment_texturs->swords_texturs = equipment_swords_texturs;
+    ActionTilesTexturs *action_tiles_texturs = alloc_alloc(alloc, sizeof(ActionTilesTexturs));
+    texturs->world_texturs->tiles_texturs->action_tiles_texturs =action_tiles_texturs;
+    
+    EffectsTexturs   *effects_texturs = alloc_alloc(alloc, sizeof(EffectsTexturs  ));
+    texturs->effects_texturs=effects_texturs;
+    WeaponEffects  *weapon_effects = alloc_alloc(alloc, sizeof(WeaponEffects ));
+    texturs->effects_texturs->weapon_effects=weapon_effects;
 
     return texturs;
 }
-void texturs_init(GAME_ANIM* game_anim)
+void texturs_init(GAME_ANIM *game_anim)
 {
     game_anim->texturs = create_texturs_struct(game_anim->anim_alloc);
     tiles_textur_init(game_anim);
@@ -71,51 +76,50 @@ void texturs_init(GAME_ANIM* game_anim)
     equipment_textur_init(game_anim);
     enemies_textur_init(game_anim);
     player_textur_init(game_anim);
+    effects_textur_init(game_anim);
 }
 
-void mics_items_textur_init(GAME_ANIM* game_anim)
+void mics_items_textur_init(GAME_ANIM *game_anim)
 {
     Texture2D exp_texturs = LoadTexture("Texturs/Items/Misc/exp.png");
     Texture2D heal_texturs = LoadTexture("Texturs/Items/Misc/heal.png");
     Texture2D coins_texturs = LoadTexture("Texturs/Items/Misc/coins.png");
     game_anim->texturs->items_texturs->misc_texturs->coins_texturs->coins = coins_texturs;
-    game_anim->texturs->items_texturs->misc_texturs->exps_texturs->exps =exp_texturs;
+    game_anim->texturs->items_texturs->misc_texturs->exps_texturs->exps = exp_texturs;
     game_anim->texturs->items_texturs->misc_texturs->heals_texturs->heals = heal_texturs;
     Rectangle frames_tiles_small[4] = {0};
     Rectangle frames_tiles_medium[4] = {0};
     Rectangle sprite_tiles_small[1] = {0};
     Rectangle sprite_tiles_medium[1] = {0};
-    for (int i = 0; i<4;i++)
+    for (int i = 0; i < 4; i++)
     {
-        game_anim->texturs->items_texturs->misc_texturs->exps_texturs->small_frames[i] = (Rectangle){0,i*32,32,32};
-        game_anim->texturs->items_texturs->misc_texturs->exps_texturs->medium_frames[i] = (Rectangle){32,i*32,32,32};
+        game_anim->texturs->items_texturs->misc_texturs->exps_texturs->small_frames[i] = (Rectangle){0, i * 32, 32, 32};
+        game_anim->texturs->items_texturs->misc_texturs->exps_texturs->medium_frames[i] = (Rectangle){32, i * 32, 32, 32};
 
-        game_anim->texturs->items_texturs->misc_texturs->coins_texturs->small_frames[i] = (Rectangle){0,i*32,32,32};
-        game_anim->texturs->items_texturs->misc_texturs->coins_texturs->medium_frames[i] = (Rectangle){32,i*32,32,32};
-
+        game_anim->texturs->items_texturs->misc_texturs->coins_texturs->small_frames[i] = (Rectangle){0, i * 32, 32, 32};
+        game_anim->texturs->items_texturs->misc_texturs->coins_texturs->medium_frames[i] = (Rectangle){32, i * 32, 32, 32};
     }
-    game_anim->texturs->items_texturs->misc_texturs->heals_texturs->small_frames=(Rectangle){0,32,32,32};
-    game_anim->texturs->items_texturs->misc_texturs->heals_texturs->medium_frames=(Rectangle){0,64,32,32};
+    game_anim->texturs->items_texturs->misc_texturs->heals_texturs->small_frames = (Rectangle){0, 32, 32, 32};
+    game_anim->texturs->items_texturs->misc_texturs->heals_texturs->medium_frames = (Rectangle){0, 64, 32, 32};
 }
-void equipment_textur_init(GAME_ANIM* game_anim)
+void equipment_textur_init(GAME_ANIM *game_anim)
 {
     Texture2D armor_texturs = LoadTexture("Texturs/Equipment/Armor/armor.png");
 
-    game_anim->texturs->items_texturs->equipment_texturs->armors_texturs->armors=armor_texturs;
+    game_anim->texturs->items_texturs->equipment_texturs->armors_texturs->armors = armor_texturs;
     Texture2D weapon_texturs = LoadTexture("Texturs/Equipment/Swords/swords.png");
-    game_anim->texturs->items_texturs->equipment_texturs->swords_texturs->swords=weapon_texturs;
+    game_anim->texturs->items_texturs->equipment_texturs->swords_texturs->swords = weapon_texturs;
     Texture2D helmets_texturs = LoadTexture("Texturs/Equipment/Helmets/helmets.png");
-    game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets=helmets_texturs;
+    game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets = helmets_texturs;
 
     Texture2D armor_no_line_texturs = LoadTexture("Texturs/Equipment/Armor/armor_no_line.png");
-    game_anim->texturs->items_texturs->equipment_texturs->armors_texturs->armors_no_lines=armor_no_line_texturs;
+    game_anim->texturs->items_texturs->equipment_texturs->armors_texturs->armors_no_lines = armor_no_line_texturs;
     Texture2D swords_no_line_texturs = LoadTexture("Texturs/Equipment/Swords/swords_no_lines.png");
-    game_anim->texturs->items_texturs->equipment_texturs->swords_texturs->swords_no_lines=swords_no_line_texturs;
+    game_anim->texturs->items_texturs->equipment_texturs->swords_texturs->swords_no_lines = swords_no_line_texturs;
     Texture2D helmets_no_line_texturs = LoadTexture("Texturs/Equipment/Helmets/helmets_no_lines.png");
-    game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets_no_lines=helmets_no_line_texturs;
-
+    game_anim->texturs->items_texturs->equipment_texturs->helmets_texturs->helmets_no_lines = helmets_no_line_texturs;
 }
-void enemies_textur_init(GAME_ANIM* game_anim)
+void enemies_textur_init(GAME_ANIM *game_anim)
 {
     Texture2D skeleton_texturs = LoadTexture("Texturs/Enemies/Skeleton/Skeleton.png");
 
@@ -123,34 +127,45 @@ void enemies_textur_init(GAME_ANIM* game_anim)
 
     Texture2D arm_1_texturs = LoadTexture("Texturs/Enemies/Arm/Arm.png");
     Texture2D arm_0_texturs = LoadTexture("Texturs/Enemies/Arm/ZombieChicken.png");
-    game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_0_texturs =arm_0_texturs;
+    game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_0_texturs = arm_0_texturs;
     game_anim->texturs->enemies_texturs->arm_enemies_textur->arm_1_texturs = arm_1_texturs;
 
     Texture2D zombie_texturs = LoadTexture("Texturs/Enemies/Zombie/Zombie_Variation0.png");
-    game_anim->texturs->enemies_texturs->zombie_enemies_textur->zombie_texturs =zombie_texturs;
+    game_anim->texturs->enemies_texturs->zombie_enemies_textur->zombie_texturs = zombie_texturs;
 
     Texture2D knight_zombie_enemies_textur = LoadTexture("Texturs/Enemies/ZombieKnight/ZombieKnight.png");
-    game_anim->texturs->enemies_texturs->knight_zombie_enemies_textur->knight_zombie_texturs =knight_zombie_enemies_textur;
+    game_anim->texturs->enemies_texturs->knight_zombie_enemies_textur->knight_zombie_texturs = knight_zombie_enemies_textur;
 }
-void player_textur_init(GAME_ANIM* game_anim)
+void player_textur_init(GAME_ANIM *game_anim)
 {
     Texture2D player_human = LoadTexture("Texturs/Player/player_human.png");
     Texture2D head_human = LoadTexture("Texturs/Player/heads.png");
     game_anim->texturs->player_texturs->player_human->human_textur = player_human;
     game_anim->texturs->player_texturs->heads_texturs = head_human;
-
 }
 
-void tiles_textur_init(GAME_ANIM* game_anim)
+void tiles_textur_init(GAME_ANIM *game_anim)
 {
     Texture2D ground_floor_texturs = LoadTexture("Texturs/Tiles/floors_ground.png");
     Texture2D ground_wall_texturs = LoadTexture("Texturs/Tiles/walls_ground.png");
     game_anim->texturs->world_texturs->tiles_texturs->wall_texturs->ground_wall = ground_wall_texturs;
     game_anim->texturs->world_texturs->tiles_texturs->floor_texturs->ground_floor = ground_floor_texturs;
     Rectangle frames_tiles[4] = {0};
-    for (int i = 0; i<4;i++)
+    for (int i = 0; i < 4; i++)
     {
-        game_anim->texturs->world_texturs->tiles_texturs->floor_texturs->frames[i] = (Rectangle){i*64,0,64,64};
-        game_anim->texturs->world_texturs->tiles_texturs->wall_texturs->frames[i] = (Rectangle){i*64,0,64,64};
+        game_anim->texturs->world_texturs->tiles_texturs->floor_texturs->frames[i] = (Rectangle){i * 64, 0, 64, 64};
+        game_anim->texturs->world_texturs->tiles_texturs->wall_texturs->frames[i] = (Rectangle){i * 64, 0, 64, 64};
     }
+    Texture2D tiles_backlight_texturs = LoadTexture("Texturs/Tiles/tiles_backlight.png");
+    Texture2D tiles_backlight_glow_effect_texturs = LoadTexture("Texturs/Tiles/tiles_backlight_glow_effect.png");
+    Texture2D tiles_backlight_line = LoadTexture("Texturs/Tiles/tiles_backlight_line.png");
+    game_anim->texturs->world_texturs->tiles_texturs->action_tiles_texturs->tiles_backlight = tiles_backlight_texturs;
+    game_anim->texturs->world_texturs->tiles_texturs->action_tiles_texturs->tiles_backlight_glow_effect = tiles_backlight_glow_effect_texturs;
+    game_anim->texturs->world_texturs->tiles_texturs->action_tiles_texturs->tiles_backlight_line = tiles_backlight_line;
+}
+
+void effects_textur_init(GAME_ANIM *game_anim)
+{
+    Texture2D weapon_attacks = LoadTexture("Texturs/Effects/Attack/AttacksEffect.png");
+    game_anim->texturs->effects_texturs->weapon_effects->weapon_attacks = weapon_attacks;
 }

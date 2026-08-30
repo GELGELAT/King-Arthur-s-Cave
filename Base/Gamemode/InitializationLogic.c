@@ -53,7 +53,7 @@ bool structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int ti
     enemy_map_init(game_data); 
     path_init(game_data);
     items_map_init(game_data);
-    
+    init_actions_tiles_queue(game_data,game_anim);
 
     return true;
 
@@ -145,7 +145,7 @@ bool collision_map_init(GAME_DATA* game_data)
 bool action_map_init(GAME_DATA* game_data)
 {
 
-    ActionsMap* map = create_action_map(game_data->allocators->alloc_data);
+    ActionsMap* map = create_action_map(game_data->allocators->alloc_data,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
     game_data->maps->actins_map = map;
 }
 bool fog_init(GAME_DATA* game_data)
@@ -218,7 +218,7 @@ bool enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
    //spawn_enemy(game_anim,game_data,posX-1,posY+1,enemy_indexes,2,1);
    // spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,3,0);
     
-  //enemies_rand_spawn(game_data,game_anim);
+  enemies_rand_spawn(game_data,game_anim);
 
                 
 }
@@ -230,14 +230,11 @@ bool items_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
 
 
 
-    spawn_item(game_data,game_anim,posX-1,posY-1,textur(HELMET,1));
-    spawn_item(game_data,game_anim,posX-1,posY+1,textur(HELMET,0));
-    spawn_item(game_data,game_anim,posX+1,posY+1,textur(HELMET,2));
-    spawn_item(game_data,game_anim,posX+1,posY-1,textur(HELMET,3));
-    spawn_item(game_data,game_anim,posX,posY-1,textur(ARMOR_CHEST,0));
-    spawn_item(game_data,game_anim,posX+1,posY,textur(ARMOR_CHEST,1));
-    spawn_item(game_data,game_anim,posX,posY+1,textur(ARMOR_CHEST,2));
-    spawn_item(game_data,game_anim,posX-1,posY,textur(ARMOR_CHEST,3));
-    //equipments_rand_spawn(game_data,game_anim);
+  //  spawn_item(game_data,game_anim,posX-1,posY-1,textur(WEAPON,1));
+  //  spawn_item(game_data,game_anim,posX-1,posY+1,textur(WEAPON,0));
+   // spawn_item(game_data,game_anim,posX+1,posY+1,textur(WEAPON,2));
+   // spawn_item(game_data,game_anim,posX+1,posY-1,textur(WEAPON,3));
+
+    equipments_rand_spawn(game_data,game_anim);
 
 }

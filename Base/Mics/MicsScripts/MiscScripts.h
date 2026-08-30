@@ -33,7 +33,7 @@ void pr_int_with_text(int x, char *s);
 
 Vector2 rand_pos_within(int tilesX, int tilesY, float size_zone_coefficient, float start_coefficient, int mode);
 
-
+Vector2 vector_sum(Vector2 v1, Vector2 v2);
 
 #endif
 

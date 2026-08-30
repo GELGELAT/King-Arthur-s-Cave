@@ -20,7 +20,7 @@ bool zombie_revival_move(GAME_DATA *game_data, Enemy *enemy, Vector2 *path)
         {
             Vector2 old_tile = enemy->enemy_position->position_tiles->pos_tiles;
             Vector2 new_tile = enemy->enemy_position->position_tiles->pos_tiles;
-            Action* breath = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,BREATH,START,-1,-1,
+            Action* breath = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_without_moving_none,action_breath_none,START,-1,-1,
             &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,1,1,1);
             append_action_to_actions_map(game_data,breath);
             enemy->enemy_main->live = ALIVE;
@@ -39,9 +39,9 @@ bool revival_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
         Vector2 old_tile = enemy->enemy_position->position_tiles->pos_tiles;
         Vector2 new_tile = enemy->enemy_position->position_tiles->pos_tiles;
         //enemy->current_animation[0] = &enemy->enemy_animations->corpse;
-        Action* fall = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,FALL,DURING,-1,-1,
+        Action* fall = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_without_moving_none,action_fall_die,DURING,-1,-1,
         &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,ENEMY_FALL_DIE_SPEED_ANIM);
-        Action* corpse = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,WITHOUT_MOVING,CORPSE,DURING,-1,-1,
+        Action* corpse = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_without_moving_none,action_corpse_die,DURING,-1,-1,
         &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,1,1,5);
         fall->queue->ending_action=corpse;
 

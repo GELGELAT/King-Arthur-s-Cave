@@ -16,6 +16,5 @@ void enemies_textur_init(GAME_ANIM *game_anim);
 void player_textur_init(GAME_ANIM *game_anim);
 
 void tiles_textur_init(GAME_ANIM *game_anim);
+void effects_textur_init(GAME_ANIM *game_anim);
 #endif
-
-

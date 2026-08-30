@@ -11,7 +11,11 @@ void update_ememies_animations(GAME_ANIM* game_anim)
         //pr_int(*amount);
         //pr_int(anim_enemy_list[i]->frameCount);
         //pr_int(anim_enemy_list[i]->framesCounter);
-        update_animation(anim_enemy_list[i][0]);
+        if (anim_enemy_list[i][0] != NULL)
+        {
+            update_animation(anim_enemy_list[i][0]);
+        }
+        
         //pr_int(anim_enemy_list[i]->texture.id);
         //pr_int(anim_enemy_list[i]->cur_frameRec.x);
     }
@@ -32,12 +36,17 @@ void update_player_animations(GAME_ANIM* game_anim)
     
     for (int i=0;i< game_anim->maps->animation_player_map->amount_animation_map_queue;i++)
     {
-        //pr_int(game_anim->maps->animation_items_map->animation_map_queue[i]->framesCounter);
-        //Animation anim = ;
         update_animation(game_anim->maps->animation_player_map->animation_map_queue[i][0]);
     }
 }
-
+void update_action_tiles_animations(GAME_ANIM* game_anim)
+{
+    
+    for (int i=0;i< game_anim->maps->animation_world_maps->animation_action_tiles_map->amount_animation_action_tiles_map_queue;i++)
+    {
+        update_animation(game_anim->maps->animation_world_maps->animation_action_tiles_map->animation_action_tiles_map_queue[i]);
+    }
+}
 void update_animation(Animation* anim)
 {
     
@@ -50,7 +59,6 @@ void update_animation(Animation* anim)
     {
         return;
     }
-    //pr_int(anim->currentFrame);
     //pr_int(anim->texture.id);
     anim->framesCounter+=1;
     if (anim->framesCounter >= (anim->framesSpeed)) 

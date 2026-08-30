@@ -10,7 +10,7 @@ void append_player_anim_to_arr(GAME_ANIM* game_anim,Animation** anim)
     game_anim->maps->animation_player_map->amount_animation_map_queue +=1;
     
 }
-void draw_animation(Animation* anim,Vector2 pos,int size_x,int size_y,int pos_index,float rotate) 
+void draw_animation(Animation* anim,Vector2 pos,int size_x,int size_y,int pos_index,float rotate, Color color) 
 {
     if (anim == NULL)
     {
@@ -22,7 +22,7 @@ void draw_animation(Animation* anim,Vector2 pos,int size_x,int size_y,int pos_in
         return;
     }
     Rectangle dest = {pos.x+rand_pos[pos_index][0],pos.y+rand_pos[pos_index][1],size_x,size_y};
-    DrawTexturePro(anim->texture,anim->cur_frameRec,dest,(Vector2){0,0}, rotate, WHITE);
+    DrawTexturePro(anim->texture,anim->cur_frameRec,dest,(Vector2){0,0}, rotate, color);
 }
 Animation get_item_animation(GAME_ANIM* game_anim,int index) 
 {
@@ -267,8 +267,19 @@ void append_to_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim
         anim_enemy_list[*amount] = enemy->current_animation;
         
         *amount+=1;
+
     }
-    
+    if (enemy->enemy_current_effects->current_attack_animation[0] == NULL)
+    {
+        
+        pr_int(4414);   
+        Animation*** anim_enemy_list = game_anim->maps->animation_enemies_map->animation_map_queue;
+        int* amount = &game_anim->maps->animation_enemies_map->amount_animation_map_queue;
+
+        anim_enemy_list[*amount] = enemy->enemy_current_effects->current_attack_animation;
+        
+        *amount+=1;
+    }
 }
 void play_full_animation(GAME_DATA* game_data,Action* action,float directing_x,float directing_y)
 {

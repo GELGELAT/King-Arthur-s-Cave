@@ -104,10 +104,10 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         
         if (enemy->enemy_main->name == enemy_texturs[3])
         {
-            Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
+            Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_forward_none,action_attack_none,END,-1,-1,
             &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,ENEMY_ATTACK_SPEED_ANIM-2);
             
-            Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
+            Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_back_none,action_moving_none,END,-1,-1,
             &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,PLAY_FULL_ANIM,2,ENEMY_WALK_SPEED_ANIM);
             attack1->queue->ending_action=moving1;
 
@@ -115,10 +115,10 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         }
         else
         {
-            Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,ATTACK,END,-1,-1,
+            Action* attack1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_forward_none,action_attack_punch,END,-1,-1,
             &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,ENEMY_ATTACK_SPEED_ANIM);
             
-            Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,BACK,MOVING,END,-1,-1,
+            Action* moving1 = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_back_none,action_moving_none,END,-1,-1,
             &enemy->enemy_position->position_pixels->pos_pixels,new_tile ,old_tile,PLAY_FULL_ANIM,2,ENEMY_WALK_SPEED_ANIM);
             attack1->queue->ending_action=moving1;
 
@@ -159,7 +159,7 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         Vector2 old_tile = {(float)old_x,(float)old_y};
         Vector2 new_tile = {(float)new_x,(float)new_y};
         //pr_int(enemy->enemy_main->index);
-        Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,FORWARD,MOVING,END,-1,-1,
+        Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,ENEMY,enemy->enemy_main->index,movement_forward_none,action_moving_none,END,-1,-1,
                 &enemy->enemy_position->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,2,ENEMY_WALK_SPEED_ANIM);
         append_action_to_actions_map(game_data,moving);
 
