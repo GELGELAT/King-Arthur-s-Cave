@@ -50,7 +50,7 @@ void card_actions_logic(GAME_DATA* game_data)
         {
             Vector2 mouseScreen = GetMousePosition();
             Vector2 mouseWorld = GetScreenToWorld2D(mouseScreen, game_data->misc->camera);
-            bool a = actions_mouse_click_check(game_data,(Vector2){mouseWorld.x/64, mouseWorld.y/64});
+            //bool a = actions_mouse_click_check(game_data,(Vector2){mouseWorld.x/64, mouseWorld.y/64});
             //printf("%d\n", a);
             actions_clear_mark_tiles(game_data);
             game_data->maps->actins_map->current_state = 0;

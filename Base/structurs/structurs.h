@@ -1,290 +1,40 @@
 #ifndef STRUCTURS_H
 #define STRUCTURS_H
-#include <stdlib.h> 
+#include <stdlib.h>
 #include "raylib.h"
 #include "Allocator.h"
 #include "game_anim_struct.h"
 #include "game_data_struct.h"
 #include "miscellanea_struct.h"
 
-
-
 extern int enemy_indexes;
 typedef struct Enemy Enemy;
 typedef struct Animation Animation;
 typedef struct Action Action;
 
-
-
-typedef struct ActionPosInfo
-{
-    Vector2* position_pixels; //указатель на позицию обьекта
-    Vector2 old_tile; //страый тайл
-    Vector2 new_tile; //новый тайл
-
-}ActionPos;
-typedef struct ActionMainInfo
-{
-    int* movement_type; //тип движения 
-    int during_type; //когда должно произойти
-    int* action_type; //что должно произойти
-}ActionMainInfo;
-typedef struct ActionObjectInfo
-{
-    int object_type; //тип обьекта который это делает
-    int object_index; //индекс обьекта на карте
-    int affected_type;
-    int affected_index;
-}ActionObjectInfo;
-typedef struct ActionMiscInfo
-{
-    float amount_full_moves;
-    float current_fill; //типо таймера
-    float max_fill; //макс заполнение таймера
-    float speed; //скорость движения
-    int current_state; //текущее состояние
-
-}ActionMiscInfo;
-typedef struct ActionQueueInfo
-{
-    Action* beginning_action;
-    Action* ending_action;
-
-}ActionQueueInfo;
-typedef struct Action
-{
-    ActionMainInfo* main;
-    ActionPos* pos;
-    ActionObjectInfo* object;
-    ActionMiscInfo* misc;
-    int flow;
-    ActionQueueInfo* queue;
-    Allocator* alloc;
-    
-    
-}Action;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-typedef struct Path
-{
-    Vector2** parents_position_tiles;
-    char** visited_tiles;
-
-
-}Path;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-typedef struct SpeedAnim
-{
-    float player_movement;
-}SpeedAnim;
-
-
-typedef struct MonitorSize
-{
-    int monitor_width;
-    int monitor_height;
-}MonitorSize;
-typedef struct Allocators
-{
-    Allocator* alloc_data;
-    Allocator* alloc_misc;
-    
-}Allocators;
-
-typedef struct Misc
-{
-    Camera2D camera;
-    MonitorSize monitor_size;
-    Path* path;
-    SpeedAnim* speed_anim;
-}Misc;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-typedef struct EnemyActions
-{
-    Action* enemy_move;
-    Action* enemy_attack;
-    Action* enemy_die;
-}EnemyActions;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-typedef struct ArmorsEquipmentsAnimations
-{
-    Animation wooden_armor;
-    Animation leather_armor;
-    Animation iron_armor;
-    Animation mithril_armor;
-    
-}ArmorsEquipmentsAnimations;
-typedef struct SwordsEquipmentsAnimations
-{
-    Animation wooden_weapon;
-    Animation stone_weapon;
-    Animation iron_weapon;
-    Animation mithril_weapon;
-}SwordsEquipmentsAnimations;
-typedef struct HelmetsEquipmentsAnimations
-{
-    Animation wooden_helmet;
-    Animation leather_helmet;
-    Animation iron_helmet;
-    Animation mithril_helmet;
-    
-}HelmetsEquipmentsAnimations;
-
-typedef struct PlayerEquipmentsAnimations
-{
-    ArmorsEquipmentsAnimations* armors;
-    SwordsEquipmentsAnimations* swords;
-    HelmetsEquipmentsAnimations* helmets;
-}PlayerEquipmentsAnimations;
-
-
-
-
-
-
-
-
-
-
-
 typedef struct GAME_DATA
 {
-    Player* player;
-    Maps* maps;
-    Allocators* allocators;
-    Misc* misc;
+    Player *player;
+    Maps *maps;
+    Allocators *allocators;
+    Misc *misc;
 
-}GAME_DATA;
+} GAME_DATA;
 
 typedef struct GAME_ANIM
 {
-    Animations* animations;
-    Texturs* texturs;
-    Allocator* anim_alloc;
-    AnimationMaps* maps;
+    Animations *animations;
+    Texturs *texturs;
+    Allocator *anim_alloc;
+    AnimationMaps *maps;
 
-}GAME_ANIM;
-
+} GAME_ANIM;
 
 Player *create_player(Allocator *alloc, int start_posX, int start_posY);
 
 ActionsMap *create_action_map(Allocator *alloc, int tilesX, int tilesY);
 
-
-Action *create_action(Allocator *alloc, int flow, int object_type, int object_index, int* movement_type, int* action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float amount_full_anim, float speed);
-
-
-
-
-
-
+Action *create_action(Allocator *alloc, int flow, int object_type, int object_index, int *movement_type, int *action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float amount_full_anim, float speed);
 
 GAME_DATA *create_game_data();
 
@@ -307,7 +57,6 @@ FogMap *create_fog_map(Allocator *alloc, int tilesX, int tilesY);
 CellsMap *create_cells_map(Allocator *alloc, int tilesX, int tilesY, int tileSize);
 
 CollisionMap *create_collision_map(Allocator *alloc, int tilesX, int tilesY);
-
 
 EnemyMap *create_enemy_map(Allocator *alloc, int enemy_indexes, int tilesX, int tilesY);
 

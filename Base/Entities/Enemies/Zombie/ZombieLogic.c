@@ -27,6 +27,7 @@ bool zombie_revival_move(GAME_DATA *game_data, Enemy *enemy, Vector2 *path)
         }
         return true;
     }
+    return true;
 }
 bool revival_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy) 
 {

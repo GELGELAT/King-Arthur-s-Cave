@@ -2,6 +2,14 @@
 #define ENEMY_STRUCT_H
 #include "raylib.h"
 #include "animation_struct.h"
+#include "action_struct.h"
+
+typedef struct EnemyActions
+{
+    Action* enemy_move;
+    Action* enemy_attack;
+    Action* enemy_die;
+}EnemyActions;
 
 typedef struct EnemyAnimationsInfo
 {

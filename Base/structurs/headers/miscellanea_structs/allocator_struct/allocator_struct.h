@@ -1,4 +1,0 @@
-#ifndef ALLOCATOR_STRUCT_H
-#define ALLOCATOR_STRUCT_H
-
-#endif

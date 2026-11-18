@@ -215,4 +215,35 @@ typedef struct Animations
     GUIAnimation* gui_animation;
 }Animations;
 
+typedef struct ArmorsEquipmentsAnimations
+{
+    Animation wooden_armor;
+    Animation leather_armor;
+    Animation iron_armor;
+    Animation mithril_armor;
+
+} ArmorsEquipmentsAnimations;
+typedef struct SwordsEquipmentsAnimations
+{
+    Animation wooden_weapon;
+    Animation stone_weapon;
+    Animation iron_weapon;
+    Animation mithril_weapon;
+} SwordsEquipmentsAnimations;
+typedef struct HelmetsEquipmentsAnimations
+{
+    Animation wooden_helmet;
+    Animation leather_helmet;
+    Animation iron_helmet;
+    Animation mithril_helmet;
+
+} HelmetsEquipmentsAnimations;
+
+typedef struct PlayerEquipmentsAnimations
+{
+    ArmorsEquipmentsAnimations *armors;
+    SwordsEquipmentsAnimations *swords;
+    HelmetsEquipmentsAnimations *helmets;
+} PlayerEquipmentsAnimations;
+
 #endif
