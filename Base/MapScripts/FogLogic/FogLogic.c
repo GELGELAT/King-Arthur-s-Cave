@@ -40,7 +40,6 @@ void player_review(GAME_DATA *game_data)
     char** fog_map = game_data->maps->fog_map->grid;
     char** col_map = game_data->maps->collision_map->grid;
     CellsMap* obj_map = game_data->maps->cells_map;
-    CellsMap *map = game_data->maps->cells_map;
 
     int tilesX = game_data->maps->cells_map->tilesX;
     int tilesY = game_data->maps->cells_map->tilesY;

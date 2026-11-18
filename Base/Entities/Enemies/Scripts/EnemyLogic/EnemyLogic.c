@@ -7,11 +7,9 @@ void enemies_finding(GAME_DATA* game_data)
     int** id_map = game_data->maps->enemy_map->index_map;
     Enemy** enemy_map = game_data->maps->enemy_map->enemy_map;
 
-    Enemy** move_map = game_data->maps->enemy_map->move_queue;
 
 
-    CellsMap* obj_map = game_data->maps->cells_map;
-    CellsMap *map = game_data->maps->cells_map;
+
 
     int tilesX = game_data->maps->cells_map->tilesX;
     int tilesY = game_data->maps->cells_map->tilesY;

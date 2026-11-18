@@ -296,8 +296,6 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
                     }
                     else if (object_type == ENEMY)
                     {
-                        int enemy_index = action->object->object_index;
-                        Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
                         if (action_type[0] == ATTACK)
                         {
                             
@@ -490,8 +488,6 @@ void random_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Act
                     }
                     else if (object_type == ENEMY)
                     {
-                        int enemy_index = action->object->object_index;
-                        Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
                         if (action_type[0] == ATTACK)
                         {
                             

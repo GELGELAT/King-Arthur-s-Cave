@@ -31,8 +31,7 @@ bool arm_zombie_jump_move(GAME_DATA* game_data,Enemy* enemy,Vector2* path)
         {
             int old_tile_x = enemy->enemy_position->position_tiles->pos_tiles.x;
             int old_tile_y = enemy->enemy_position->position_tiles->pos_tiles.y;
-            int new_tile_x = path[0].x;
-            int new_tile_y = path[0].y;
+
             
             Vector2 new_tile = path[1];
             Vector2 old_tile = {old_tile_x,old_tile_y};

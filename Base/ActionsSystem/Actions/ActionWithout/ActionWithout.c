@@ -82,8 +82,6 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
             bool ending_flag_x = false;
             bool ending_flag_y = false;
             float speed = action->misc->speed;
-            float* cur_pixel_pos_x = &action->pos->position_pixels->x;
-            float* cur_pixel_pos_y = &action->pos->position_pixels->y;
             action->misc->current_fill+=speed;
             if (action->misc->current_fill <action->misc->max_fill)
             {
@@ -246,9 +244,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
         {
             bool ending_flag_x = false;
             bool ending_flag_y = false;
-            float speed = action->misc->speed;
-            float* cur_pixel_pos_x = &action->pos->position_pixels->x;
-            float* cur_pixel_pos_y = &action->pos->position_pixels->y;
+
             action->misc->current_fill+=1;
             if (action->misc->current_fill <action->misc->max_fill)
             {
@@ -431,8 +427,6 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
             bool ending_flag_x = false;
             bool ending_flag_y = false;
             float speed = action->misc->speed;
-            float* cur_pixel_pos_x = &action->pos->position_pixels->x;
-            float* cur_pixel_pos_y = &action->pos->position_pixels->y;
             action->misc->current_fill+=speed;
             if (action->misc->current_fill <action->misc->max_fill)
             {

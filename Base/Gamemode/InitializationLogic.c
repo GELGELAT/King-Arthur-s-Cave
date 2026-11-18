@@ -3,7 +3,7 @@
 
 
 
-bool GAME_INIT(GAME_DATA* game_data,int tilesX, int tilesY, int tileSize,GAME_ANIM* game_anim)
+void GAME_INIT(GAME_DATA* game_data,int tilesX, int tilesY, int tileSize,GAME_ANIM* game_anim)
 {
     window_init(game_data);
     structurs_init(game_data,game_anim,tilesX,  tilesY,  tileSize);
@@ -17,7 +17,7 @@ bool GAME_INIT(GAME_DATA* game_data,int tilesX, int tilesY, int tileSize,GAME_AN
     enemies_finding(game_data);
 }
 
-bool window_init(GAME_DATA* game_data)
+void window_init(GAME_DATA* game_data)
 {
     InitWindow(800,600,"tishanooboos");
     
@@ -29,15 +29,14 @@ bool window_init(GAME_DATA* game_data)
     game_data->misc->monitor_size.monitor_width = monitor_width;
     game_data->misc->monitor_size.monitor_height = monitor_height;
     
-    return true;
 }
 
-bool anim_speed_init(GAME_DATA* game_data,float player_speed_move)
+void anim_speed_init(GAME_DATA* game_data,float player_speed_move)
 {
     
 }
 
-bool structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int tilesY, int tileSize)
+void structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int tilesY, int tileSize)
 {
     texturs_init(game_anim);
     anim_init(game_anim);
@@ -55,7 +54,7 @@ bool structurs_init(GAME_DATA* game_data,GAME_ANIM* game_anim,int tilesX, int ti
     items_map_init(game_data);
     init_actions_tiles_queue(game_data,game_anim);
 
-    return true;
+    
 
 }
 void anim_init(GAME_ANIM* game_anim)
@@ -63,15 +62,15 @@ void anim_init(GAME_ANIM* game_anim)
     game_anim->animations = create_animations_struct(game_anim->anim_alloc);
 }
 
-bool path_init(GAME_DATA* game_data)
+void path_init(GAME_DATA* game_data)
 {
     int tilesX = game_data->maps->cells_map->tilesX;
     int tilesY = game_data->maps->cells_map->tilesY;
     Path* path = create_path_structur(game_data->allocators->alloc_misc,tilesX,tilesY);
     game_data->misc->path = path; 
-    return true;
+    
 }
-bool items_map_init(GAME_DATA* game_data)
+void items_map_init(GAME_DATA* game_data)
 {
     int tilesX = game_data->maps->cells_map->tilesX;
     int tilesY = game_data->maps->cells_map->tilesY;
@@ -79,28 +78,28 @@ bool items_map_init(GAME_DATA* game_data)
     game_data->maps->items_map = map;
 }
 
-bool allcator_init(GAME_DATA* game_data)
+void allcator_init(GAME_DATA* game_data)
 {
     
 }
 
-bool player_init(GAME_DATA* game_data)
+void player_init(GAME_DATA* game_data)
 {
     Player* player = create_player(game_data->allocators->alloc_data,game_data->misc->monitor_size.monitor_width/2,game_data->misc->monitor_size.monitor_height/2);
     game_data->player = player;
-    return true;
+    
 }
 
-bool cells_map_init(GAME_DATA* game_data,int tilesX, int tilesY, int tileSize)
+void cells_map_init(GAME_DATA* game_data,int tilesX, int tilesY, int tileSize)
 {
     CellsMap* cells_map = create_cells_map(game_data->allocators->alloc_data,tilesX,tilesY,tileSize);
     
     game_data->maps->cells_map = cells_map;
     raw_initialization_cells(game_data->allocators->alloc_data,game_data->maps->cells_map);
-    return true;
+    
 }
 
-bool camera_init(GAME_DATA* game_data)
+void camera_init(GAME_DATA* game_data)
 {
     Camera2D camera = { 0 };
     camera.target = game_data->player->player_pos->position_pixels->pos_pixels;;
@@ -108,10 +107,10 @@ bool camera_init(GAME_DATA* game_data)
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
     game_data->misc->camera = camera;
-    return true;
+    
 }
 
-bool spawn_pos_init(GAME_DATA* game_data)
+void spawn_pos_init(GAME_DATA* game_data)
 {
     int dx[] = {0,0,1,1,1,0,-1,-1,-1};
     int dy[] = {0,-1,-1,0,1,1,1,0,-1};
@@ -133,22 +132,22 @@ bool spawn_pos_init(GAME_DATA* game_data)
     game_data->player->player_pos->position_pixels->pos_pixels = start_pos_pixels;
     game_data->player->player_pos->position_tiles->pos_tiles = start_pos_tiles;
 
-    return true;
+    
 }
 
-bool collision_map_init(GAME_DATA* game_data)
+void collision_map_init(GAME_DATA* game_data)
 {
 
     CollisionMap* map = create_collision_map(game_data->allocators->alloc_data,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
     game_data->maps->collision_map = map;
 }
-bool action_map_init(GAME_DATA* game_data)
+void action_map_init(GAME_DATA* game_data)
 {
 
     ActionsMap* map = create_action_map(game_data->allocators->alloc_data,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
     game_data->maps->actins_map = map;
 }
-bool fog_init(GAME_DATA* game_data)
+void fog_init(GAME_DATA* game_data)
 {
     FogMap* fog_map = create_fog_map(game_data->allocators->alloc_data,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
     game_data->maps->fog_map = fog_map;
@@ -156,13 +155,13 @@ bool fog_init(GAME_DATA* game_data)
 
 }
 
-bool cave_init(GAME_DATA* game_data)
+void cave_init(GAME_DATA* game_data)
 {
     generate_cave_cellular_smoothing(game_data);
 
 }
 
-bool map_objects_init(GAME_DATA* game_data)
+void map_objects_init(GAME_DATA* game_data)
 {
 
     char** collision_map = game_data->maps->collision_map->grid;
@@ -200,16 +199,15 @@ bool map_objects_init(GAME_DATA* game_data)
     //print_objects_map(game_data);
 }
 
-bool enemy_map_init(GAME_DATA* game_data)
+void enemy_map_init(GAME_DATA* game_data)
 {
     EnemyMap* map = create_enemy_map(game_data->allocators->alloc_misc,10,game_data->maps->cells_map->tilesX,game_data->maps->cells_map->tilesY);
     game_data->maps->enemy_map = map;
 }
 
-bool enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
+void enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
-    int posX = game_data->player->player_pos->position_tiles->pos_tiles.x;
-    int posY = game_data->player->player_pos->position_tiles->pos_tiles.y;
+
 
    // spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,2,1);
     // spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,0,0);
@@ -222,10 +220,9 @@ bool enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
 
                 
 }
-bool items_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
+void items_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {   
-    int posX = game_data->player->player_pos->position_tiles->pos_tiles.x;
-    int posY = game_data->player->player_pos->position_tiles->pos_tiles.y;
+
 
 
 

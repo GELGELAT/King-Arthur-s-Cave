@@ -87,10 +87,7 @@ void mics_items_textur_init(GAME_ANIM *game_anim)
     game_anim->texturs->items_texturs->misc_texturs->coins_texturs->coins = coins_texturs;
     game_anim->texturs->items_texturs->misc_texturs->exps_texturs->exps = exp_texturs;
     game_anim->texturs->items_texturs->misc_texturs->heals_texturs->heals = heal_texturs;
-    Rectangle frames_tiles_small[4] = {0};
-    Rectangle frames_tiles_medium[4] = {0};
-    Rectangle sprite_tiles_small[1] = {0};
-    Rectangle sprite_tiles_medium[1] = {0};
+
     for (int i = 0; i < 4; i++)
     {
         game_anim->texturs->items_texturs->misc_texturs->exps_texturs->small_frames[i] = (Rectangle){0, i * 32, 32, 32};
@@ -150,7 +147,6 @@ void tiles_textur_init(GAME_ANIM *game_anim)
     Texture2D ground_wall_texturs = LoadTexture("Texturs/Tiles/walls_ground.png");
     game_anim->texturs->world_texturs->tiles_texturs->wall_texturs->ground_wall = ground_wall_texturs;
     game_anim->texturs->world_texturs->tiles_texturs->floor_texturs->ground_floor = ground_floor_texturs;
-    Rectangle frames_tiles[4] = {0};
     for (int i = 0; i < 4; i++)
     {
         game_anim->texturs->world_texturs->tiles_texturs->floor_texturs->frames[i] = (Rectangle){i * 64, 0, 64, 64};
