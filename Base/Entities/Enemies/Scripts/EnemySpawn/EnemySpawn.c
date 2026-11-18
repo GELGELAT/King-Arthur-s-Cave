@@ -206,7 +206,6 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
 
 void append_enemy_to_arr(GAME_DATA *game_data, Enemy *enemy, int map_index)
 {
-    int** index_map = game_data->maps->enemy_map->index_map;
     EnemyMap *enemy_map = game_data->maps->enemy_map;
     Enemy **current_map;
     int amount;

@@ -28,8 +28,6 @@ void enemy_life_check(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
             return;
         }
         enemy->enemy_main->live = DIED;
-        int enemy_x = enemy->enemy_position->position_tiles->pos_tiles.x;
-        int enemy_y = enemy->enemy_position->position_tiles->pos_tiles.y;
         
         Vector2 new_tile = {enemy->enemy_position->position_tiles->pos_tiles.x,enemy->enemy_position->position_tiles->pos_tiles.y};
         Vector2 old_tile = {enemy->enemy_position->position_tiles->pos_tiles.x,enemy->enemy_position->position_tiles->pos_tiles.y};

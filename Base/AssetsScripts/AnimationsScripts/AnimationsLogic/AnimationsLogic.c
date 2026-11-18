@@ -33,7 +33,6 @@ void append_item_anim_to_arr(GAME_ANIM* game_anim,Animation* anim)
 {
     Animation** queue = game_anim->maps->animation_items_map->animation_map_queue;
     int amount_queue = game_anim->maps->animation_items_map->amount_animation_map_queue;
-    Animation* map = game_anim->maps->animation_items_map->animation_map;
 
     
     queue[amount_queue] = anim;

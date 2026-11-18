@@ -42,4 +42,5 @@ char* textur(int index,int textur_index)
     {
         return experience_texturs[textur_index];
     }
+    return NULL;
 }

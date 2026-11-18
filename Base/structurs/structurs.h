@@ -4,6 +4,8 @@
 #include "raylib.h"
 #include "Allocator.h"
 #include "game_anim_struct.h"
+#include "game_data_struct.h"
+#include "miscellanea_struct.h"
 
 
 
@@ -61,144 +63,30 @@ typedef struct Action
     
     
 }Action;
-typedef struct ActionsMap
-{
-    Action** actions_main_queue;
-    int amount_actions_main_queue;
-    Action**actions_effects_queue;
-    int amount_actions_effects_queue;
-    char** tiles_glow;
-    int current_state;
-}ActionsMap;
-
-typedef struct ItemMain
-{
-    char* name;
-    int index;
-    int value;
-    int textur_index;
-    int pos_index;
-}ItemMain;
-
-typedef struct ItemTilesPos
-{
-    Vector2 pos_tiles;
-
-}ItemTilesPos;
-typedef struct ItemPixelsPos
-{
-    Vector2 pos_pixels;
-
-}ItemPixelsPos;
-
-typedef struct ItemPos
-{
-    ItemTilesPos* position_tiles;
-    ItemPixelsPos* position_pixels;
 
 
-}ItemPos;
-typedef struct EnemyMisc
-{
-    Vector2 next_move;
-    bool activated;
-    int path_len;
-}EnemyMisc;
-typedef struct EnemyStamina
-{
-    int max_stamina;
-    int stamina;
-    int stamina_regeneration;
-    
-}EnemyStamina;
-typedef struct EnemyCharacteristics
-{
-    EnemyStamina* enemy_stamina;
-    int heal_points;
-    int defense;
-    int max_physical_damage;
-    int min_physical_damage;
-    int fast_max_physical_damage;
-    int fast_min_physical_damage;
-}EnemyCharacteristics;
-typedef struct EnemyStats
-{
-    int max_timer;
-    int current_timer;
-}EnemyStats;
-typedef struct EnemyMain
-{
-    EnemyStats* enemy_stats;
-    char* name;
-    int index;
-    int live;
-}EnemyMain;
-typedef struct EnemyTilesPos
-{
-    Vector2 pos_tiles;
-
-}EnemyTilesPos;
-typedef struct EnemyPixelsPos
-{
-    Vector2 pos_pixels;
-
-}EnemyPixelsPos;
-
-typedef struct EnemyPos
-{
-    EnemyTilesPos* position_tiles;
-    EnemyPixelsPos* position_pixels;
 
 
-}EnemyPos;
-typedef struct PlayerTilesPos
-{
-    Vector2 pos_tiles;
-
-}PlayerTilesPos;
-typedef struct PlayerPixelsPos
-{
-    Vector2 pos_pixels;
-
-}PlayerPixelsPos;
 
 
-typedef struct PlayerExp
-{
-    int experience_points;
-
-    int level;
-}PlayerExp;
-typedef struct PlayerCoins
-{
-    int coins;
-
-}PlayerCoins;
-typedef struct PlayerEquipmentTier
-{
-    int armor_tier;
-    int sword_tier;
-    int HELMET_tier;
-
-}PlayerEquipmentTier;
-typedef struct PlayerCharacteristics
-{
-    int heal_points;
-    int defense;
-    int max_physical_damage;
-    int min_physical_damage;
-
-}PlayerCharacteristics;
 
 
-typedef struct PlayerStats
-{
-    PlayerExp* player_exp;
-    PlayerCoins* player_coins;
-    PlayerEquipmentTier* player_equipment_tier;
-    PlayerCharacteristics* player_characteristics;
 
-}PlayerStats;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 typedef struct Path
 {
     Vector2** parents_position_tiles;
@@ -207,60 +95,22 @@ typedef struct Path
 
 }Path;
 
-typedef struct Item
-{
-    ItemMain* item_main;
-    ItemPos* item_position;
-
-}Item;
-
-typedef struct ItemsMap
-{
-    int** index_map;
-    Item** items_map;
-    int items_map_amount;
-}ItemsMap;
-
-
-typedef struct EnemyMap
-{
-    Enemy** move_queue;
-    int move_queue_amount;
-    Enemy** enemy_map;
-    int enemy_map_amount;
-    int** index_map;
-}EnemyMap;
 
 
 
 
-typedef struct Cell
-{
-    char** objects;
-    Vector2 positin;
-    int amount_objects;
-}Cell;
 
-typedef struct CellsMap
-{
-    Cell*** cells;
-    int tilesX;
-    int tilesY;
-    int tileSize;
-}CellsMap;
 
-typedef struct FogMap
-{
-    char** grid;
-    int tilesX;
-    int tilesY;
-}FogMap;
-typedef struct CollisionMap
-{
-    char** grid;
-    int tilesX;
-    int tilesY;
-}CollisionMap;
+
+
+
+
+
+
+
+
+
+
 
 
 typedef struct SpeedAnim
@@ -288,15 +138,6 @@ typedef struct Misc
     Path* path;
     SpeedAnim* speed_anim;
 }Misc;
-typedef struct Maps
-{
-    CellsMap* cells_map;
-    CollisionMap* collision_map;
-    FogMap* fog_map;
-    ItemsMap* items_map;
-    EnemyMap* enemy_map;
-    ActionsMap* actins_map;
-}Maps;
 
 
 
@@ -325,157 +166,31 @@ typedef struct Maps
 
 
 
-typedef struct PlayerCurrentEquipmentAnimations
-{
-    Animation** current_armor_anim;
-    Animation** current_sword_anim;
-    Animation** current_helmet_anim;
-    
-}PlayerCurrentEquipmentAnimations;
-typedef struct PlayerEquipmentAnimations
-{
-    Animation armor_animation;
-    Animation sword_animation;
-    Animation helmet_animation;
-    
-}PlayerEquipmentAnimations;
-typedef struct PlayerHeadAnimations
-{
-    Animation ordinary_head_animation;
-    Animation angry_head_animation;
-    Animation weak_head_animation;
-    int size_x;
-    int size_y;
-    int alignment_x;
-    int alignment_y;
-}PlayerHeadAnimations;
-typedef struct PlayerActionAnimations
-{
-    Animation player_breathe_animation;
-    Animation player_walk_animation;
-    Animation player_attack_animation;
-    Animation player_die_animation;
-    Animation player_mine_animation;
-    int size_x;
-    int size_y;
-    int alignment_x;
-    int alignment_y;
-    
-}PlayerActionAnimations;
-typedef struct PlayerAnimations
-{
-    PlayerEquipmentAnimations* player_equipment_animation;
-    PlayerActionAnimations*player_action_animation;
-    PlayerHeadAnimations* player_head_animation;
-}PlayerAnimations;
-typedef struct ArmorOffsetPos
-{
-    Vector2 current_pos;
-    Vector2 offset;
-    Vector2 alignment;
 
-}ArmorOffsetPos;
-typedef struct HelmetOffsetPos
-{
-    Vector2 current_pos;
-    Vector2 offset;
-    Vector2 alignment;
 
-}HelmetOffsetPos;
-typedef struct SwordOffsetPos
-{
-    Vector2 current_pos;
-    Vector2 offset;
-    Vector2 alignment;
-    float current_rotate;
-}SwordOffsetPos;
-typedef struct HeadOffsetPos
-{
-    Vector2 current_pos;
-    Vector2 offset;
-    Vector2 alignment;
 
-}HeadOffsetPos;
-typedef struct PlayerEquipmentOffsetPos
-{
-    ArmorOffsetPos* armor_pos;
-    HelmetOffsetPos* helmet_pos;
-    SwordOffsetPos* sword_pos;
-    
 
-}PlayerEquipmentOffsetPos;
 
-typedef struct PlayerCurrentAnimations
-{
-    Animation** current_anim;
-    Animation** current_head_anim;
-    PlayerCurrentEquipmentAnimations* current_equipment_anim;
-}PlayerCurrentAnimations;
-typedef struct PlayerPos
-{
-    PlayerTilesPos* position_tiles;
-    PlayerPixelsPos* position_pixels;
-    HeadOffsetPos* head_pos;
-    PlayerEquipmentOffsetPos* equipment_pos;
 
-}PlayerPos;
-typedef struct Player
-{
-    PlayerStats* player_stats;
-    PlayerPos* player_pos;
-    PlayerCurrentAnimations* current_animations;
-    PlayerAnimations* player_anim;
-}Player;
-typedef struct EnemyAnimations
-{
-    int skin;
-    Animation breathe;
-    Animation attack;
-    Animation walk;
-    Animation corpse;
-    Animation receiving_damage;
-    Animation fall;
-    Animation preparation;
-    int size_x;
-    int size_y;
-    int alignment_x;
-    int alignment_y;
-}EnemyAnimations;
+
+
+
+
+
+
+
+
+
 typedef struct EnemyActions
 {
     Action* enemy_move;
     Action* enemy_attack;
     Action* enemy_die;
 }EnemyActions;
-typedef struct EnemyCurrentEffects
-{
-    Animation** current_attack_animation;
 
-}EnemyCurrentEffects;
-typedef struct EnemyAnimationsInfo
-{
-    Animation anim;
-    int size_x;
-    int size_y;
-    int alignment_x;
-    int alignment_y;
-    float rotate;
-}EnemyAnimationsInfo;
-typedef struct EnemyAnimationsEffects
-{
-    EnemyAnimationsInfo* effect_attack;
-}EnemyAnimationsEffects;
-typedef struct Enemy
-{
-    EnemyMain* enemy_main;
-    EnemyCharacteristics* enemy_characteristics;
-    EnemyPos* enemy_position;
-    EnemyMisc* enemy_misc;
-    EnemyAnimations* enemy_animations;
-    EnemyAnimationsEffects* enemy_animations_effects;
-    EnemyCurrentEffects* enemy_current_effects;
-    Animation** current_animation;
-}Enemy;
+
+
+
 
 
 

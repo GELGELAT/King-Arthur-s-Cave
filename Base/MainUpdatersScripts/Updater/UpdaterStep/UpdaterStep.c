@@ -140,7 +140,6 @@ void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_s
         if ((map[new_tile_x][new_tile_y] == 'm'))
         {
             int index = game_data->maps->enemy_map->index_map[new_tile_x][new_tile_y];
-            Enemy* enemy = get_enemy_from_enemy_map(game_data,index);
             Vector2 new_tile = {new_tile_x,new_tile_y};
             Vector2 old_tile = {old_tile_x,old_tile_y};
             Action* attack = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,movement_forward_none,action_attack_none,END,ENEMY,index,
