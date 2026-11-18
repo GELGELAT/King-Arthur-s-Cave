@@ -1,0 +1,4 @@
+#ifndef ANIMATION_MAPS_STRUCT_H
+#define ANIMATION_MAPS_STRUCT_H
+
+#endif

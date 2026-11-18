@@ -1,0 +1,4 @@
+#ifndef ANIMATION_STRUCT_H
+#define ANIMATION_STRUCT_H
+
+#endif

@@ -3,11 +3,7 @@
 #include <stdlib.h> 
 #include "raylib.h"
 #include "Allocator.h"
-//#include "PlayerLogic.h"
-//#include "EnemyLogic.h"
-//#include "ItemLogic.h"
-//#include "MiscScripts.h"
-//#include "AssetsLogic.h"
+
 
 extern int enemy_indexes;
 typedef struct Enemy Enemy;
