@@ -15,7 +15,6 @@ void back_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Actio
         float new_tile_y = action->pos->new_tile.y;
         float directing_x = new_tile_x-old_tile_x;
         float directing_y = new_tile_y-old_tile_y;
-        float new_pixel_pos_y = new_tile_y*64+32;
         /*
         float old_pixel_pos_x = old_tile_x*64+32;
         float old_pixel_pos_y = old_tile_y*64+32;

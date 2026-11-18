@@ -3,6 +3,8 @@
 #include <stdlib.h> 
 #include "raylib.h"
 #include "Allocator.h"
+#include "game_anim_struct.h"
+
 
 
 extern int enemy_indexes;
@@ -297,161 +299,29 @@ typedef struct Maps
 }Maps;
 
 
-typedef struct FloorTexturs
-{
-    Texture2D ground_floor;
-    Rectangle frames[4];
-}FloorTexturs;
-typedef struct WallTexturs
-{
-    Texture2D ground_wall;
-    Rectangle frames[4];
-}WallTexturs;
-typedef struct ActionTilesTexturs
-{
-    Texture2D tiles_backlight;
-    Texture2D tiles_backlight_glow_effect;
-    Texture2D tiles_backlight_line;
-}ActionTilesTexturs;
-typedef struct TilesTexturs
-{
-    FloorTexturs* floor_texturs;
-    WallTexturs* wall_texturs;
-    ActionTilesTexturs* action_tiles_texturs;
-}TilesTexturs;
-typedef struct WorldTexturs
-{
-    TilesTexturs* tiles_texturs;
-    
-}WorldTexturs;
-typedef struct GUITexturs
-{
-    
-}GUITexturs;
 
-typedef struct ArmorTexturs
-{
-    Texture2D armors;
-    Rectangle frames[4];
-    Texture2D armors_no_lines;
-}ArmorTexturs;
 
-typedef struct SwordTexturs
-{
-    Texture2D swords;
-    Rectangle frames[4];
-    Texture2D swords_no_lines;
-}SwordTexturs;
 
-typedef struct HelmetTexturs
-{
-    Texture2D helmets;
-    Rectangle frames[4];
-    Texture2D helmets_no_lines;
-}HelmetTexturs;
 
-typedef struct EquipmentTexturs
-{
-    ArmorTexturs* armors_texturs;
-    SwordTexturs* swords_texturs;
-    HelmetTexturs* helmets_texturs;
-}EquipmentTexturs;
-typedef struct HealTexturs
-{
-    Texture2D heals;
-    Rectangle small_frames;
-    Rectangle medium_frames;
-}HealTexturs;
-typedef struct ExpTexturs
-{
-    Texture2D exps;
-    Rectangle small_frames[4];
-    Rectangle medium_frames[4];
-}ExpTexturs;
-typedef struct CoinsTexturs
-{
-    Texture2D coins;
-    Rectangle small_frames[4];
-    Rectangle medium_frames[4];
-}CoinsTexturs;
-typedef struct MiscellaneousTexturs
-{
-    HealTexturs* heals_texturs;
-    ExpTexturs*exps_texturs;
-    CoinsTexturs*coins_texturs;
-}MiscellaneousTexturs;
-typedef struct ItemsTexturs
-{
-    EquipmentTexturs* equipment_texturs;
-    MiscellaneousTexturs* misc_texturs;
-}ItemsTexturs;
 
-typedef struct ArmEnemiesTexturs
-{
-    Texture2D arm_0_texturs;
-    Texture2D arm_1_texturs;
-}ArmEnemiesTexturs;
-typedef struct SkeletonEnemiesTexturs
-{
-    Texture2D skeleton_texturs;
-}SkeletonEnemiesTexturs;
-typedef struct ZombieEnemiesTexturs
-{
-    Texture2D zombie_texturs;
-}ZombieEnemiesTexturs;
-typedef struct KnightZombieEnemiesTexturs
-{
-    Texture2D knight_zombie_texturs;
-}KnightZombieEnemiesTexturs;
-typedef struct EnemiesTexturs
-{
-    ArmEnemiesTexturs* arm_enemies_textur;
-    SkeletonEnemiesTexturs*skeleton_enemies_textur;
-    ZombieEnemiesTexturs*zombie_enemies_textur;
-    KnightZombieEnemiesTexturs*knight_zombie_enemies_textur;
-}EnemiesTexturs;
-typedef struct PlayerHuman
-{
-    Texture2D human_textur;
-}PlayerHuman;
-typedef struct PlayerTexturs
-{
-    PlayerHuman* player_human;
-    Texture2D heads_texturs;
-}PlayerTexturs;
-typedef struct WeaponEffects
-{
-    Texture2D weapon_attacks;
-}WeaponEffects;
-typedef struct EffectsTexturs
-{
-    WeaponEffects* weapon_effects;
-}EffectsTexturs;
-typedef struct Texturs
-{
-    WorldTexturs* world_texturs;
-    ItemsTexturs* items_texturs;
-    EnemiesTexturs* enemies_texturs;
-    PlayerTexturs* player_texturs;
-    EffectsTexturs* effects_texturs;
-    GUITexturs* gui_texturs;
-}Texturs;
 
-typedef struct Animation  
-{
-    Texture2D texture;
-    Rectangle cur_frameRec;
-    Rectangle start_frameRec;
-    int direction;
-    int currentFrame;
-    int frameCount;
-    int framesCounter;
-    float framesSpeed;
-    float frameWidth;
-    float frameHeight;
-    bool isPlaying;
-    int index;
-}Animation ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -606,177 +476,28 @@ typedef struct Enemy
     EnemyCurrentEffects* enemy_current_effects;
     Animation** current_animation;
 }Enemy;
-typedef struct FloorAnimation
-{
-    Texture2D ground_floor;
 
-}FloorAnimation;
-typedef struct WallAnimation
-{
-    Animation ground_wall;
 
-}WallAnimation;
-typedef struct ActionTilesAnimations
-{
-    Animation tiles_backlight_animation;
-    Animation tiles_backlight_glow_effect_animation_1;
-    Animation tiles_backlight_glow_effect_animation_2;
-    Animation tiles_backlight_glow_effect_animation_3;
-    Animation tiles_backlight_glow_effect_animation_4;
-    Animation tiles_backlight_line_animation_1;
-    Animation tiles_backlight_line_animation_2;
-    Animation tiles_backlight_line_animation_3;
-    Animation tiles_backlight_line_animation_4;
 
-}ActionTilesAnimations;
-typedef struct TilesAnimation
-{
-    FloorAnimation* floor_animation;
-    WallAnimation* wall_animation;
-    ActionTilesAnimations* action_tiles_animations;
-}TilesAnimation;
-typedef struct WorldAnimation
-{
-    TilesAnimation* tiles_animation;
-}WorldAnimation;
-typedef struct GUIAnimation
-{
-    
-}GUIAnimation;
 
-typedef struct ArmorAnimation
-{
-    Animation wooden_armor;
-    Animation leather_armor;
-    Animation iron_armor;
-    Animation mithril_armor;
-    Animation wooden_armor_no_line;
-    Animation leather_armor_no_line;
-    Animation iron_armor_no_line;
-    Animation mithril_armor_no_line;
 
-}ArmorAnimation;
 
-typedef struct SwordAnimation
-{
-    Animation wooden_weapon;
-    Animation stone_weapon;
-    Animation iron_weapon;
-    Animation mithril_weapon;
-    Animation wooden_weapon_no_line;
-    Animation stone_weapon_no_line;
-    Animation iron_weapon_no_line;
-    Animation mithril_weapon_no_line;
 
-}SwordAnimation;
 
-typedef struct HelmetAnimation
-{
-    Animation wooden_HELMET;
-    Animation leather_HELMET;
-    Animation iron_HELMET;
-    Animation mithril_HELMET;
-    Animation wooden_HELMET_no_line;
-    Animation leather_HELMET_no_line;
-    Animation iron_HELMET_no_line;
-    Animation mithril_HELMET_no_line;
 
-}HelmetAnimation;
 
-typedef struct EquipmentAnimation
-{
-    ArmorAnimation* armors_animation;
-    SwordAnimation* swords_animation;
-    HelmetAnimation* helmets_animation;
-}EquipmentAnimation;
-typedef struct HealAnimation
-{
-    Animation small_heals;
-    Animation medium_heals;
 
-}HealAnimation;
-typedef struct ExpAnimation
-{
-    Animation small_exp;
-    Animation medium_exp;
 
-}ExpAnimation;
-typedef struct CoinsAnimation
-{
-    Animation coins;
 
-}CoinsAnimation;
-typedef struct MiscellaneousAnimation
-{
-    HealAnimation* heals_animation;
-    ExpAnimation*exps_animation;
-    CoinsAnimation*coins_animation;
-}MiscellaneousAnimation;
-typedef struct ItemsAnimation
-{
-    EquipmentAnimation* equipment_animation;
-    MiscellaneousAnimation* misc_animation;
-}ItemsAnimation;
-typedef struct ArmEnemiesAnimations
-{
-    Animation arm_0_breathe_animation;
-    Animation arm_0_walk_animation;
-    Animation arm_0_attack_animation;
-    Animation arm_0_corpse_animation;
-    Animation arm_0_receiving_damage_animation;
-    Animation arm_0_fall_animation;
-    Animation arm_1_breathe_animation;
-    Animation arm_1_walk_animation;
-    Animation arm_1_attack_animation;
-    Animation arm_1_corpse_animation;
-    Animation arm_1_receiving_damage_animation;
-    Animation arm_1_fall_animation;
-    Animation arm_1_preparation_animation;
-}ArmEnemiesAnimations;
-typedef struct SkeletonEnemiesAnimations
-{
-    Animation skeleton_breathe_animation;
-    Animation skeleton_walk_animation;
-    Animation skeleton_attack_animation;
-    Animation skeleton_corpse_animation;
-    Animation skeleton_receiving_damage_animation;
-    Animation skeleton_fall_animation;
-}SkeletonEnemiesAnimations;
-typedef struct ZombieEnemiesAnimations
-{
-    Animation zombie_breathe_animation;
-    Animation zombie_walk_animation;
-    Animation zombie_attack_animation;
-    Animation zombie_corpse_animation;
-    Animation zombie_receiving_damage_animation;
-    Animation zombie_fall_animation;
-}ZombieEnemiesAnimations;
-typedef struct KnightZombieEnemiesAnimations
-{
-    Animation knight_zombie_breathe_animation;
-    Animation knight_zombie_walk_animation;
-    Animation knight_zombie_attack_animation;
-    Animation knight_zombie_corpse_animation;
-    Animation knight_zombie_receiving_damage_animation;
-    Animation knight_zombie_fall_animation;
-}KnightZombieEnemiesAnimations;
-typedef struct EnemiesAnimations
-{
-    ArmEnemiesAnimations* arm_enemies_animations;
-    SkeletonEnemiesAnimations*skeleton_enemies_animations;
-    ZombieEnemiesAnimations*zombie_enemies_animations;
-    KnightZombieEnemiesAnimations*knight_zombie_enemies_animations;
-    Animation attack_enemies_animation;
-}EnemiesAnimations;
-typedef struct HumanAnimations
-{
-    Animation player_breathe_animation;
-    Animation player_walk_animation;
-    Animation player_attack_animation;
-    Animation player_die_animation;
-    Animation player_mine_animation;
-    
-}HumanAnimations;
+
+
+
+
+
+
+
+
+
 typedef struct ArmorsEquipmentsAnimations
 {
     Animation wooden_armor;
@@ -807,77 +528,17 @@ typedef struct PlayerEquipmentsAnimations
     SwordsEquipmentsAnimations* swords;
     HelmetsEquipmentsAnimations* helmets;
 }PlayerEquipmentsAnimations;
-typedef struct HumanHead0Animations
-{
-    Animation ordinary;
-    Animation angry;
-    Animation weak;
-}HumanHead0Animations;
-typedef struct HumanHeadAnimations
-{
-    HumanHead0Animations* human_head_0_animations;
-    
-}HumanHeadAnimations;
-typedef struct HumanAttacksAnimations
-{
-    Animation jab;
-    Animation slash;
-}HumanAttacksAnimations;
-typedef struct PlayersAnimations
-{
-    HumanAnimations* human_animations;
-    HumanHeadAnimations* human_head_animations;
-    HumanAttacksAnimations* human_attacks_animations;
-}PlayersAnimations;
-typedef struct Animations
-{
-    WorldAnimation* world_animation;
-    ItemsAnimation* items_animation;
-    EnemiesAnimations* enemies_animation;
-    PlayersAnimations* player_animation;
-    GUIAnimation* gui_animation;
-}Animations;
 
 
 
-typedef struct AnimationItemsMap
-{
-    Animation* animation_map;
-    Animation** animation_map_queue;
-    int amount_animation_map_queue;
-
-}AnimationItemsMap;
-typedef struct AnimationEnemyMap
-{
-    Animation*** animation_map_queue;
-    int amount_animation_map_queue;
-
-}AnimationEnemyMap;
-typedef struct AnimationPlayerMap
-{
-    Animation*** animation_map_queue;
-    int amount_animation_map_queue;
-
-}AnimationPlayerMap;
-typedef struct AnimationActionTilesMap
-{
-    Animation** animation_action_tiles_map_queue;
-    int amount_animation_action_tiles_map_queue;
-
-}AnimationActionTilesMap;
-typedef struct AnimationWorldMaps
-{
-    AnimationActionTilesMap* animation_action_tiles_map;
 
 
-}AnimationWorldMaps;
-typedef struct AnimationMaps
-{
-    AnimationItemsMap* animation_items_map;
-    AnimationEnemyMap* animation_enemies_map;
-    AnimationPlayerMap* animation_player_map;
-    AnimationWorldMaps* animation_world_maps;
-}AnimationMaps;
+
+
+
+
+
+
 typedef struct GAME_DATA
 {
     Player* player;
@@ -886,7 +547,6 @@ typedef struct GAME_DATA
     Misc* misc;
 
 }GAME_DATA;
-
 
 typedef struct GAME_ANIM
 {
