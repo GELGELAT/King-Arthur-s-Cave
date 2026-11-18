@@ -1,7 +1,7 @@
 # ========================================
 # ПУТИ
 # ========================================
-CC = ccache gcc
+CC = gcc
 BUILD_DIR = build
 RAYLIB_PATH = C:/clibs/raylib/src
 TARGET = game.exe
