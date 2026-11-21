@@ -391,6 +391,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                     game_data->maps->collision_map->grid[enemy_x][enemy_y] = 'f';
                     game_data->maps->enemy_map->index_map[enemy_x][enemy_y] = -1;
                     delete_from_move_queue(game_data,enemy_index);
+                    delete_from_anim_enemy_list_updater(game_data,game_anim,enemy);
                 }
                 else if (action_type[0] == RECEIVING_DAMAGE)
                 {
