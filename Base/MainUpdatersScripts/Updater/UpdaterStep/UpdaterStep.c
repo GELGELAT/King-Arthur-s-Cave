@@ -6,22 +6,22 @@ int player_action_move_dy[] = {-1,0,1,0,0};
 void pos_player_updater(GAME_DATA *game_data,GAME_ANIM* game_anim)
 {
     player_actions_logic(game_data,game_anim);
-    enemies_actions_logic(game_data);
+    enemies_actions_logic(game_data,game_anim);
 }
-void after_step(GAME_DATA* game_data)
+void after_step(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
     player_review(game_data);
-    enemies_finding(game_data);
+    enemies_finding(game_data,game_anim);
     enemies_moving(game_data);
     enemy_step_flag = false;
 }
-void enemies_actions_logic(GAME_DATA* game_data)
+void enemies_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
     if (game_data->maps->actins_map->amount_actions_main_queue ==0)
     {   
         if (enemy_step_flag)
         {
-            after_step(game_data);
+            after_step(game_data,game_anim);
         }
     }
 }

@@ -14,7 +14,7 @@ void GAME_INIT(GAME_DATA* game_data,int tilesX, int tilesY, int tileSize,GAME_AN
     enemy_init(game_data,game_anim);
     fog_init(game_data);
     player_review(game_data);
-    enemies_finding(game_data);
+    enemies_finding(game_data,game_anim);
 }
 
 void window_init(GAME_DATA* game_data)

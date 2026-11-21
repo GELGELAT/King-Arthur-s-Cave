@@ -1,7 +1,7 @@
 #include "EnemyLogic.h"
 
 
-void enemies_finding(GAME_DATA* game_data)
+void enemies_finding(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
     char** col_map = game_data->maps->collision_map->grid;
     int** id_map = game_data->maps->enemy_map->index_map;
@@ -48,7 +48,7 @@ void enemies_finding(GAME_DATA* game_data)
                     {
                         int current_id = id_map[current_pos_x][current_pos_y];
 
-                        append_enemy_to_arr(game_data,enemy_map[current_id],2);
+                        append_enemy_to_arr(game_data,game_anim,enemy_map[current_id],2);
 
                     }
                 }

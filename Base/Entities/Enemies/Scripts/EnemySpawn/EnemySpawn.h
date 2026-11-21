@@ -8,7 +8,8 @@ void spawn_enemy(GAME_ANIM *game_anim, GAME_DATA *game_data, int pos_x, int pos_
 
 Enemy *create_enemy(GAME_ANIM *game_anim, int enemy_indexes, int enemy_type, int start_posX, int start_posY, int skin);
 
-void append_enemy_to_arr(GAME_DATA *game_data, Enemy *enemy, int map_index);
+void append_enemy_to_arr(GAME_DATA *game_data, GAME_ANIM *game_anim, Enemy *enemy, int map_index);
+
 
 void delete_from_move_queue(GAME_DATA *game_data, int id);
 

@@ -257,7 +257,7 @@ void append_item_animation(GAME_ANIM* game_anim,int object_type,int textur_type,
 
 
 void append_to_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
-{
+{//связали монстра с анимацией и апдейтором
     if (enemy->current_animation != NULL)
     {
         //pr_int(444);   
