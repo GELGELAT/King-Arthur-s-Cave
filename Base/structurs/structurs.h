@@ -34,7 +34,8 @@ Player *create_player(Allocator *alloc, int start_posX, int start_posY);
 
 ActionsMap *create_action_map(Allocator *alloc, int tilesX, int tilesY);
 
-Action *create_action(Allocator *alloc, int flow, int object_type, int object_index, int *movement_type, int *action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float amount_full_anim, float speed);
+Action *create_action(int flow, int object_type, int object_index, int *movement_type, int *action_type, int during_type, int affected_type, int affected_index, Vector2 *position_pixels, Vector2 old_tile, Vector2 new_tile, float max_fill, float amount_full_anim, float speed);
+
 
 GAME_DATA *create_game_data();
 

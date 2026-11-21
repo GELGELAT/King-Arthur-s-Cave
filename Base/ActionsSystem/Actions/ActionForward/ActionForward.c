@@ -140,7 +140,7 @@ void forward_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                         {
                             player_attaks(game_data,game_anim,action->pos->new_tile.x,action->pos->new_tile.y);
                             Enemy* enemy = get_enemy_from_enemy_map(game_data,action->object->affected_index);
-                            Action* receiving_damage = create_action(game_data->allocators->alloc_data,MAIN_MAP,action->object->affected_type,action->object->affected_index,
+                            Action* receiving_damage = create_action(MAIN_MAP,action->object->affected_type,action->object->affected_index,
                                 movement_random_moving_none,(int[]){RECEIVING_DAMAGE,NONE},START,-1,-1,
                             &enemy->enemy_position->position_pixels->pos_pixels,action->pos->new_tile,action->pos->new_tile,ENEMY_RECEIVING_DAMAGE_TIME_ANIM,1,5);
                             append_action_to_actions_map(game_data,receiving_damage);

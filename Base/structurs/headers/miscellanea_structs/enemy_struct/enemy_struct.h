@@ -107,5 +107,6 @@ typedef struct Enemy
     EnemyAnimationsEffects* enemy_animations_effects;
     EnemyCurrentEffects* enemy_current_effects;
     Animation** current_animation;
+    Allocator* alloc;
 }Enemy;
 #endif

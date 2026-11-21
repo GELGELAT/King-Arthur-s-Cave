@@ -15,7 +15,7 @@
             "externalConsole": true,
             "MIMode": "gdb",
             // ★ ВАЖНО: Укажите путь до вашего gdb.exe
-            "miDebuggerPath": "C:/Users/Tima/gcc/bin/gdb.exe",
+            "miDebuggerPath": "C:/gcc/bin/gdb.exe",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
