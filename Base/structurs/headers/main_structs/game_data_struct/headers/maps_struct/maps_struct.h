@@ -52,7 +52,7 @@ typedef struct Item
 {
     ItemMain* item_main;
     ItemPos* item_position;
-
+    Allocator* alloc
 }Item;
 
 typedef struct ItemsMap

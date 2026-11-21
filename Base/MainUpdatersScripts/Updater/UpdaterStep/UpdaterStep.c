@@ -98,8 +98,10 @@ void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_s
 
         if (map[new_tile_x][new_tile_y] == 'f')
         {
-            
-            delete_from_item_anim_queue(game_data,game_anim,player_ground_check(game_data,game_anim,new_tile_x,new_tile_y));
+            int item_id = player_ground_check(game_data,game_anim,new_tile_x,new_tile_y);
+            delete_from_item_anim_queue(game_data,game_anim,item_id);
+            delete_from_items_map(game_data,item_id);
+
             map[old_tile_x][old_tile_y] = 'f';
             map[new_tile_x][new_tile_y] = 'p';
 
