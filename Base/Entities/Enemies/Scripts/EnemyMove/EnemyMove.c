@@ -66,6 +66,7 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         bool move = chicken_zombie_dobble_move(game_data,enemy,path);
         if (move)
         {
+            destroy_allocator(alloc_path);
             return;
         }
         
@@ -76,6 +77,7 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         bool move = arm_zombie_jump_move(game_data,enemy,path);
         if (move)
         {
+            destroy_allocator(alloc_path);
             return;
         }
         
@@ -86,12 +88,14 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         if (move)
         {
             //pr_int(444);
+            destroy_allocator(alloc_path);
             return;
         }
         
     }
     if (vectors_comparison(path[0],(Vector2){-1,-1}))
     {
+        
     }
     else if (vectors_comparison(path[0],game_data->player->player_pos->position_tiles->pos_tiles) == 1)
     {
@@ -164,7 +168,7 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         append_action_to_actions_map(game_data,moving);
 
     }
-    //destroy_allocator(alloc_path);
+    destroy_allocator(alloc_path);
     //print_vector_arr(path,game_data->maps->enemy_map->enemy_map[0]->path_len);
     
 }
