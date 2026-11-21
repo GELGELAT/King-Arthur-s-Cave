@@ -26,7 +26,7 @@ int main(void)
 
         BeginDrawing();
             BeginMode2D(game_data->misc->camera);
-                ClearBackground(WHITE);
+                ClearBackground(BLACK);
                 GAME_DRAW(game_data,game_anim);
             EndMode2D();
 
