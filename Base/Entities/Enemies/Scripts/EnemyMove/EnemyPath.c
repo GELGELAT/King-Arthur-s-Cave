@@ -83,7 +83,7 @@ Vector2* path_finding(Allocator* alloc_path,GAME_DATA *game_data,Enemy* enemy,in
                 return restore_path(alloc_path,game_data,enemy,new_x,new_y);
                 find_flag = true;
             }
-            else if ( mode == 1 &&colid_map[new_x][new_y] != 'w' && visited_map[new_x][new_y] != '1')
+            else if ( mode == 1 &&colid_map[new_x][new_y] != 'w'&& colid_map[new_x][new_y] != 'b' && visited_map[new_x][new_y] != '1')
             {
                 
                 queue[tail] = (Vector2){new_x,new_y};
@@ -91,7 +91,7 @@ Vector2* path_finding(Allocator* alloc_path,GAME_DATA *game_data,Enemy* enemy,in
                 parent_map[new_x][new_y] = (Vector2){current_x,current_y};
                 visited_map[new_x][new_y] = '1';
             }
-            else if (mode == 2 && colid_map[new_x][new_y] != 'w' && visited_map[new_x][new_y] != '1' && colid_map[new_x][new_y] != 'm')
+            else if (mode == 2 && colid_map[new_x][new_y] != 'w'&& colid_map[new_x][new_y] != 'b' && visited_map[new_x][new_y] != '1' && colid_map[new_x][new_y] != 'm')
             {
                 queue[tail] = (Vector2){new_x,new_y};
                 tail+=1;
