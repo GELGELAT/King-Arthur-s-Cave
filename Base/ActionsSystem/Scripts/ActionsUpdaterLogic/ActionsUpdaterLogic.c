@@ -32,14 +32,15 @@ void main_action_map_updater(GAME_DATA* game_data,GAME_ANIM* game_anim)
     int* amount = &game_data->maps->actins_map->amount_actions_main_queue;
     for (int i =0;i<*amount;i++)
     {
-        //pr_int(*amount);
+        
         Action* current_action = action_maps[i];
         float current_fill = current_action->misc->current_fill;
         float max_fill = current_action->misc->max_fill;
         if (current_fill >=max_fill)
         {
             delete_action_from_queue_action_map(game_data,current_action->flow,i);
-            //destroy_allocator(current_action->alloc);
+            //pr_int(*amount);
+            destroy_allocator(current_action->alloc);
             continue;
         }
         int* movement_type = current_action->main->movement_type;

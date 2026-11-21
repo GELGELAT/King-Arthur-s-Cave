@@ -85,7 +85,7 @@ void enemy_moving(GAME_DATA* game_data,Enemy* enemy)
         bool move = zombie_revival_move(game_data,enemy,path);
         if (move)
         {
-            pr_int(444);
+            //pr_int(444);
             return;
         }
         

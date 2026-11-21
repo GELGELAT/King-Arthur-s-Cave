@@ -295,7 +295,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                         }
                         else
                         {
-                            pr_int(444);
+                            //pr_int(444);
                             int enemy_index = action->object->object_index;
                             Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
                             enemy->current_animation[0] = &enemy->enemy_animations->breathe;
@@ -360,7 +360,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                 }
                 else if (action_type[0] == FALL)
                 {
-                    pr_int(444);
+                    //pr_int(444);
                     enemy->current_animation[0] = &enemy->enemy_animations->fall;
                     enemy->current_animation[0]->currentFrame =0;
                     enemy->current_animation[0]->framesCounter = 0;

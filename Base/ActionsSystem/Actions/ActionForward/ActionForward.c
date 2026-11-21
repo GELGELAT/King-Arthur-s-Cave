@@ -45,7 +45,7 @@ void forward_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                         enemy->enemy_current_effects->current_attack_animation[0] =&enemy->enemy_animations_effects->effect_attack->anim;
                         enemy->enemy_current_effects->current_attack_animation[0]->currentFrame =0;
                         enemy->enemy_current_effects->current_attack_animation[0]->framesCounter = 0;
-                        pr_int(999);
+                        //pr_int(999);
                     }
                 }
                 enemy_animation_direction(directing_x,directing_y,enemy);
@@ -81,7 +81,7 @@ void forward_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
             Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
             if (action_type[1] == ATTACK_PUNCH)
             {
-                pr_int(enemy->enemy_current_effects->current_attack_animation[0]->currentFrame);
+                //pr_int(enemy->enemy_current_effects->current_attack_animation[0]->currentFrame);
 
             }
             bool ending_flag_x = false;

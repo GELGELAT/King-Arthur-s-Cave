@@ -8,7 +8,7 @@ void update_ememies_animations(GAME_ANIM* game_anim)
     for (int i =0;i<*amount;i++)
     {
     
-        pr_int(*amount);
+        //pr_int(*amount);
         //pr_int(anim_enemy_list[i]->frameCount);
         //pr_int(anim_enemy_list[i]->framesCounter);
         if (anim_enemy_list[i][0] != NULL)
