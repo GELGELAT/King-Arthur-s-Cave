@@ -98,9 +98,12 @@ ActionsMap* create_action_map(Allocator* alloc,int tilesX,int tilesY)
     return actions_map;
 }
 
-Action* create_action(Allocator* alloc,int flow,int object_type,int object_index,int* movement_type ,int* action_type ,int during_type,int affected_type,int affected_index,
+Action* create_action(int flow,int object_type,int object_index,int* movement_type ,int* action_type ,int during_type,int affected_type,int affected_index,
     Vector2* position_pixels,Vector2 old_tile,Vector2 new_tile,float max_fill,float amount_full_anim,float speed)
 {
+    Allocator* alloc = create_alloc(sizeof(Action)
+    +sizeof(Action)+sizeof(ActionMainInfo)+sizeof(ActionMiscInfo)
+    +sizeof(ActionObjectInfo)+sizeof(ActionPos)+sizeof(ActionQueueInfo));
     Action* action = alloc_alloc(alloc,sizeof(Action));
     action->flow = flow;
     ActionMainInfo*main =alloc_alloc(alloc,sizeof(ActionMainInfo));

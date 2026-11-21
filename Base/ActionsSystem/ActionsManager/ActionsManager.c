@@ -36,9 +36,9 @@ void action_attacks(GAME_DATA* game_data,//for alloc
         int index = game_data->maps->enemy_map->index_map[new_tile_x][new_tile_y];
         //Enemy* enemy = get_enemy_from_enemy_map(game_data,index); 
         //FORWARD ATTACK PUNCH      
-        Action* attack_punch = create_action(alloc,MAIN_MAP,PLAYER,-1,movement_forward_none,(int[]){ATTACK,ATTACK_PUNCH},END,ENEMY,index,
+        Action* attack_punch = create_action(MAIN_MAP,PLAYER,-1,movement_forward_none,(int[]){ATTACK,ATTACK_PUNCH},END,ENEMY,index,
         &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,PLAYER_ATTACK_SPEED_ANIM);
-        Action* moving = create_action(alloc,MAIN_MAP,PLAYER,-1,movement_back_none,action_moving_none,END,-1,-1,
+        Action* moving = create_action(MAIN_MAP,PLAYER,-1,movement_back_none,action_moving_none,END,-1,-1,
         &game_data->player->player_pos->position_pixels->pos_pixels,new_tile ,old_tile,PLAY_FULL_ANIM,2,PLAYER_WALK_SPEED_ANIM);
         attack_punch->queue->ending_action=moving;
         

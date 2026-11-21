@@ -14,7 +14,7 @@ void GAME_INIT(GAME_DATA* game_data,int tilesX, int tilesY, int tileSize,GAME_AN
     enemy_init(game_data,game_anim);
     fog_init(game_data);
     player_review(game_data);
-    enemies_finding(game_data);
+    enemies_finding(game_data,game_anim);
 }
 
 void window_init(GAME_DATA* game_data)
@@ -207,9 +207,9 @@ void enemy_map_init(GAME_DATA* game_data)
 
 void enemy_init(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
-
-
-   // spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,2,1);
+    int posX = game_data->player->player_pos->position_tiles->pos_tiles.x;
+    int posY = game_data->player->player_pos->position_tiles->pos_tiles.y;
+   spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,2,1);
     // spawn_enemy(game_anim,game_data,posX+1,posY,enemy_indexes,0,0);
     //spawn_enemy(game_anim,game_data,posX+1,posY+1,enemy_indexes,0,1);
    // spawn_enemy(game_anim,game_data,posX+1,posY-1,enemy_indexes,1,1);

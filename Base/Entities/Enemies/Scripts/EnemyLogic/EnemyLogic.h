@@ -28,9 +28,9 @@
 #define RESETTER_ZOMBIE 1
 
 
-void enemies_finding(GAME_DATA *game_data);
+
+void enemies_finding(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
 char enemy_activation(char **col_map, int current_pos_x, int current_pos_y, int relative_pos_x, int relative_pos_y);
-
 
 #endif

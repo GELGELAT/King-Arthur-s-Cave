@@ -23,6 +23,8 @@ void append_item_animation(GAME_ANIM *game_anim, int object_type, int textur_typ
 
 void append_to_anim_enemy_list_updater(GAME_DATA *game_data, GAME_ANIM *game_anim, Enemy *enemy);
 
+void delete_from_anim_enemy_list_updater(GAME_DATA *game_data, GAME_ANIM *game_anim, Enemy *enemy);
+
 void play_full_animation(GAME_DATA *game_data, Action *action, float directing_x, float directing_y);
 
 

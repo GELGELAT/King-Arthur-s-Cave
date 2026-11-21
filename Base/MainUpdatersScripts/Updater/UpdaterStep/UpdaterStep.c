@@ -6,22 +6,22 @@ int player_action_move_dy[] = {-1,0,1,0,0};
 void pos_player_updater(GAME_DATA *game_data,GAME_ANIM* game_anim)
 {
     player_actions_logic(game_data,game_anim);
-    enemies_actions_logic(game_data);
+    enemies_actions_logic(game_data,game_anim);
 }
-void after_step(GAME_DATA* game_data)
+void after_step(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
     player_review(game_data);
-    enemies_finding(game_data);
+    enemies_finding(game_data,game_anim);
     enemies_moving(game_data);
     enemy_step_flag = false;
 }
-void enemies_actions_logic(GAME_DATA* game_data)
+void enemies_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
     if (game_data->maps->actins_map->amount_actions_main_queue ==0)
     {   
         if (enemy_step_flag)
         {
-            after_step(game_data);
+            after_step(game_data,game_anim);
         }
     }
 }
@@ -98,8 +98,10 @@ void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_s
 
         if (map[new_tile_x][new_tile_y] == 'f')
         {
-            
-            delete_from_item_anim_queue(game_data,game_anim,player_ground_check(game_data,game_anim,new_tile_x,new_tile_y));
+            int item_id = player_ground_check(game_data,game_anim,new_tile_x,new_tile_y);
+            delete_from_item_anim_queue(game_data,game_anim,item_id);
+            delete_from_items_map(game_data,item_id);
+
             map[old_tile_x][old_tile_y] = 'f';
             map[new_tile_x][new_tile_y] = 'p';
 
@@ -108,7 +110,7 @@ void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_s
             Vector2 new_tile = {new_tile_x,new_tile_y};
             Vector2 old_tile = {old_tile_x,old_tile_y};
             game_data->player->player_pos->position_tiles->pos_tiles = new_tile;
-            Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,movement_forward_none,action_moving_none,END,-1,-1,
+            Action* moving = create_action(MAIN_MAP,PLAYER,-1,movement_forward_none,action_moving_none,END,-1,-1,
             &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,2,PLAYER_WALK_SPEED_ANIM);
             append_action_to_actions_map(game_data,moving);
             
@@ -120,9 +122,9 @@ void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_s
         {
             Vector2 new_tile = {new_tile_x,new_tile_y};
             Vector2 old_tile = {old_tile_x,old_tile_y};
-            Action* mine = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,movement_forward_none,action_mine_none,END,-1,-1,
+            Action* mine = create_action(MAIN_MAP,PLAYER,-1,movement_forward_none,action_mine_none,END,-1,-1,
             &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,PLAYER_MINE_SPEED_ANIM);
-            Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,movement_back_none,action_moving_none,END,-1,-1,
+            Action* moving = create_action(MAIN_MAP,PLAYER,-1,movement_back_none,action_moving_none,END,-1,-1,
             &game_data->player->player_pos->position_pixels->pos_pixels,new_tile ,old_tile,PLAY_FULL_ANIM,2,PLAYER_WALK_SPEED_ANIM);
             mine->queue->ending_action=moving;
             append_action_to_actions_map(game_data,mine);
@@ -142,9 +144,9 @@ void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_s
             int index = game_data->maps->enemy_map->index_map[new_tile_x][new_tile_y];
             Vector2 new_tile = {new_tile_x,new_tile_y};
             Vector2 old_tile = {old_tile_x,old_tile_y};
-            Action* attack = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,movement_forward_none,action_attack_none,END,ENEMY,index,
+            Action* attack = create_action(MAIN_MAP,PLAYER,-1,movement_forward_none,action_attack_none,END,ENEMY,index,
             &game_data->player->player_pos->position_pixels->pos_pixels,old_tile,new_tile,PLAY_FULL_ANIM,1,PLAYER_ATTACK_SPEED_ANIM);
-            Action* moving = create_action(game_data->allocators->alloc_data,MAIN_MAP,PLAYER,-1,movement_back_none,action_moving_none,END,-1,-1,
+            Action* moving = create_action(MAIN_MAP,PLAYER,-1,movement_back_none,action_moving_none,END,-1,-1,
             &game_data->player->player_pos->position_pixels->pos_pixels,new_tile ,old_tile,PLAY_FULL_ANIM,2,PLAYER_WALK_SPEED_ANIM);
             attack->queue->ending_action=moving;
             

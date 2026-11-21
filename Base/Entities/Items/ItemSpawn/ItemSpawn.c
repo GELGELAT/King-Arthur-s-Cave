@@ -3,7 +3,7 @@
 
 void spawn_item(GAME_DATA* game_data,GAME_ANIM* game_anim,int pos_x,int pos_y,char* item_type)
 {
-    Item* item = create_item(game_data->allocators->alloc_data,items_indices,pos_x,pos_y,item_type);
+    Item* item = create_item(items_indices,pos_x,pos_y,item_type);
     int* item_info = get_item_type_textur_type(item_type);
     if (item_info !=NULL)
     {
@@ -18,8 +18,10 @@ void spawn_item(GAME_DATA* game_data,GAME_ANIM* game_anim,int pos_x,int pos_y,ch
         objects_map->cells[pos_x][pos_y]->objects[1] = item_type;
     }
 }
-Item* create_item(Allocator* alloc,int index,int pos_x,int pos_y,char* item_type)
+Item* create_item(int index,int pos_x,int pos_y,char* item_type)
 {
+    Allocator* alloc = create_alloc(sizeof(Item)+sizeof(ItemMain)
+    +sizeof(ItemPos)+sizeof(ItemPixelsPos)+sizeof(ItemTilesPos));
     Item* item = alloc_alloc(alloc,sizeof(Item));
     ItemMain* item_main = alloc_alloc(alloc,sizeof(ItemMain));
     ItemPos* item_position = alloc_alloc(alloc,sizeof(ItemPos));
@@ -38,6 +40,7 @@ Item* create_item(Allocator* alloc,int index,int pos_x,int pos_y,char* item_type
     item->item_main->value = determine_value(item_type);
     item->item_main->textur_index = rand_num_within(0,3);
     item->item_main->pos_index = rand_num_within(0,3);
+    item->alloc=alloc;
     return item;
 }
 
@@ -51,4 +54,13 @@ void append_to_items_map(GAME_DATA* game_data,Item* item)
     map->index_map[pos_x][pos_y] = index;
     map->items_map[index] = item;
     map->items_map_amount +=1;
+}
+void delete_from_items_map(GAME_DATA* game_data,int index)
+{
+    if(index<0)
+    {return;}
+    ItemsMap* map = game_data->maps->items_map;
+    Item* item = map->items_map[index];
+    destroy_allocator(item->alloc);
+    map->items_map[index] = NULL;
 }

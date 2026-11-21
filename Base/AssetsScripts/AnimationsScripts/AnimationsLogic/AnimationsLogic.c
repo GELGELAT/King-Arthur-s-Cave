@@ -257,7 +257,7 @@ void append_item_animation(GAME_ANIM* game_anim,int object_type,int textur_type,
 
 
 void append_to_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
-{
+{//связали монстра с анимацией и апдейтором
     if (enemy->current_animation != NULL)
     {
         //pr_int(444);   
@@ -268,10 +268,11 @@ void append_to_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim
         *amount+=1;
 
     }
+    
     if (enemy->enemy_current_effects->current_attack_animation[0] == NULL)
     {
         
-        pr_int(4414);   
+        //pr_int(4414);   
         Animation*** anim_enemy_list = game_anim->maps->animation_enemies_map->animation_map_queue;
         int* amount = &game_anim->maps->animation_enemies_map->amount_animation_map_queue;
 
@@ -279,6 +280,29 @@ void append_to_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim
         
         *amount+=1;
     }
+        
+}
+void delete_from_anim_enemy_list_updater(GAME_DATA* game_data,GAME_ANIM* game_anim,Enemy* enemy)
+{
+
+    bool find_flag = false;
+    Animation*** anim_enemy_list = game_anim->maps->animation_enemies_map->animation_map_queue;
+    int* amount = &game_anim->maps->animation_enemies_map->amount_animation_map_queue;
+    for (int i = 0;i<*amount;i++)
+    {
+        if (!find_flag )
+        {
+            if(anim_enemy_list[i] == enemy->enemy_current_effects->current_attack_animation)
+            {
+                find_flag = true;
+            }
+        }
+        else
+        {
+            anim_enemy_list[i-2] = anim_enemy_list[i];
+        }
+    }
+    game_anim->maps->animation_enemies_map->amount_animation_map_queue -=2;
 }
 void play_full_animation(GAME_DATA* game_data,Action* action,float directing_x,float directing_y)
 {

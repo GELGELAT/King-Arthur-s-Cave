@@ -39,7 +39,7 @@ Vector2* path_finding(Allocator* alloc_path,GAME_DATA *game_data,Enemy* enemy,in
     Vector2 **parent_map = game_data->misc->path->parents_position_tiles;
     char** visited_map = game_data->misc->path->visited_tiles;
     char** colid_map = game_data->maps->collision_map->grid;
-    Vector2 queue[size];
+    Vector2* queue=alloc_alloc(alloc_path,size*sizeof(Vector2));
 
     queue[0] = (Vector2){start_posX,start_posY};
     visited_map[start_posX][start_posY] = '1';
@@ -81,9 +81,8 @@ Vector2* path_finding(Allocator* alloc_path,GAME_DATA *game_data,Enemy* enemy,in
             {
                 parent_map[new_x][new_y] = (Vector2){current_x,current_y};
                 return restore_path(alloc_path,game_data,enemy,new_x,new_y);
-                find_flag = true;
             }
-            else if ( mode == 1 &&colid_map[new_x][new_y] != 'w' && visited_map[new_x][new_y] != '1')
+            else if ( mode == 1 &&colid_map[new_x][new_y] != 'w'&& colid_map[new_x][new_y] != 'b' && visited_map[new_x][new_y] != '1')
             {
                 
                 queue[tail] = (Vector2){new_x,new_y};
@@ -91,7 +90,7 @@ Vector2* path_finding(Allocator* alloc_path,GAME_DATA *game_data,Enemy* enemy,in
                 parent_map[new_x][new_y] = (Vector2){current_x,current_y};
                 visited_map[new_x][new_y] = '1';
             }
-            else if (mode == 2 && colid_map[new_x][new_y] != 'w' && visited_map[new_x][new_y] != '1' && colid_map[new_x][new_y] != 'm')
+            else if (mode == 2 && colid_map[new_x][new_y] != 'w'&& colid_map[new_x][new_y] != 'b' && visited_map[new_x][new_y] != '1' && colid_map[new_x][new_y] != 'm')
             {
                 queue[tail] = (Vector2){new_x,new_y};
                 tail+=1;
@@ -105,60 +104,58 @@ Vector2* path_finding(Allocator* alloc_path,GAME_DATA *game_data,Enemy* enemy,in
 }
 
 int amount;
-Vector2* restore_path(Allocator* alloc_path,GAME_DATA* game_data,Enemy* enemy,int player_pos_x,int player_pos_y)
+Vector2* restore_path(Allocator* alloc_path, GAME_DATA* game_data, Enemy* enemy, int player_pos_x, int player_pos_y)
 {
-    
     Vector2 **parent_map = game_data->misc->path->parents_position_tiles;
 
-    if (player_pos_x == -1 && player_pos_y ==-1)
+    // не нашли
+    if (player_pos_x == -1 && player_pos_y == -1)
     {
-        Vector2* path_to_player = alloc_alloc(alloc_path,sizeof(Vector2));
-        path_to_player[0] = (Vector2){-1,-1};
-        enemy->enemy_misc->path_len = 1; 
+        Vector2* path_to_player = alloc_alloc(alloc_path, sizeof(Vector2));
+        path_to_player[0] = (Vector2){-1, -1};
+        enemy->enemy_misc->path_len = 0; 
         return path_to_player;
     }
-    else
+    int start_x = enemy->enemy_position->position_tiles->pos_tiles.x;
+    int start_y = enemy->enemy_position->position_tiles->pos_tiles.y;
+
+
+    int path_length = 0;
+    int cur_x = player_pos_x;
+    int cur_y = player_pos_y;
+
+    while (cur_x != -1 && cur_y != -1) 
     {
-
-        int current_x,current_y,next_x,next_y;
-        amount=-3;
-        current_x = player_pos_x;
-        current_y = player_pos_y;
-        next_x = parent_map[current_x][current_y].x;
-        next_y = parent_map[current_x][current_y].y;
-        amount +=1;
-        while (next_x != -1&& next_y != -1)
+        if (cur_x ==start_x&& cur_y ==start_y) 
         {
-            next_x = parent_map[current_x][current_y].x;
-            next_y = parent_map[current_x][current_y].y;
-            current_x = next_x;
-            current_y = next_y;
-            amount +=1;
+            break; 
         }
-        enemy->enemy_misc->path_len = amount;
+        path_length++;
+        int next_x = parent_map[cur_x][cur_y].x;
+        int next_y = parent_map[cur_x][cur_y].y;
+        cur_x = next_x;
+        cur_y = next_y;
+    }
 
-        Vector2* path_to_player = alloc_alloc(alloc_path,sizeof(Vector2)*(amount+1));
-        next_x = 0;
-        next_y = 0;
-        current_x = player_pos_x;
-        current_y = player_pos_y;
-        path_to_player[amount] = (Vector2){current_x,current_y};
-        amount-=1;
-        while (next_x != -1&& next_y != -1)
-        {
-            if (next_x == enemy->enemy_position->position_tiles->pos_tiles.x && next_y == enemy->enemy_position->position_tiles->pos_tiles.y)
-            {
-                break;
-            }
-            next_x = parent_map[current_x][current_y].x;
-            next_y = parent_map[current_x][current_y].y;
-            current_x = next_x;
-            current_y = next_y;
-            path_to_player[amount] = (Vector2){current_x,current_y};
-            amount -=1;
-        }
+    enemy->enemy_misc->path_len = path_length;
+    if (path_length ==0) 
+    {
+        Vector2* path_to_player = alloc_alloc(alloc_path, sizeof(Vector2));
+        path_to_player[0] = (Vector2){-1, -1};
         return path_to_player;
-
+    }
+    Vector2* path_to_player = alloc_alloc(alloc_path, sizeof(Vector2) *path_length);
+    cur_x = player_pos_x;
+    cur_y = player_pos_y;
+//заполняем обратно чтоб первый 
+    for (int i= path_length-1;i >= 0;i--)
+    {
+        path_to_player[i] = (Vector2){(float)cur_x, (float)cur_y};
         
-    }
+        int next_x = parent_map[cur_x][cur_y].x;
+        int next_y = parent_map[cur_x][cur_y].y;
+        cur_x = next_x;
+        cur_y = next_y;
+    }    
+    return path_to_player;
 }

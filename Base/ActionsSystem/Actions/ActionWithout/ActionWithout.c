@@ -295,7 +295,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                         }
                         else
                         {
-                            pr_int(444);
+                            //pr_int(444);
                             int enemy_index = action->object->object_index;
                             Enemy* enemy = get_enemy_from_enemy_map(game_data,enemy_index);
                             enemy->current_animation[0] = &enemy->enemy_animations->breathe;
@@ -360,7 +360,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                 }
                 else if (action_type[0] == FALL)
                 {
-                    pr_int(444);
+                    //pr_int(444);
                     enemy->current_animation[0] = &enemy->enemy_animations->fall;
                     enemy->current_animation[0]->currentFrame =0;
                     enemy->current_animation[0]->framesCounter = 0;
@@ -391,6 +391,7 @@ void without_movement_action_update(GAME_DATA* game_data,GAME_ANIM* game_anim,Ac
                     game_data->maps->collision_map->grid[enemy_x][enemy_y] = 'f';
                     game_data->maps->enemy_map->index_map[enemy_x][enemy_y] = -1;
                     delete_from_move_queue(game_data,enemy_index);
+                    delete_from_anim_enemy_list_updater(game_data,game_anim,enemy);
                 }
                 else if (action_type[0] == RECEIVING_DAMAGE)
                 {

@@ -34,7 +34,9 @@ void item_throw(GAME_DATA* game_data,GAME_ANIM* game_anim,char* item_type,int st
     if (vectors_comparison(finded_pos,game_data->player->player_pos->position_tiles->pos_tiles))
     {
         spawn_item(game_data,game_anim,finded_pos.x,finded_pos.y,item_type);
-        delete_from_item_anim_queue(game_data,game_anim,player_ground_check(game_data,game_anim,finded_pos.x,finded_pos.y));
+        int item_id = player_ground_check(game_data,game_anim,finded_pos.x,finded_pos.y);
+        delete_from_item_anim_queue(game_data,game_anim,item_id);
+        delete_from_items_map(game_data,item_id);
     }
     else
     {

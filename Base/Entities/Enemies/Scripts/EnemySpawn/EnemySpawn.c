@@ -12,9 +12,9 @@ void spawn_enemy(GAME_ANIM *game_anim,GAME_DATA *game_data,int pos_x, int pos_y,
     index_map[pos_x][pos_y] = enemy_index;
     
 
-    Enemy* enemy = create_enemy(game_anim,game_data->allocators->alloc_data,enemy_index,enemy_type,pos_x,pos_y,skin); 
-    append_to_anim_enemy_list_updater(game_data,game_anim,enemy);
-    append_enemy_to_arr(game_data,enemy,1);
+    Enemy* enemy = create_enemy(game_anim,enemy_index,enemy_type,pos_x,pos_y,skin); 
+    
+    append_enemy_to_arr(game_data,game_anim,enemy,1);
     game_data->maps->enemy_map->enemy_map[enemy_indexes] = enemy;
     
     CellsMap* objects_map = game_data->maps->cells_map;
@@ -30,9 +30,16 @@ int enemy_defens[4] = {2,3,4,5};
 
 
 
-Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int enemy_type,int start_posX,int start_posY,int skin)
+Enemy* create_enemy(GAME_ANIM* game_anim,int enemy_indexes,int enemy_type,int start_posX,int start_posY,int skin)
 {
+    Allocator*alloc = create_alloc(sizeof(Enemy)
+    +sizeof(EnemyMisc)+sizeof(EnemyMain)+sizeof(EnemyStats)+sizeof(EnemyCharacteristics)+sizeof(EnemyPos)
+    +sizeof(EnemyTilesPos)+sizeof(EnemyPixelsPos)+sizeof(EnemyAnimations)
+    +sizeof(Animation*)+sizeof(EnemyStamina)+sizeof(EnemyAnimationsEffects)+sizeof(EnemyAnimationsInfo)
+    +sizeof(Animation*)+sizeof(EnemyCurrentEffects)+sizeof(Allocator*));
+
     Enemy* enemy = alloc_alloc(alloc,sizeof(Enemy));
+    enemy->alloc=alloc;
     EnemyMisc* enemy_misc = alloc_alloc(alloc,sizeof(EnemyMisc));
     
     EnemyMain* enemy_main = alloc_alloc(alloc,sizeof(EnemyMain));
@@ -204,7 +211,7 @@ Enemy* create_enemy(GAME_ANIM* game_anim,Allocator* alloc,int enemy_indexes,int 
     return enemy;
 }
 
-void append_enemy_to_arr(GAME_DATA *game_data, Enemy *enemy, int map_index)
+void append_enemy_to_arr(GAME_DATA *game_data, GAME_ANIM* game_anim,Enemy *enemy, int map_index)
 {
     EnemyMap *enemy_map = game_data->maps->enemy_map;
     Enemy **current_map;
@@ -226,6 +233,8 @@ void append_enemy_to_arr(GAME_DATA *game_data, Enemy *enemy, int map_index)
         current_map[amount] = enemy;
         amount +=1;
         enemy_map->move_queue_amount =amount;
+        append_to_anim_enemy_list_updater(game_data,game_anim,enemy);
+        //pr_int(333);
     }
 }
 
