@@ -17,7 +17,7 @@ void after_step(GAME_DATA* game_data,GAME_ANIM* game_anim)
 }
 void enemies_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
-    if (game_data->maps->actins_map->amount_actions_main_queue ==0)
+    if (game_data->maps->actins_map->actions_main_queue->size ==0)
     {   
         if (enemy_step_flag)
         {
@@ -27,7 +27,7 @@ void enemies_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim)
 }
 void player_actions_logic(GAME_DATA *game_data,GAME_ANIM* game_anim)
 {
-    if (game_data->maps->actins_map->amount_actions_main_queue ==0) //пока нет активных действий
+    if (game_data->maps->actins_map->actions_main_queue->size ==0&&enemy_step_flag == false) //пока нет активных действий
     {
         
         int player_step_direction=-1;
@@ -66,19 +66,19 @@ void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_s
         return;
     }
     char** map = game_data->maps->collision_map->grid;
-    if(IsKeyPressed(KEY_W))
+    if(IsKeyDown(KEY_W))
     {
         *player_step_direction = 0;
     }
-    if(IsKeyPressed(KEY_D))
+    if(IsKeyDown(KEY_D))
     {
         *player_step_direction= 1;
     }
-    if(IsKeyPressed(KEY_S))
+    if(IsKeyDown(KEY_S))
     {
         *player_step_direction =2;
     }
-    if(IsKeyPressed(KEY_A))
+    if(IsKeyDown(KEY_A))
     {
         *player_step_direction =3;
     }

@@ -93,9 +93,11 @@ extern int action_preparation_none[2];
 
 void main_action_map_updater(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
+void main_action_map_updater_check(void *action_, void *game_data_, void *game_anim_);
+
 void effects_action_map_updater(GAME_DATA *game_data, GAME_ANIM *game_anim);
 
 void append_action_to_actions_map(GAME_DATA *game_data, Action *action);
-void delete_action_from_queue_action_map(GAME_DATA *game_data, int queue, int current_pos_at_map);
+void delete_action_from_queue_action_map(Llist *cur_lst);
 
 #endif
