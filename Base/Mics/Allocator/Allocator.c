@@ -9,13 +9,11 @@ Allocator* create_alloc(size_t initial_size)
     Allocator* alloc = malloc(sizeof(Allocator));
     if (alloc == NULL)
     {
-        printf("Error alloc");
         return NULL;
     }
     alloc->memory = malloc(initial_size);
     if (alloc->memory == NULL)
     {
-        printf("Error alloc memory");
         free(alloc);
         return NULL;
     }
@@ -41,7 +39,6 @@ Allocator* growing_alloc(Allocator* alloc, size_t right_size)
     char* new_link = realloc(alloc->memory,new_size);
     if (new_link == NULL)
     {
-        printf("erroe grow memory");
         return NULL;
     }
     alloc->memory = new_link;
@@ -54,7 +51,6 @@ void* alloc_alloc(Allocator* alloc, size_t right_size)
     {
         if (growing_alloc(alloc, right_size) ==NULL)
         {
-            printf("erroe alloc");
             return NULL;
         }
     }
