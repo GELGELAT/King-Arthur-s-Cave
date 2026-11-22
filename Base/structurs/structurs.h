@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "raylib.h"
 #include "Allocator.h"
+#include "void_linked_list.h"
+
 #include "game_anim_struct.h"
 #include "game_data_struct.h"
 #include "miscellanea_struct.h"

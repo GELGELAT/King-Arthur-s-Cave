@@ -5,34 +5,45 @@ Llist* llist_create(void* data)
     if (!lst) return NULL;
     lst->data=data;
     lst->next=NULL;
+    lst->previous=NULL;
     return lst;
 }
-void llist_destroy(Llist* lst,void(*free_fn)(void*data))
+LlistManager* llist_manager_create()
 {
-    Llist* cur_lst = lst;
-    Llist* temp;
-    while (cur_lst)
-    {
-        if(cur_lst->data)
-        free_fn(cur_lst->data);
-        temp = cur_lst;
-        cur_lst=cur_lst->next;
-        free(temp);
-    }
-}
-Llist* llist_append(Llist* lst, void* data)
-{
-    if(!lst)
-    return llist_create(data);
-    Llist* cur_lst = lst;
-    while (cur_lst->next)
-    {
-        cur_lst=cur_lst->next;
-    }
-    cur_lst->next=llist_create(data);
-    return lst;
-}
+    LlistManager* lstm = malloc(sizeof(LlistManager));
+    if(!lstm)return NULL;
+    lstm->head=llist_create(NULL);
+    lstm->tail = llist_create(NULL);
+    lstm->head->next=lstm->tail;
+    lstm->head->previous = NULL;
+    lstm->tail->previous = lstm->head;
+    lstm->size=0;
+    return lstm;
 
+}
+LlistManager* llist_append(LlistManager* lstm, void* data)
+{
+    Llist* nlst=llist_create(data);
+    
+    Llist* last_lst=lstm->tail->previous;
+    last_lst->next=nlst;
+    nlst->previous=last_lst;
+    nlst->next=lstm->tail;
+    lstm->tail->previous=nlst;
+    lstm->size++;
+    
+    return lstm;
+}
+void llist_delete(Llist* lst,void(*del_data)(void* data))
+{
+    Llist* prev = lst->previous;
+    Llist* next = lst->next;
+    prev->next=next;
+    next->previous=prev;
+    del_data(lst->data);
+    free(lst);
+
+}
 Llist* llist_find_and_delete(Llist* lst, bool (*match)(void* data, void* ctx), void* ctx,void(*free_fn)(void*data))
 {
     if(!lst)
@@ -67,27 +78,39 @@ Llist* llist_find_and_delete(Llist* lst, bool (*match)(void* data, void* ctx), v
     return lst;
 }
 
-size_t llist_size(Llist* lst)
+
+void llist_check_and_delete_or_activate(LlistManager* list_manager
+    ,bool (*match_fn)(void* ctx)
+    ,void (*delete_fn)(void* ctx)
+    ,void (*activate_fn)(void* ctx, void* ctx1,void* ctx2), void* ctx1,void* ctx2)
 {
-    size_t size =0;
-    if (!lst) return size;
-    Llist* cur_lst = lst;
-    while (cur_lst)
+    Llist* start = list_manager->head->next;
+    Llist* end = list_manager->tail;
+    Llist* current=start;
+    while (current!=end)
     {
-        size++;
-        cur_lst=cur_lst->next;
-        
+        void* data = current->data;
+        Llist* temp = current;
+        current = current->next;
+        if(match_fn(data))
+        {
+            activate_fn(data,ctx1,ctx2);
+        }
+        else
+        {
+            llist_delete(temp,delete_fn);
+            list_manager->size--;
+        }
     }
-    return size;
+    
 }
-void llist_foreach(Llist* lst, void (*fn)(void* data, void* ctx), void* ctx)
+Llist* llist_get_last(Llist* lst)
 {
-    if (!lst) return;
     Llist* cur_lst = lst;
-    while (cur_lst)
+    while (cur_lst->next)
     {
-        fn(cur_lst->data,ctx);
         cur_lst=cur_lst->next;
         
     }
+    return cur_lst;
 }

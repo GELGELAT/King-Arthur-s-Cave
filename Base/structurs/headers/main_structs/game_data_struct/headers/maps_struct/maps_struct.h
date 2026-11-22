@@ -8,10 +8,8 @@ typedef struct Action Action;
 
 typedef struct ActionsMap
 {
-    Action** actions_main_queue;
-    int amount_actions_main_queue;
-    Action**actions_effects_queue;
-    int amount_actions_effects_queue;
+    LlistManager* actions_main_queue;
+    LlistManager*actions_effects_queue;
     char** tiles_glow;
     int current_state;
 }ActionsMap;
@@ -52,7 +50,7 @@ typedef struct Item
 {
     ItemMain* item_main;
     ItemPos* item_position;
-    Allocator* alloc
+    Allocator* alloc;
 }Item;
 
 typedef struct ItemsMap

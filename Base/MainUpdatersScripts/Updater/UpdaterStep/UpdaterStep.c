@@ -17,7 +17,7 @@ void after_step(GAME_DATA* game_data,GAME_ANIM* game_anim)
 }
 void enemies_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim)
 {
-    if (game_data->maps->actins_map->amount_actions_main_queue ==0)
+    if (game_data->maps->actins_map->actions_main_queue->size ==0)
     {   
         if (enemy_step_flag)
         {
@@ -27,7 +27,7 @@ void enemies_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim)
 }
 void player_actions_logic(GAME_DATA *game_data,GAME_ANIM* game_anim)
 {
-    if (game_data->maps->actins_map->amount_actions_main_queue ==0) //пока нет активных действий
+    if (game_data->maps->actins_map->actions_main_queue->size ==0&&enemy_step_flag == false) //пока нет активных действий
     {
         
         int player_step_direction=-1;

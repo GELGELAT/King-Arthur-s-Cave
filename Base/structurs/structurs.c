@@ -78,12 +78,11 @@ Player* create_player(Allocator* alloc,int start_posX,int start_posY)
 ActionsMap* create_action_map(Allocator* alloc,int tilesX,int tilesY)
 {
     ActionsMap* actions_map = alloc_alloc(alloc,sizeof(ActionsMap));
-    Action**actions_main_queue= alloc_alloc(alloc,sizeof(Action*)*100);
-    Action**actions_effects_queue= alloc_alloc(alloc,sizeof(Action*)*100);
+    LlistManager* actions_main_queue= llist_manager_create();
+    LlistManager*actions_effects_queue= llist_manager_create();
     actions_map->actions_main_queue=actions_main_queue;
     actions_map->actions_effects_queue =actions_effects_queue;
-    actions_map->amount_actions_effects_queue=0;
-    actions_map->amount_actions_main_queue=0;
+
     char** tiles_map = alloc_alloc(alloc,sizeof(char*)*tilesX);
     for (int i=0;i<tilesX;i++)
     {

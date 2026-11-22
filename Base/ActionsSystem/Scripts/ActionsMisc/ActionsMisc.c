@@ -71,3 +71,50 @@ void enemy_animation_direction(int directing_x,int directing_y,Enemy* enemy)
     }
     
 }
+void action_deleter(void* action)
+{
+    Action* ac = (Action*)action;
+    Allocator* alloc = ac->alloc;
+    destroy_allocator(alloc);
+}
+bool action_fill_check(void* data_)
+{
+    Action*current_action=(Action*) data_;
+    float current_fill = current_action->misc->current_fill;
+    float max_fill = current_action->misc->max_fill;
+    if (current_fill >=max_fill)
+    {
+        return false;
+    }
+    return true;
+}
+void action_activation(void* action_,void* game_data_,void* game_anim_)
+{
+
+    Action* current_action = (Action*)action_;
+    GAME_DATA* game_data = (GAME_DATA*)game_data_;
+    GAME_ANIM* game_anim =(GAME_ANIM*)game_anim_;
+    
+    int* movement_type = current_action->main->movement_type;
+    if (movement_type[0] == WITHOUT_MOVING)
+    {
+        without_movement_action_update(game_data,game_anim,current_action);
+        
+    }
+    else if (movement_type[0] == FORWARD)
+    {
+        forward_movement_action_update(game_data,game_anim,current_action);
+        
+    }
+    else if (movement_type[0] == BACK)
+    {
+        back_movement_action_update(game_data,game_anim,current_action);
+        
+    }
+    else if (movement_type[0] == RANDOM_MOVING)
+    {
+        random_movement_action_update(game_data,game_anim,current_action);
+        
+    }
+    
+}
