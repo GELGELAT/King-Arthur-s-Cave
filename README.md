@@ -40,3 +40,9 @@ Turn-based dungeon crawl roguelike. (Project for the 3rd semester at NSU)
 -Added highlighting of card action tiles and there processing of clicks.
 -Started work on card system.
 <img width="800" height="599" alt="изображение" src="https://github.com/user-attachments/assets/52c1d055-ee28-4353-a3ee-eed25c56b9bb" />
+------------------------------------
+20-22.11.26
+fixed all memory leaks
+dynamic memory based on a doubly linked list within an action system
+fixed a movement bug
+
