@@ -66,19 +66,19 @@ void moves_actions_logic(GAME_DATA* game_data,GAME_ANIM* game_anim,int* player_s
         return;
     }
     char** map = game_data->maps->collision_map->grid;
-    if(IsKeyPressed(KEY_W))
+    if(IsKeyDown(KEY_W))
     {
         *player_step_direction = 0;
     }
-    if(IsKeyPressed(KEY_D))
+    if(IsKeyDown(KEY_D))
     {
         *player_step_direction= 1;
     }
-    if(IsKeyPressed(KEY_S))
+    if(IsKeyDown(KEY_S))
     {
         *player_step_direction =2;
     }
-    if(IsKeyPressed(KEY_A))
+    if(IsKeyDown(KEY_A))
     {
         *player_step_direction =3;
     }
